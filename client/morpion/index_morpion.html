@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>A simple canvas</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="index_morpion.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<h1>Morpion de la muerte</h1>
+<form>
+    <div class="mx-button">
+        <input type="radio" name="mx" id="butCirc" checked>
+        <label for="butCirc" unselectable>Circle</label>
+    </div>
+    <div class="mx-button">
+        <input type="radio" name="mx" id="butCrss" checked>
+        <label for="butCrss" unselectable>Cross</label>
+    </div>
+</form>
+
+<input id="colour" type="color">
+
+<br/><br/>
+
+<canvas class="myCanvas" id="myCanvas"></canvas>
+
+<div id="shapeList">
+
+</div>
+
+<script src="main.js" type="text/javascript"></script>
+<script src="model.js" type="text/javascript"></script>
+
+
+</body>
+</html>
