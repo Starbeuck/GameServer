@@ -9,11 +9,12 @@ app.get('/', function(req, res){
 
 io.on('connection', function(clientSocket){
   console.log('client connected : ' + clientSocket.id);
+
   clientSocket.on('disconnect', function(){
     console.log('client disconnected');
   });
-  clientSocket.on('chat message', function(msg){
-   console.log('message: ' + msg);
+  clientSocket.on('message', function(msg){
+   console.log(msg + clientSocket.id);
  });
 });
 
