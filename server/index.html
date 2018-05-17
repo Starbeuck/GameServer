@@ -33,14 +33,19 @@
     </form> -->
     <input type="text" value="name"></input>
     <input id="Okbutton" type="button" value="OK"></input>
+    <div id="affichage"></div>
   </body>
 
   <script>
     var socket = io();
     var button = document.getElementById('Okbutton');
     button.addEventListener('click', function(){
-      socket.emit('message', 'bonjour je suis ');
+      socket.emit('message', 'bonjour');
       return false;
+    });
+
+    socket.on('message', function(data){
+      document.getElementById('affichage').innerHTML+=data;
     });
   </script>
 
