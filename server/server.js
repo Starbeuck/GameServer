@@ -16,12 +16,16 @@ io.on('connection', function(clientSocket){
 
   var newroom;
 
-  //On ajoute le client a une room
+  // On ajoute le client a une room
+
+  // Si il n'a pas d'adversaire disponible
   if(io.engine.clientsCount%2 === 1){
      newroom = randomstring.generate(5);
      rooms.push(newroom);
      clientSocket.join(newroom);
      console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom);
+
+  // Si il a un adversaire disponible
   }else{
     newroom = rooms[rooms.length - 1];
     clientSocket.join(newroom);
@@ -29,15 +33,11 @@ io.on('connection', function(clientSocket){
   }
 
   clientSocket.on('disconnect', function(){
-    clientSocket.broadcast.emit('disconnect_message', 'je me déconnecte');
+    clientSocket.broadcast.to(newroom).emit('disconnect_message', 'je me déconnecte');
     console.log('message : ' + 'disconnect' + ' | client : ' + clientSocket.id + ' | room : '+ newroom);
     console.log('client disconnected');
   });
 
-  clientSocket.on('disconnect_message', function(msg){
-    console.log('message : ' + msg + ' | client : ' + clientSocket.id + ' | room : '+ newroom);
-    clientSocket.disconnect();
-  });
 
   clientSocket.on('message', function(msg){
     clientSocket.broadcast.to(newroom).emit('message', msg);
