@@ -1,14 +1,19 @@
+var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var randomstring = require('randomstring');
 var path = require('path');
 
-var chat = require('./chat.js');
+var puissance4 = require('./client/puissance4/logic_puissance4.js');
+var morpion = require('./client/morpion/logic_morpion.js');
+var demineur = require('./client/Demineur/logic_demineur.js');
+
+app.use(express.static('client'));
 
 app.get('/', function (req, res) {
   "use strict";
-  res.sendFile(path.join(__dirname, '../client', 'accueil.html'));
+  res.sendFile(path.join(__dirname, '/client', 'accueil.html'));
 });
 
 var rooms = [];
