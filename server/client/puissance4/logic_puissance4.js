@@ -26,7 +26,7 @@ module.exports = {
     } else {
       newroom = alotOfRoomOfTwo[alotOfRoomOfTwo.length - 1];
       socket.join(newroom);
-      console.log('Le client qui joue au P4 ' + socket.id + ' a rejoint la room ' + newroom + 'du jeu ' + name);
+      console.log('Le client qui joue au P4 ' + socket.id + ' a rejoint la room ' + newroom);
     }
   }
 

@@ -1,6 +1,5 @@
 
 var randomstring = require('randomstring');
-
 var rooms = [];
 var newroom;
 var newroomTwocount = 0;
