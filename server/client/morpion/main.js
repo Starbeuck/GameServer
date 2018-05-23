@@ -6,7 +6,7 @@ var height = 600;
 canvas.width=width;
 canvas.height=height;
 
-var joueurCour = 1;
+var joueurCour = 2;
 var joueJoueur1 = false;
 
 var case1 = false;
@@ -45,6 +45,11 @@ for (x=0;x<=width;x+=width/3) {
 
     }
 }
+
+var joueur1 = prompt("Nom du joueur 1");
+var joueur2 = prompt("Nom du joueur 2");
+window.alert("C'est au tour de : " + joueur1 + " de commencer");
+
 function getMousePos(event) {
   var rect = canvas.getBoundingClientRect();
   return {
@@ -58,16 +63,25 @@ function play(event) {
     var xM = mousePos.x;
     var yM = mousePos.y;
     if (!joueJoueur1) {
+        joueurCour = 3 - joueurCour;
+        ctx.strokeStyle = "red";
         posePion(xM, yM);
+        document.getElementById("joueurCourant").innerHTML = "C'est au tour de " + joueur2 + " de jouer";
     }
     else {
         joueurCour = 3 - joueurCour;
+        ctx.strokeStyle = "yellow";
         posePion(xM, yM);
-        joueurCour = 3 - joueurCour;
+        document.getElementById("joueurCourant").innerHTML = "C'est au tour de " + joueur1 + " de jouer";
     }
     if(alignVert(joueurCour) || alignHorizon(joueurCour) || alignDiag(joueurCour))
     {
-        window.alert(joueurCour + " a gagnéééé");
+        if(joueurCour == 1) {
+            window.alert(joueur1 + " a gagnéééé");
+        }
+        else{
+            window.alert(joueur2 + " a gagnéééé");
+        }
     }
 
 }
