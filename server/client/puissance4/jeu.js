@@ -8,36 +8,41 @@
 
 /* cet objet contient l'état du système et son interface.
  */
-var p4 = {
+
    // cet tableau contient des pointeurs directs vers les cases 
    // (noeuds <td> du DOM) du plateau dans la page html
-  dom_plateau: [],
+  dom_plateau= [];
   // un entier: 1 ou 2 (le numéro du prochain joueur)
-  turn: 1,
+  turn= 1;
   /* un entier:
      0: la partie continue
      -1: la partie est nulle
      1: joueur 1 a gagné
      2: joueur 2 a gagné
    */
-  game_status: 0,
+  game_status= 0;
   // Nombre de coups joués
-  coups: 0,
+  coups= 0;
   // Nombre de lignes
-  n: 6,
+  n= 6;
   // Nombre de colonnes
-  m: 7,
-
+  m= 7;
+ joueur1="";
+ joueur2="";
+  parent=document.querySelector('#jeu');
   /*
     Intialise un plateau de jeu de dimensions `lignes` × `colonnes`
     et l'ajoute dans l'élément `parent` du dom.
    */
-  init: function(parent, lignes, colonnes) {
-    //créer le plateau html et affecter les pointeurs directs
-    //ATTENTION, la page html est écrite de haut en bas. Les indices 
-    //pour le jeu vont de bas en haut (compteur i de la boucle)
-    if (lignes) this.n = lignes;
-    if (colonnes) this.n = colonnes;
+  function init() {
+
+    var name1= prompt("nom du joueur 1");
+    joueur1=name1;
+    var name2= prompt("nom du joueur2");
+    joueur2=name2;
+            window.alert(joueur1 +" commence"); 
+   // if (lignes) this.n = lignes;
+   // if (colonnes) this.n = colonnes;
 
     t = document.createElement('table');
     t.id = 'plateau';
@@ -53,24 +58,23 @@ var p4 = {
       }
       t.appendChild(tr);
     }
-    parent.innerHTML = '';
-    parent.appendChild(t);
+    this.parent.appendChild(t);
 
-    t.addEventListener('click', function(e) { p4.handler(e); });
-  },
+    t.addEventListener('click', function(e) { handler(e); });
+  }
 
   // function auxiliaire d'affichage 
-  set: function(row, column, player) {
+   function set(row, column, player) {
     // On colore la case
     this.dom_plateau[row][column].className = 'joueur' + player;
     // On compte le coup
     this.coups++;
     // On passe le tour : 3 - 2 = 1, 3 - 1 = 2
     this.turn = 3 - this.turn;
-  },
+  }
 
   /* Cette fonction ajoute un pion dans une colonne */
-  play: function(column) {
+   function play(column) {
     // Vérifier si la partie est encore en cours
     if (this.game_status != 0) {
       if (window.confirm("La partie est finie!\n\nSouhaitez-vous recommencer?")) {
@@ -109,16 +113,29 @@ var p4 = {
         window.alert("Partie Nulle!!"); 
         break;
       case 1:
-        window.alert("Victoire du joueur 1"); 
+        window.alert("Victoire de"+joueur1); 
         break;
       case 2:
-        window.alert("Victoire du joueur 2"); 
+        window.alert("Victoire de"+joueur2); 
         break;
     }
-  },
+  }
 
+  function joueurName(turn) {
+    if((3-this.turn)== 1){
+      return this.joueur1;
+    }else{
+      return this.joueur2
+    }
+  }
   //le gestionnaire d'événements
-  handler: function(event) {
+ function handler(event) {
+
+
+    var player= "Au tour du joueur "+this.joueurName(this.turn)
+    document.getElementById("joueurg").innerHTML = player;
+
+
     var column = event.target.dataset.column;
     console.log(column);
     //attention, les variables dans les datasets sont TOUJOURS 
@@ -126,7 +143,7 @@ var p4 = {
     //il vaut mieux la convertir en entier avec parseInt
     if (column) 
       this.play(parseInt(column));
-  },
+  }
     
     
   /* 
@@ -137,7 +154,7 @@ var p4 = {
      true  : si la partie est gagnée par le joueur `cname`
      false : si la partie continue
  */
-  win: function(row, column, cname) {
+  function win(row, column, cname) {
     // Horizontal
     var count = 0;
     for (var j = 0; j < this.m; j++) {
@@ -166,10 +183,10 @@ var p4 = {
     }
     
     return false;
-  },
+  }
 
   // Cette fonction vide le plateau et remet à zéro l'état
-  reset: function() {
+   function reset() {
     for (var i = 0; i < this.n; i++) {
       for (var j = 0; j < this.m; j++) {
         this.dom_plateau[i][j].className = "";
@@ -177,9 +194,5 @@ var p4 = {
     }
     this.coups = 0;
     this.game_status = 0;
-  },
-}
+  }
 
-// On initialise le plateau et on l'ajoute à l'arbre du DOM
-// (dans la balise d'identifiant `jeu`).
-p4.init(document.querySelector('#jeu'));
