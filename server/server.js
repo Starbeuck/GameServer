@@ -51,9 +51,25 @@ io.on('connection', function (clientSocket) {
     //  clientSocket.join(newroom);
     //  console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom + 'du jeu '+ name);
   });
+  
+  clientSocket.on('joinTwo', function (name) {
+    switch (name) {
+      case 'demineur':
+        demineur.joinTwo(clientSocket);
+        break;
+      case 'morpion':
+        morpion.joinTwo(clientSocket);
+        break;
+      case 'puissance4':
+        puissance4.joinTwo(clientSocket);
+        break;
+      default:
+
+    }
+  });
 
   // two players //
-  clientSocket.on('joinTwo', function (name) {
+/*  clientSocket.on('joinTwo', function (name) {
     newroomTwocount = newroomTwocount + 1;
     console.log(newroomTwocount);
     if (newroomTwocount % 2 == 1) {
@@ -67,7 +83,7 @@ io.on('connection', function (clientSocket) {
       clientSocket.join(newroom);
       console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom + 'du jeu '+ name);
     }
-  });
+  });*/
 
   // event on disconnet from other user in room of two //
   clientSocket.on('disconnect', function () {

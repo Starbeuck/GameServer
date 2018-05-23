@@ -63,7 +63,7 @@
 
     var aDeuxCmieux = document.getElementById('checkBox2');
     aDeuxCmieux.addEventListener('click', function(){
-      socket.emit('joinTwo');
+      socket.emit('joinTwo', document.getElementById('inputtexte').value);
     });
 
     socket.on('disconnect_message', function(data){
