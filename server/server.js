@@ -1,3 +1,4 @@
+var express = require('express');
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -6,9 +7,11 @@ var path = require('path');
 
 var chat = require('./chat.js');
 
+app.use(express.static('client'));
+
 app.get('/', function (req, res) {
   "use strict";
-  res.sendFile(path.join(__dirname, '../client', 'accueil.html'));
+  res.sendFile(path.join(__dirname, '/client', 'accueil.html'));
 });
 
 var rooms = [];
