@@ -26,15 +26,21 @@
       });
     </script> -->
   </head>
+
   <body style="text-align: center;  padding-top: 15px;">
     <!-- <ul id="messages"></ul> -->
     <!-- <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form> -->
-    <input type="text" value="name"></input>
-    <input id="Okbutton" type="button" value="OK"></input>
+
+    <input type="text" value="name">
+    <input id="Okbutton" type="button" value="OK">
     <div id="affichage"></div>
-  </body>
+
+    <h1>Jouez-vous seul(e) ou à deux ? </h1>
+    <button id="checkBox1">Je joue seul(e) ! </button>
+    <button id="checkBox2">Je veux jouer à deux ! </button>
+    </body>
 
   <script>
     var socket = io();
@@ -46,6 +52,16 @@
 
     socket.on('message', function(data){
       document.getElementById('affichage').innerHTML+=data;
+    });
+
+    var seulTout = document.getElementById('checkBox1');
+    seulTout.addEventListener('click', function(){
+      socket.emit('joinAlone');
+    });
+
+    var aDeuxCmieux = document.getElementById('checkBox2');
+    aDeuxCmieux.addEventListener('click', function(){
+      socket.emit('joinTwo');
     });
 
     socket.on('disconnect_message', function(data){
