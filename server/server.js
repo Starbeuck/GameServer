@@ -18,8 +18,6 @@ io.on('connection', function (clientSocket) {
 
   console.log('nb : ' + io.engine.clientsCount)
 
-  var newroomAlone;
-  var newroomTwo;
   var newroom;
 
   // player alone //
