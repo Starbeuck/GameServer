@@ -1,3 +1,6 @@
+
+var randomstring = require('randomstring');
+
 var rooms = [];
 var newroom;
 
