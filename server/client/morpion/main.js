@@ -7,7 +7,8 @@ canvas.width=width;
 canvas.height=height;
 
 var joueurCour = 1;
-var joueJoueur1 = true;
+var joueJoueur1 = false;
+
 var case1 = false;
 var case2 = false;
 var case3 = false;
@@ -44,23 +45,36 @@ function getMousePos(event) {
 }
 
 function play(event){
-
     var mousePos = getMousePos(event);
+    var xM = mousePos.x;
+    var yM = mousePos.y;
+    if(!joueJoueur1){
+        posePion(xM, yM);
+    }
+    else{
+        joueurCour = 3 - joueurCour;
+        posePion(xM, yM);
+        joueurCour = 3 - joueurCour;
+    }
+
+}
+
+function posePion(xMouse, yMouse){
+
     ctx.lineWidth = "5";
-    var xMouse = mousePos.x;
-    var yMouse = mousePos.y;
-    console.log(xMouse);
-    console.log(yMouse);
+
+
     if(xMouse>=0 && xMouse<(width/3)){
         if(yMouse>=0 && yMouse<(width/3)){
             if(case1 == false) {
                 ctx.beginPath();
-                if (joueurCour == 1 && !joueJoueur1) {
+                if (joueurCour == 1) {
                     ctx.arc(100, 100, 70, 0, 2 * Math.PI);
                     joueJoueur1 = true;
                 }
                 else {
                     crossed(30, 30, 170, 170);
+                    joueJoueur1 = false;
                 }
                 ctx.stroke();
                 case1 = true;
@@ -71,9 +85,11 @@ function play(event){
                 ctx.beginPath();
                 if (joueurCour == 1) {
                     ctx.arc(100, 300, 70, 0, 2 * Math.PI);
+                    joueJoueur1 = true;
                 }
                 else {
                     crossed(30, 230, 170, 370);
+                    joueJoueur1 = false;
                 }
                 ctx.stroke();
                 case2 = true;
@@ -84,9 +100,11 @@ function play(event){
                 ctx.beginPath();
                 if (joueurCour == 1) {
                     ctx.arc(100, 500, 70, 0, 2 * Math.PI);
+                    joueJoueur1 = true;
                 }
                 else {
                     crossed(30, 430, 170, 570);
+                    joueJoueur1 = false;
                 }
                 ctx.stroke();
                 case3 = true;
@@ -99,9 +117,11 @@ function play(event){
                 ctx.beginPath();
                 if (joueurCour == 1) {
                     ctx.arc(300, 100, 70, 0, 2 * Math.PI);
+                    joueJoueur1 = true;
                 }
                 else {
                     crossed(230, 30, 370, 170);
+                    joueJoueur1 = false;
                 }
                 ctx.stroke();
                 case4 = true;
@@ -112,9 +132,11 @@ function play(event){
                 ctx.beginPath();
                 if (joueurCour == 1) {
                     ctx.arc(300, 300, 70, 0, 2 * Math.PI);
+                    joueJoueur1 = true;
                 }
                 else {
                     crossed(230, 230, 370, 370);
+                    joueJoueur1 = false;
                 }
                 ctx.stroke();
                 case5 = true;
@@ -125,57 +147,64 @@ function play(event){
                 ctx.beginPath();
                 if (joueurCour == 1) {
                     ctx.arc(300, 500, 70, 0, 2 * Math.PI);
+                    joueJoueur1 = true;
                 }
                 else {
                     crossed(230, 430, 370, 570);
+                    joueJoueur1 = false;
                 }
                 ctx.stroke();
                 case6 = true;
             }
         }
     }
-    else{
-        if(yMouse>=0 && yMouse<(width/3)){
-            if(case7 == false) {
+    else {
+        if (yMouse >= 0 && yMouse < (width / 3)) {
+            if (case7 == false) {
                 ctx.beginPath();
                 if (joueurCour == 1) {
                     ctx.arc(500, 100, 70, 0, 2 * Math.PI);
+                    joueJoueur1 = true;
                 }
                 else {
                     crossed(430, 30, 570, 170);
+                    joueJoueur1 = false;
                 }
                 ctx.stroke();
                 case7 = true;
             }
         }
-        else if(yMouse>=(width/3) && yMouse<(2*(width/3))){
-            if(case8 == false) {
+        else if (yMouse >= (width / 3) && yMouse < (2 * (width / 3))) {
+            if (case8 == false) {
                 ctx.beginPath();
                 if (joueurCour == 1) {
                     ctx.arc(500, 300, 70, 0, 2 * Math.PI);
+                    joueJoueur1 = true;
                 }
                 else {
-                    crossed(430, 230, 570, 370)
+                    crossed(430, 230, 570, 370);
+                    joueJoueur1 = false;
                 }
                 ctx.stroke();
                 case8 = true;
             }
         }
-        else{
-            if(case9 == false) {
+        else {
+            if (case9 == false) {
                 ctx.beginPath();
                 if (joueurCour == 1) {
                     ctx.arc(500, 500, 70, 0, 2 * Math.PI);
+                    joueJoueur1 = true;
                 }
                 else {
                     crossed(430, 430, 570, 570);
+                    joueJoueur1 = false;
                 }
                 ctx.stroke();
                 case9 = true;
             }
         }
     }
-    joueurCour = 3 - joueurCour;
 }
 
 function crossed(xStart, yStart, xEnd, yEnd){
