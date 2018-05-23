@@ -2,10 +2,13 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var randomstring = require('randomstring');
+var path = require('path');
+
+var chat = require('./chat.js');
 
 app.get('/', function (req, res) {
   "use strict";
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(path.join(__dirname, '../client', 'accueil.html'));
 });
 
 var rooms = [];
@@ -21,14 +24,15 @@ io.on('connection', function (clientSocket) {
   var newroom;
 
   // player alone //
-  clientSocket.on('joinAlone', function () {
+  clientSocket.on('joinAlone', function (name) {
     newroom = randomstring.generate(5);
     rooms.push(newroom);
      clientSocket.join(newroom);
-     console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom);
+     console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom + 'du jeu '+ name);
   });
+
   // two players //
-  clientSocket.on('joinTwo', function () {
+  clientSocket.on('joinTwo', function (name) {
     newroomTwocount = newroomTwocount + 1;
     console.log(newroomTwocount);
     if (newroomTwocount % 2 == 1) {
@@ -36,13 +40,12 @@ io.on('connection', function (clientSocket) {
       alotOfRoomOfTwo.push(newroom);
       rooms.push(newroom);
       clientSocket.join(newroom);
-      console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom);
+      console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom+ 'du jeu '+ name);
     } else {
       newroom = alotOfRoomOfTwo[alotOfRoomOfTwo.length - 1];
       clientSocket.join(newroom);
-      console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom);
+      console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom + 'du jeu '+ name);
     }
-
   });
 
   // event on disconnet from other user in room of two //
@@ -71,4 +74,5 @@ io.on('connection', function (clientSocket) {
 
 http.listen(1234, function () {
   console.log('Listening on 1234');
+  chat.hello();
 });
