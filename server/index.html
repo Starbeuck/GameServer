@@ -32,11 +32,11 @@
     <!-- <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form> -->
-    
+
     <input type="text" value="name">
     <input id="Okbutton" type="button" value="OK">
     <div id="affichage"></div>
-  
+
     <h1>Jouez-vous seul(e) ou à deux ? </h1>
     <button id="checkBox1">Je joue seul(e) ! </button>
     <button id="checkBox2">Je veux jouer à deux ! </button>
@@ -53,15 +53,16 @@
     socket.on('message', function(data){
       document.getElementById('affichage').innerHTML+=data;
     });
-    
+
     var seulTout = document.getElementById('checkBox1');
     seulTout.addEventListener('click', function(){
       socket.emit('joinAlone');
     });
-    
+
     var aDeuxCmieux = document.getElementById('checkBox2');
     aDeuxCmieux.addEventListener('click', function(){
       socket.emit('joinTwo');
+    });
 
     socket.on('disconnect_message', function(data){
       document.getElementById('affichage').innerHTML+=data;
