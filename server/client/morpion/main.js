@@ -19,6 +19,15 @@ var case7 = false;
 var case8 = false;
 var case9 = false;
 
+var case1J;
+var case2J;
+var case3J;
+var case4J;
+var case5J;
+var case6J;
+var case7J;
+var case8J;
+var case9J;
 
 ctx.fillStyle = '#F0F0F0'; // set canvas' background color
 ctx.fillRect(0, 0, canvas.width, canvas.height);  // now fill the canvas
@@ -44,17 +53,21 @@ function getMousePos(event) {
   };
 }
 
-function play(event){
+function play(event) {
     var mousePos = getMousePos(event);
     var xM = mousePos.x;
     var yM = mousePos.y;
-    if(!joueJoueur1){
+    if (!joueJoueur1) {
         posePion(xM, yM);
     }
-    else{
+    else {
         joueurCour = 3 - joueurCour;
         posePion(xM, yM);
         joueurCour = 3 - joueurCour;
+    }
+    if(alignVert(joueurCour) || alignHorizon(joueurCour) || alignDiag(joueurCour))
+    {
+        window.alert(joueurCour + " a gagnéééé");
     }
 
 }
@@ -77,6 +90,7 @@ function posePion(xMouse, yMouse){
                     joueJoueur1 = false;
                 }
                 ctx.stroke();
+                case1J = joueurCour;
                 case1 = true;
             }
         }
@@ -92,6 +106,7 @@ function posePion(xMouse, yMouse){
                     joueJoueur1 = false;
                 }
                 ctx.stroke();
+                case2J = joueurCour;
                 case2 = true;
             }
         }
@@ -107,6 +122,7 @@ function posePion(xMouse, yMouse){
                     joueJoueur1 = false;
                 }
                 ctx.stroke();
+                case3J = joueurCour;
                 case3 = true;
             }
         }
@@ -124,6 +140,7 @@ function posePion(xMouse, yMouse){
                     joueJoueur1 = false;
                 }
                 ctx.stroke();
+                case4J= joueurCour;
                 case4 = true;
             }
         }
@@ -139,6 +156,7 @@ function posePion(xMouse, yMouse){
                     joueJoueur1 = false;
                 }
                 ctx.stroke();
+                case5J = joueurCour;
                 case5 = true;
             }
         }
@@ -153,7 +171,8 @@ function posePion(xMouse, yMouse){
                     crossed(230, 430, 370, 570);
                     joueJoueur1 = false;
                 }
-                ctx.stroke();
+                ctx.stroke()
+                case6J = joueurCour;
                 case6 = true;
             }
         }
@@ -171,6 +190,7 @@ function posePion(xMouse, yMouse){
                     joueJoueur1 = false;
                 }
                 ctx.stroke();
+                case7J = joueurCour;
                 case7 = true;
             }
         }
@@ -186,6 +206,7 @@ function posePion(xMouse, yMouse){
                     joueJoueur1 = false;
                 }
                 ctx.stroke();
+                case8J = joueurCour;
                 case8 = true;
             }
         }
@@ -201,6 +222,7 @@ function posePion(xMouse, yMouse){
                     joueJoueur1 = false;
                 }
                 ctx.stroke();
+                case9J = joueurCour;
                 case9 = true;
             }
         }
@@ -215,6 +237,48 @@ function crossed(xStart, yStart, xEnd, yEnd){
   ctx.moveTo(xStart, yEnd);
   ctx.lineTo(xEnd, yStart);
   ctx.stroke();
+}
+
+function alignVert(joueur){
+    if(case1 && case2 && case3 && case1J == joueur && case2J == joueur && case3J == joueur){
+        return true;
+    }
+    else if(case4 && case5 && case6 && case4J == joueur && case5J == joueur && case6J == joueur){
+        return true;
+    }
+    else if(case7 && case8 && case9 && case7J == joueur && case8J == joueur && case9J == joueur){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function alignHorizon(joueur){
+    if(case1 && case4 && case7 && case1J == joueur && case4J == joueur && case7J == joueur){
+        return true;
+    }
+    else if(case2 && case5 && case8 && case2J == joueur && case5J == joueur && case8J == joueur){
+        return true;
+    }
+    else if(case3 && case6 && case9 && case3J == joueur && case6J == joueur && case9J == joueur){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function alignDiag(joueur){
+    if(case1 && case5 && case9 && case1J == joueur && case5J == joueur && case9J == joueur){
+        return true;
+    }
+    else if(case3 && case5 && case7 && case3J == joueur && case5J == joueur && case7J == joueur){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 canvas.addEventListener("click", play);
