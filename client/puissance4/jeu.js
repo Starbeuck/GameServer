@@ -42,7 +42,6 @@ var p4 = {
     t = document.createElement('table');
     t.id = 'plateau';
 
-//creation du plateau
     for (var i = this.n - 1; i >= 0; i--) {
       var tr = document.createElement('tr');
       this.dom_plateau[i] = [];
