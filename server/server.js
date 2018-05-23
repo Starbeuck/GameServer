@@ -30,7 +30,6 @@ io.on('connection', function (clientSocket) {
   console.log('nb : ' + io.engine.clientsCount)
 
   // player alone //
-
   clientSocket.on('joinAlone', function (name) {
     switch (name) {
       case 'demineur':
@@ -45,13 +44,9 @@ io.on('connection', function (clientSocket) {
       default:
 
     }
-    // var newroom;
-    // newroom = randomstring.generate(5);
-    // rooms.push(newroom);
-    //  clientSocket.join(newroom);
-    //  console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom + 'du jeu '+ name);
   });
   
+  //two players
   clientSocket.on('joinTwo', function (name) {
     switch (name) {
       case 'demineur':
@@ -67,24 +62,7 @@ io.on('connection', function (clientSocket) {
 
     }
   });
-
-  // two players //
-/*  clientSocket.on('joinTwo', function (name) {
-    newroomTwocount = newroomTwocount + 1;
-    console.log(newroomTwocount);
-    if (newroomTwocount % 2 == 1) {
-      newroom = randomstring.generate(5);
-      alotOfRoomOfTwo.push(newroom);
-      rooms.push(newroom);
-      clientSocket.join(newroom);
-      console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom+ 'du jeu '+ name);
-    } else {
-      newroom = alotOfRoomOfTwo[alotOfRoomOfTwo.length - 1];
-      clientSocket.join(newroom);
-      console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom + 'du jeu '+ name);
-    }
-  });*/
-
+  
   // event on disconnet from other user in room of two //
   clientSocket.on('disconnect', function () {
      clientSocket.broadcast.to(newroom).emit('disconnect_message', 'blop et caca');
