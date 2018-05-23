@@ -33,7 +33,7 @@
       <input id="m" autocomplete="off" /><button>Send</button>
     </form> -->
 
-    <input type="text" value="name">
+    <input id="inputtexte" type="text" value="name">
     <input id="Okbutton" type="button" value="OK">
     <div id="affichage"></div>
 
@@ -44,6 +44,8 @@
 
   <script>
     var socket = io();
+
+
     var button = document.getElementById('Okbutton');
     button.addEventListener('click', function(){
       socket.emit('message', 'bonjour');
@@ -56,7 +58,7 @@
 
     var seulTout = document.getElementById('checkBox1');
     seulTout.addEventListener('click', function(){
-      socket.emit('joinAlone');
+      socket.emit('joinAlone', document.getElementById('inputtexte').value);
     });
 
     var aDeuxCmieux = document.getElementById('checkBox2');

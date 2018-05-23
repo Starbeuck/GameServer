@@ -13,12 +13,15 @@ app.use(express.static('client'));
 
 app.get('/', function (req, res) {
   "use strict";
-  res.sendFile(path.join(__dirname, '/client', 'accueil.html'));
+  //res.sendFile(path.join(__dirname, '/client', 'accueil.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 var rooms = [];
 var alotOfRoomOfTwo = [];
 var newroomTwocount = 0;
+
+var newroom;
 
 io.on('connection', function (clientSocket) {
   "use strict";
@@ -26,14 +29,27 @@ io.on('connection', function (clientSocket) {
 
   console.log('nb : ' + io.engine.clientsCount)
 
-  var newroom;
-
   // player alone //
+
   clientSocket.on('joinAlone', function (name) {
-    newroom = randomstring.generate(5);
-    rooms.push(newroom);
-     clientSocket.join(newroom);
-     console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom + 'du jeu '+ name);
+    switch (name) {
+      case 'demineur':
+        demineur.joinAlone(clientSocket);
+        break;
+      case 'morpion':
+        morpion.joinAlone(clientSocket);
+        break;
+      case 'puissance4':
+        puissance4.joinAlone(clientSocket);
+        break;
+      default:
+
+    }
+    // var newroom;
+    // newroom = randomstring.generate(5);
+    // rooms.push(newroom);
+    //  clientSocket.join(newroom);
+    //  console.log('Le client ' + clientSocket.id + ' a rejoint la room ' + newroom + 'du jeu '+ name);
   });
 
   // two players //
@@ -79,5 +95,5 @@ io.on('connection', function (clientSocket) {
 
 http.listen(1234, function () {
   console.log('Listening on 1234');
-  chat.hello();
+  //chat.hello();
 });
