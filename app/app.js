@@ -15,7 +15,6 @@ console.log(newAction.toString());
 let newGame = new Game('morpion');
 
 console.log(newGame.toJson());
-console.log(newGame.toString());
 // FIN TEST CLASSES
 
 // get response from client
@@ -37,8 +36,9 @@ app.post('/game',function(req,res){
   console.log("TypeGame = "+typeGame);
   var newGame = new Game(typeGame);
   allGames.push(newGame);
-  res.send(newGame);
+  res.send(newGame.toString());
 });
+
 
 //open port
 app.listen(1234,function(){
