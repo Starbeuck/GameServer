@@ -1,7 +1,11 @@
-var app = require('express')();
-var express = require('express');
-var http = require('http').Server(app);
-var path = require('path');
+var path           =         require('path'); 
+var express        =         require("express");
+var bodyParser     =         require("body-parser");
+var app            =         express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 // enable use file client
 app.use(express.static('public'));
@@ -9,10 +13,16 @@ app.use(express.static('public'));
 // init root path
 app.get('/', function (req, res) {
  // res.sendFile(path.join(__dirname, '/public', 'accueil.html'));
-  res.sendFile(path.join(__dirname, 'test.html'));
+ res.sendFile(path.join(__dirname, '/public', 'test.html'));
 });
 
-// display on port 1234
-http.listen(1234, function(){
-  console.log('listening on 1234');
+// post request
+app.post('/game',function(req,res){
+  var user_name=req.body.user;
+  console.log("Data = "+user_name);
+  res.end("yes");
 });
+
+app.listen(1234,function(){
+  console.log("Started on PORT 1234");
+})
