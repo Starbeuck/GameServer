@@ -1,0 +1,22 @@
+{
+  "name": "gameserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Starbeuck/GameServer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Starbeuck/GameServer/issues"
+  },
+  "homepage": "https://github.com/Starbeuck/GameServer#readme",
+  "dependencies": {
+    "npm": "^6.1.0"
+  }
+}
