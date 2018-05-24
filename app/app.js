@@ -18,8 +18,8 @@ app.get('/', function (req, res) {
 
 // post request
 app.post('/game',function(req,res){
-  var user_name=req.body.user;
-  console.log("Data = "+user_name);
+  var typeGame=req.body.typeGame;
+  console.log("TypeGame = "+typeGame);
   res.end("yes");
 });
 

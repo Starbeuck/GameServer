@@ -8,11 +8,12 @@
   </script>
   <script>
     $(document).ready(function() {
-      var user;
-      $("#submit").click(function() {
-        user = $("#user").val();
+      var typeGame;
+      $("#submitMorpion").click(function() {
+        typeGame = $("#Morpion").val();
+        console.log(document.getElementById("Morpion").value);
         $.post("http://localhost:1234/game", {
-          user: user
+          typeGame: typeGame
         }, function(data) {
           if (data === 'done') {
             alert("login success");
@@ -25,9 +26,8 @@
 </head>
 
 <body>
-  <h1>Hello people !</h1>
-  <input type="TEXT" id="user" size="40"><br>
-  <input type="button" id="submit" value="Submit">
+  <input type="button" id="submitMorpion" value="Morpion">
+  <input type="button" id="submitPuissance4" value="Puissance4">
 </body>
 
 </html>
