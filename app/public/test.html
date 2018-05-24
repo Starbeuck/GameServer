@@ -1,0 +1,45 @@
+<html>
+
+<head>
+  <title>Test</title>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
+
+
+  </script>
+  <script>
+    $(document).ready(function() {
+      var typeGame;
+
+      $("#submitMorpion").click(function() {
+        typeGame = $("#submitMorpion").val();
+        $.post("http://localhost:1234/game", {
+          typeGame: typeGame
+        }, function(data) {
+          if (data === 'done') {
+            alert("login success");
+          }
+        });
+      });
+
+      $("#submitPuissance4").click(function() {
+        typeGame = $("#submitPuissance4").val();
+        $.post("http://localhost:1234/game", {
+          typeGame: typeGame
+        }, function(data) {
+          if (data === 'done') {
+            alert("login success");
+          }
+        });
+      });
+
+    });
+
+  </script>
+</head>
+
+<body>
+  <button id="submitMorpion" value="morpion">Morpion</button>
+  <button id="submitPuissance4" value="puissance4">Puissance 4</button>
+</body>
+
+</html>
