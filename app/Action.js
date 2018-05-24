@@ -1,16 +1,17 @@
-class Action {
+module.exports = class Action {
   constructor (json){
-    let parsed = JSON.parse(json);
+    console.log("Je veux creer une Action avec le json : " + json);
+    var parsed = JSON.parse(json);
     this.x = parsed.x;
     this.y = parsed.y;
   }
   toString(){
-    return 'clicked on ('+x+ ', ' +y+')';
+    return 'clicked on ('+this.x+ ', ' +this.y+')';
   }
   toJson(){
     return {
-      'x' : this.x,
-      'y' : this.y
+      "x" : this.x,
+      "y" : this.y
     }
   }
 };

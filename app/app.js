@@ -1,7 +1,22 @@
-var path           =         require('path'); 
+var path           =         require('path');
 var express        =         require("express");
 var bodyParser     =         require("body-parser");
 var app            =         express();
+
+const Game = require('./Game.js');
+const Action = require('./Action.js');
+
+// TEST CLASSES
+let newAction = new Action('{"x":0, "y":10}');
+
+console.log(newAction.toJson());
+console.log(newAction.toString());
+
+let newGame = new Game('morpion');
+
+console.log(newGame.toJson());
+console.log(newGame.toString());
+// FIN TEST CLASSES
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
