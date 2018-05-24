@@ -18,9 +18,9 @@ console.log(newGame.toJson());
 console.log(newGame.toString());
 // FIN TEST CLASSES
 
+// get response from client
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
 
 // enable use file client
 app.use(express.static('public'));
@@ -38,6 +38,7 @@ app.post('/game',function(req,res){
   res.end("yes");
 });
 
+//open port
 app.listen(1234,function(){
   console.log("Started on PORT 1234");
 })

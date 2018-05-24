@@ -1,7 +1,7 @@
 <html>
 
 <head>
-  <title>Simple login</title>
+  <title>Test</title>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
 
 
@@ -9,9 +9,9 @@
   <script>
     $(document).ready(function() {
       var typeGame;
+
       $("#submitMorpion").click(function() {
-        typeGame = $("#Morpion").val();
-        console.log(document.getElementById("Morpion").value);
+        typeGame = $("#submitMorpion").val();
         $.post("http://localhost:1234/game", {
           typeGame: typeGame
         }, function(data) {
@@ -20,14 +20,26 @@
           }
         });
       });
+
+      $("#submitPuissance4").click(function() {
+        typeGame = $("#submitPuissance4").val();
+        $.post("http://localhost:1234/game", {
+          typeGame: typeGame
+        }, function(data) {
+          if (data === 'done') {
+            alert("login success");
+          }
+        });
+      });
+
     });
 
   </script>
 </head>
 
 <body>
-  <input type="button" id="submitMorpion" value="Morpion">
-  <input type="button" id="submitPuissance4" value="Puissance4">
+  <button id="submitMorpion" value="morpion">Morpion</button>
+  <button id="submitPuissance4" value="puissance4">Puissance 4</button>
 </body>
 
 </html>
