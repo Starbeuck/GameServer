@@ -13,8 +13,8 @@ app.use(express.static('client'));
 
 app.get('/', function (req, res) {
   "use strict";
-  //res.sendFile(path.join(__dirname, '/client', 'accueil.html'));
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, '/client', 'accueil.html'));
+ // res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 var rooms = [];
