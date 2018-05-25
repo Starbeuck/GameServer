@@ -235,6 +235,9 @@ function afficheEtat(grid, currentPlayer){
 // -------------------------- PLAY FUNCTION -------------------------------------
 var play = function(game, action){
     posePion(action.x, action.y, action.currentPlayer, game.grid);
+    if(won(grid.game, action.currentPlayer) == true){
+      game.gameFinished = true;
+    }
     draw(game.grid);
     return game;
 }
