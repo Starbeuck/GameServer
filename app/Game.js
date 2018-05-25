@@ -30,4 +30,11 @@ module.exports = class Game {
         "gameFinished" : this.gameFinished
     };
   }
+  fromJson(json){
+    var parsed = JSON.parse(json);
+    if (parsed.id != undefined) this.id = parsed.id;
+    if (parsed.gameType != undefined) this.gameType = parsed.gameType;
+    if (parsed.gameFinished != undefined) this.gameFinished = parsed.gameFinished;
+    if (parsed.grid != undefined) this.grid = parsed.grid;
+  }
 };
