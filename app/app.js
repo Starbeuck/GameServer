@@ -5,7 +5,7 @@ var app            =         express();
 
 const Game = require('./Game.js');
 const Action = require('./Action.js');
-
+var allGames = [];
 // TEST CLASSES
 let newAction = new Action('{"x":0, "y":10}');
 
@@ -15,7 +15,6 @@ console.log(newAction.toString());
 let newGame = new Game('morpion');
 
 console.log(newGame.toJson());
-console.log(newGame.toString());
 // FIN TEST CLASSES
 
 // get response from client
@@ -35,8 +34,11 @@ app.get('/', function (req, res) {
 app.post('/game',function(req,res){
   var typeGame=req.body.typeGame;
   console.log("TypeGame = "+typeGame);
-  res.end("yes");
+  var newGame = new Game(typeGame);
+  allGames.push(newGame);
+  res.send(newGame.toString());
 });
+
 
 //open port
 app.listen(1234,function(){
