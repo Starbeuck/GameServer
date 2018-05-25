@@ -6,7 +6,7 @@ var app = express();
 const Game = require('./Game.js');
 const Action = require('./Action.js');
 const morpion_play = require('./public/morpion/main.js');
-const morpion_play = require('./public/morpion/main.js');
+const morpion_nexAction = require('./public/morpion/morpion_IA.js');
 
 var allGames = [];
 

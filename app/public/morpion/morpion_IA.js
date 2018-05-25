@@ -4,7 +4,7 @@ const Action = require('../../Action.js');
 
 var nextAction =function(game){
 
-    
+
     //var action = new Action('{"x":0, "y":0}');
     var action = playIA(game, 0);
     return action;
@@ -37,7 +37,7 @@ function playIA(game, depth) {
 
     // Ici on ne veut pas jouer mais retourner l'action associée
     //game.grid[i][j] = 1;
-    return new Action('{"x":i, "y":j}');
+    return new Action('{"x":i, "y":j, "player":2}');
 }
 
 function getMax(game, depth) {
@@ -264,4 +264,3 @@ function getWinner(game) {
 }
 
 module.exports = nextAction;
-
