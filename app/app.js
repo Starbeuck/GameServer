@@ -32,7 +32,7 @@ app.get('/', function (req, res) {
 
 // post request
 app.post('/game',function(req,res){
-  var typeGame=req.body.typeGame;
+  var typeGame= req.body.typeGame;
   console.log("TypeGame = "+typeGame);
   var newGame = new Game(typeGame);
   allGames.push(newGame);

@@ -13,7 +13,7 @@ module.exports = class Game {
         this.grid = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 14, 15];
         break;
       default:
-        this.gris = [];
+        this.grid = [];
         break;
     }
   }
@@ -29,5 +29,12 @@ module.exports = class Game {
         "grid" : this.grid,
         "gameFinished" : this.gameFinished
     };
+  }
+  fromJson(json){
+    var parsed = JSON.parse(json);
+    if (parsed.id != undefined) this.id = parsed.id;
+    if (parsed.gameType != undefined) this.gameType = parsed.gameType;
+    if (parsed.gameFinished != undefined) this.gameFinished = parsed.gameFinished;
+    if (parsed.grid != undefined) this.grid = parsed.grid;
   }
 };
