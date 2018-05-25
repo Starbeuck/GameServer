@@ -34,18 +34,24 @@ app.get('/', function (req, res) {
 });
 
 // post request
-<<<<<<< HEAD
-app.post('/game',function(req,res){
-  var typeGame= req.body.typeGame;
-  console.log("TypeGame = "+typeGame);
-=======
 app.post('/game', function (req, res) {
-  var typeGame = req.body.typeGame;
-  console.log("TypeGame = " + typeGame);
->>>>>>> e1337a31da66d07c9868befbaab5cd9f2534242e
-  var newGame = new Game(typeGame);
-  allGames.push(newGame);
-  res.send(newGame.id);
+  // Possibilité 1 : création partie
+  if (req.body.typeGame != undefined){
+    var typeGame=req.body.typeGame;
+    console.log("TypeGame = "+typeGame);
+    var newGame = new Game(typeGame);
+    allGames.push(newGame);
+    res.send(newGame.toString());
+  // Possibilité 2 : jouer dans une partie
+}else if((req.body.game !=  undefined) && (req.body.action != undefined)){
+    var game = new Game('');
+    game.fromJson(req.body.game);
+    var action = new Action(req.body.action);
+    var humanPlayedGame = play(game, action);
+    var iaAction = nextAction(humanPlayedGame);
+    var iaPlayedGame = play(humanPlayedGame, iaAction);
+    res.send(iaPlayedGame.toString());
+  }
 });
 
 app.post('/idGame', function (req, res) {
