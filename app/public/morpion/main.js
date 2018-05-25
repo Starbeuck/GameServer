@@ -1,3 +1,8 @@
+// -------------------------- GAME VARIABLES -------------------------------------
+
+const Game = require('../../Game.js');
+const Action = require('../../Action.js');
+
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -9,13 +14,29 @@ canvas.height=height;
 var grille;
 var sizeGrid;
 var caseSize = width/3;
-var joueurCour = 2;
+var joueurCour = 2; // joueur reel = 1 ;; IA = 2
 var joueJoueur1 = false;
-var alignement = 3;
 
+// -------------------------- INIT FUNCTIONS -------------------------------------
+function drawInitGame(){
+  ctx.fillStyle = '#F0F0F0'; // set canvas' background color
+  ctx.fillRect(0, 0, canvas.width, canvas.height);  // now fill the canvas
+  var x, y;
+  for (x=0;x<=width;x+=width/3) {
+      for (y=0;y<=height;y+=height/3) {
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, height);
+          ctx.stroke();
+          ctx.moveTo(0, y);
+          ctx.lineTo(width, y);
+          ctx.stroke();
 
-ctx.fillStyle = '#F0F0F0'; // set canvas' background color
-ctx.fillRect(0, 0, canvas.width, canvas.height);  // now fill the canvas
+      }
+  }
+  sizeGrid = 3;
+  initGrid(sizeGrid);
+}
+
 
 function initGrid(sizeGrid){
     grille = new Array(sizeGrid);
@@ -30,6 +51,8 @@ function initGrid(sizeGrid){
     }
 }
 
+// -------------------------- ACTIONS FUNCTIONS -------------------------------------
+
 function getMousePos(event) {
     var rect = canvas.getBoundingClientRect();
     return {
@@ -38,64 +61,14 @@ function getMousePos(event) {
     };
 }
 
-var x, y;
-for (x=0;x<=width;x+=width/3) {
-    for (y=0;y<=height;y+=height/3) {
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        ctx.stroke();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        ctx.stroke();
-
-    }
-}
-sizeGrid = 3;
-initGrid(sizeGrid);
-
-function play(event) {
-
-    var mousePos = getMousePos(event);
-    var xM = mousePos.x;
-    var yM = mousePos.y;
-    console.log("joueur1 a joue : " + joueJoueur1);
-    if (!joueJoueur1) {
-        joueurCour = 3 - joueurCour;
-
-        posePion(xM, yM);
-        document.getElementById("joueurCourant").innerHTML = "C'est au tour de joueur 2 de jouer";
-    }
-    else {
-        joueurCour = 3 - joueurCour;
-
-        posePion(xM, yM);
-        document.getElementById("joueurCourant").innerHTML = "C'est au tour de joueur 1 de jouer";
-    }
-
-    draw();
-    if(alignVert(joueurCour) || alignHorizon(joueurCour) || alignDiagDesc(joueurCour) || alignDiagMont(joueurCour))
-    {
-        if(joueurCour === 1) {
-            window.alert("joueur 1 a gagnéééé");
-        }
-        else{
-            window.alert("joueur 2 a gagnéééé");
-        }
-    }
-}
-
-function posePion(xMouse, yMouse){
-
-    ctx.lineWidth = "5";
-    console.log("x : " + xMouse);
-    console.log("y : " + yMouse);
+function posePion(xMouse, yMouse, currentPlayer, grid){
 
     var colonne = Math.trunc(xMouse/caseSize);
     var ligne = Math.trunc(yMouse/caseSize);
 
-    if (grille[ligne][colonne] === 0){
-        grille[ligne][colonne] = joueurCour;
-        if(joueurCour === 1){
+    if (grid[ligne][colonne] === 0){
+        grid[ligne][colonne] = currentPlayer;
+        if(currentPlayer === 1){
             joueJoueur1 = true;
         }
         else{
@@ -105,7 +78,11 @@ function posePion(xMouse, yMouse){
 
 }
 
+
+
+// -------------------------- DRAW FUNCTIONS -------------------------------------
 function draw(){
+    ctx.lineWidth = "5";
     var startCircleX = width/6;
     var startCircleY = width/6;
 
@@ -154,82 +131,83 @@ function crossed(xStart, yStart, xEnd, yEnd){
     ctx.stroke();
 }
 
-function alignHorizon(joueur){
+
+// -------------------------- RULE WINNING FUNCTIONS -------------------------------------
+function alignHorizon(grid, currentPlayer){
     var colCour = 0;
     var lignCour = 0;
-    var compteur = 0;
-    var trouve = false;
-    while (lignCour<sizeGrid && !trouve){
-        while(colCour<sizeGrid-1 && !trouve){
-            if(grille[lignCour][colCour] === joueur &&  grille[lignCour][colCour+1] === joueur){
-                compteur++;
+    var counter = 0;
+    var found = false;
+    while (lignCour<grid.length && !found){
+        while(colCour<grid.length-1 && !found){
+            if(grid[lignCour][colCour] === currentPlayer &&  grid[lignCour][colCour+1] === currentPlayer){
+                counter++;
             }
-            if(compteur === alignement-1){
-                trouve = true;
+            if(counter === grid.length-1){
+                found = true;
             }
             colCour++;
         }
         colCour = 0;
-        compteur = 0;
+        counter = 0;
         lignCour++;
     }
-    return trouve;
+    return found;
 }
 
-function alignVert(joueur){
+function alignVert(grid, currentPlayer){
     var colCour = 0;
     var lignCour = 0;
-    var compteur = 0;
-    var trouve = false;
-    while (colCour<sizeGrid && !trouve){
-        while(lignCour<sizeGrid-1 && !trouve){
-            if(grille[lignCour][colCour] === joueur &&  grille[lignCour+1][colCour] === joueur){
-                compteur++;
+    var counter = 0;
+    var found = false;
+    while (colCour<grid.length && !found){
+        while(lignCour<grid.length-1 && !found){
+            if(grid[lignCour][colCour] === currentPlayer &&  grid[lignCour+1][colCour] === currentPlayer){
+                counter++;
             }
-            if(compteur === alignement-1){
-                trouve = true;
+            if(counter === grid.length-1){
+                found = true;
             }
             lignCour++;
 
         }
         lignCour = 0;
-        compteur = 0;
+        counter = 0;
         colCour++;
 
     }
-    return trouve;
+    return found;
 }
 
-function alignDiagDesc(joueur){
+function alignDiagDesc(grid, currentPlayer){
     var colCour = 0;
     var lignCour = 0;
-    var compteur = 0;
-    var trouve = false;
-    while (colCour<sizeGrid-1 && lignCour<sizeGrid-1 && !trouve) {
-        if (grille[lignCour][colCour] === joueur && grille[lignCour + 1][colCour + 1] === joueur) {
-            compteur++;
-            console.log("ligne : "+ lignCour + "colonne : " + colCour);
+    var counter = 0;
+    var found = false;
+    while (colCour<grid.length-1 && lignCour<grid.length-1 && !found) {
+        if (grid[lignCour][colCour] === currentPlayer && grid[lignCour + 1][colCour + 1] === currentPlayer) {
+            counter++;
         }
-        if (compteur === alignement - 1) {
-            trouve = true;
+        if (counter === grid.length-1) {
+            found = true;
         }
         lignCour++;
         colCour++;
     }
-    return trouve;
+    return found;
 }
 
-function alignDiagMont(joueur){
+function alignDiagMont(grid, currentPlayer){
     var colCour = 0;
     var lignCour = 2;
-    var compteur = 0;
-    var trouve = false;
-    while (colCour<sizeGrid-1 && lignCour>0 && !trouve) {
-        if (grille[lignCour][colCour] === joueur && grille[lignCour - 1][colCour + 1] === joueur) {
-            compteur++;
+    var counter = 0;
+    var found = false;
+    while (colCour<grid.length-1 && lignCour>0 && !found) {
+        if (grid[lignCour][colCour] === currentPlayer && grid[lignCour - 1][colCour + 1] === currentPlayer) {
+            counter++;
         }
-        if (compteur === alignement - 1) {
-            trouve = true;
+        if (counter === grid.length-1) {
+            found = true;
         }
         lignCour--;
         colCour++;
@@ -237,6 +215,13 @@ function alignDiagMont(joueur){
     return trouve;
 }
 
+function won(grid, currentPlayer){
+  return (alignVert(grid, currentPlayer) || alignHorizon(grid, currentPlayer) || alignDiagDesc(grid, currentPlayer) || alignDiagMont(grid, currentPlayer));
+}
+
+
+
+// -------------------------- STATE FUNCTION -------------------------------------
 function afficheEtat(){
     console.log("joueur courant est : " + joueurCour);
     for (var i=0; i<grille.length; i++){
@@ -247,10 +232,48 @@ function afficheEtat(){
     console.log("\n =============== \n\n");
 }
 
+// -------------------------- PLAY FUNCTION -------------------------------------
+var play = function(game, action){
+    posePion(action.x, action.y, action.currentPlayer, game.grid);
+    draw();
+    return game;
+}
 
-function game
-
+module.exports = play;
 canvas.addEventListener("click", play);
+
+
+// -------------------------- EXTRA A NE PAS CONSIDERER -------------------------------------
+function playbbb(event) {
+
+    var mousePos = getMousePos(event);
+    var xM = mousePos.x;
+    var yM = mousePos.y;
+    console.log("joueur1 a joue : " + joueJoueur1);
+    if (!joueJoueur1) {
+        joueurCour = 3 - joueurCour;
+
+        posePion(xM, yM);
+        document.getElementById("joueurCourant").innerHTML = "C'est au tour de joueur 2 de jouer";
+    }
+    else {
+        joueurCour = 3 - joueurCour;
+
+        posePion(xM, yM);
+        document.getElementById("joueurCourant").innerHTML = "C'est au tour de joueur 1 de jouer";
+    }
+
+    draw();
+    if(alignVert(joueurCour) || alignHorizon(joueurCour) || alignDiagDesc(joueurCour) || alignDiagMont(joueurCour))
+    {
+        if(joueurCour === 1) {
+            window.alert("joueur 1 a gagnéééé");
+        }
+        else{
+            window.alert("joueur 2 a gagnéééé");
+        }
+    }
+}
 // Code temporaire pour tester le DnD
 //new DnD(canvas);
 
