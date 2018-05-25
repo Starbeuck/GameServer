@@ -11,7 +11,6 @@ var height = 600;
 canvas.width=width;
 canvas.height=height;
 
-var grille;
 var sizeGrid;
 var caseSize = width/3;
 var joueurCour = 2; // joueur reel = 1 ;; IA = 2
@@ -34,21 +33,22 @@ function drawInitGame(){
       }
   }
   sizeGrid = 3;
-  initGrid(sizeGrid);
+  //initGrid(sizeGrid);
 }
 
 
 function initGrid(sizeGrid){
-    grille = new Array(sizeGrid);
-    for (var i=0; i<grille.length; i++){
-        grille[i] = new Array(sizeGrid);
+    grid = new Array(sizeGrid);
+    for (var i=0; i<grid.length; i++){
+        grid[i] = new Array(sizeGrid);
     }
 
-    for (var i=0; i<grille.length; i++){
-        for (var j=0; j<grille.length; j++){
-            grille[i][j] = 0;
+    for (var i=0; i<grid.length; i++){
+        for (var j=0; j<grid.length; j++){
+            grid[i][j] = 0;
         }
     }
+    return grid;
 }
 
 // -------------------------- ACTIONS FUNCTIONS -------------------------------------
@@ -81,7 +81,7 @@ function posePion(xMouse, yMouse, currentPlayer, grid){
 
 
 // -------------------------- DRAW FUNCTIONS -------------------------------------
-function draw(){
+function draw(grid){
     ctx.lineWidth = "5";
     var startCircleX = width/6;
     var startCircleY = width/6;
@@ -91,12 +91,12 @@ function draw(){
     var endCrossedX = 170;
     var endCrossedY = 170;
 
-    for(var i=0; i<grille.length; i++){
-        for (var j=0; j<grille.length; j++) {
-            if (grille[i][j] === 1) {
+    for(var i=0; i<grid.length; i++){
+        for (var j=0; j<grid.length; j++) {
+            if (grid[i][j] === 1) {
                 circle(startCircleX, startCircleY);
             }
-            if (grille[i][j] === 2) {
+            if (grid[i][j] === 2) {
                 crossed(startCrossedX, startCrossedY, endCrossedX, endCrossedY);
             }
             startCircleX += caseSize;
@@ -222,11 +222,11 @@ function won(grid, currentPlayer){
 
 
 // -------------------------- STATE FUNCTION -------------------------------------
-function afficheEtat(){
-    console.log("joueur courant est : " + joueurCour);
-    for (var i=0; i<grille.length; i++){
-        for (var j=0; j<grille.length; j++){
-            console.log("ligne : "+i+" colonne : "+j+ " == " + grille[i][j]);
+function afficheEtat(grid, currentPlayer){
+    console.log("joueur courant est : " + currentPlayer);
+    for (var i=0; i<grid.length; i++){
+        for (var j=0; j<grid.length; j++){
+            console.log("ligne : "+i+" colonne : "+j+ " == " + grid[i][j]);
         }
     }
     console.log("\n =============== \n\n");
@@ -235,7 +235,7 @@ function afficheEtat(){
 // -------------------------- PLAY FUNCTION -------------------------------------
 var play = function(game, action){
     posePion(action.x, action.y, action.currentPlayer, game.grid);
-    draw();
+    draw(game.grid);
     return game;
 }
 
