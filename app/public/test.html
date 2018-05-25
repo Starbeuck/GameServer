@@ -2,10 +2,7 @@
 
 <head>
   <title>Test</title>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
-
-
-  </script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script>
     $(document).ready(function() {
       var typeGame;
@@ -25,7 +22,7 @@
           typeGame: typeGame
         }, function(data) {
           console.log(data);
-          window.location = "http://localhost:1234/p4_test/accueil_puissance4.html?Game="+data;
+          window.location = "http://localhost:1234/p4_test/accueil_puissance4.html?IdGame="+data;
         });
       });
 

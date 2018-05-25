@@ -4,15 +4,23 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="puissance4.css" />
 	<script type="text/javascript" src="jeu.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script>
-		console.log("blop"+window.location);
-		var queryString = decodeURIComponent(window.location.search);
-		queryString = queryString.substring(1);
-		var queries = queryString.split("&");
-		console.log(queryString.split("&"));
-		for (var i = 0; i < queries.length; i++) {
-			document.write(queries[i] + "<br>");
-		}
+		$(document).ready(function() {
+
+			var idGame;
+			var myGame;
+			var queryString = decodeURIComponent(window.location.search);
+			queryString = queryString.substring(1);
+			var queries = queryString.split("=");
+			idGame = queries[1];
+
+			$.post("http://localhost:1234/idGame", {
+				idGame: idGame,
+			}, function (data){
+				console.log( data);
+			});
+		});
 
 	</script>
 </head>
