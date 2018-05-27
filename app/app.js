@@ -3,9 +3,9 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var app = express();
 
-const Game = require('./Game.js');
-const Action = require('./Action.js');
-const morpion_play = require('./public/morpion/main.js');
+const Game = require('./public/Game.js');
+const Action = require('./public/Action.js');
+const morpion_play = require('./public/morpion/logic.js');
 const morpion_nexAction = require('./public/morpion/morpion_IA.js');
 
 var allGames = [];
@@ -44,16 +44,16 @@ app.post('/game', function(req, res) {
     console.log("TypeGame = " + typeGame);
     var newGame = new Game(typeGame);
     allGames.push(newGame);
-    res.send(newGame.toString());
+    res.send(newGame);
     // Possibilité 2 : jouer dans une partie
   } else if ((req.body.game != undefined) && (req.body.action != undefined)) {
     var game = new Game('');
     game.fromJson(req.body.game);
     var action = new Action(req.body.action);
-    var humanPlayedGame = play(game, action);
-    var iaAction = nextAction(humanPlayedGame);
-    var iaPlayedGame = play(humanPlayedGame, iaAction);
-    res.send(iaPlayedGame.toString());
+    var humanPlayedGame = morpion_play(game, action);
+    var iaAction = morpion_nexAction  (humanPlayedGame);
+    var iaPlayedGame = morpion_play(humanPlayedGame, iaAction);
+    res.send(iaPlayedGame);
   }
 });
 

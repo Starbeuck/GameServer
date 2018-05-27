@@ -7,7 +7,7 @@
     $(document).ready(function() {
       var typeGame;
 
-      $("#submitMorpion").click(function() {
+      $("#submitMorpion").click(() => {
         typeGame = $("#submitMorpion").val();
         $.post("http://localhost:1234/game", {
           typeGame: typeGame
@@ -16,7 +16,7 @@
         });
       });
 
-      $("#submitPuissance4").click(function() {
+      $("#submitPuissance4").click(() => {
         typeGame = $("#submitPuissance4").val();
         $.post("http://localhost:1234/game", {
           typeGame: typeGame

@@ -1,10 +1,7 @@
-const Game = require('../../Game.js');
-const Action = require('../../Action.js');
-
+const Game = require('../Game.js');
+const Action = require('../Action.js');
 
 var nextAction =function(game){
-
-
     //var action = new Action('{"x":0, "y":0}');
     var action = playIA(game, 0);
     return action;
@@ -37,7 +34,7 @@ function playIA(game, depth) {
 
     // Ici on ne veut pas jouer mais retourner l'action associée
     //game.grid[i][j] = 1;
-    return new Action('{"x":i, "y":j, "player":2}');
+    return new Action('{"x":'+i+', "y":'+j+', "currentPlayer":2}');
 }
 
 function getMax(game, depth) {
@@ -242,7 +239,7 @@ function getWinner(game) {
         j1,
         j2;
 
-    nb_series(j1, j2, 3);
+    nb_series(game, j1, j2, 3);
 
     if(j1) {
         return 1;

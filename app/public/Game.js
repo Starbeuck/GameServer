@@ -18,9 +18,9 @@ module.exports = class Game {
     }
   }
   toString(){
-      let string = 'Game : '+ this.id + ' de '+ this.gameType +' : \n' + this.grid;
-      if (this.gameFinished) string+= '\nFinie !';
-      return(string);
+      let string = 'Game : '+ this.id + ' de '+ this.gameType + ' : \n' + this.grid;
+      if (this.gameFinished) string += '\nFinie !';
+      return string;
   }
   toJson(){
     return {
