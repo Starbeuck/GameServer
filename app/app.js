@@ -5,7 +5,9 @@ var app = express();
 
 const Game = require('./public/Game.js');
 const Action = require('./public/Action.js');
-const morpion_play = require('./public/morpion/logic.js');
+const logicfunctions = require('./public/morpion/logic.js');
+const morpion_play = logicfunctions.play;
+const morpion_movePossible = logicfunctions.movePossible;
 const morpion_nexAction = require('./public/morpion/morpion_IA.js');
 
 var allGames = [];
@@ -28,7 +30,6 @@ app.use(express.static('public'));
 // console.log(newGame.toJson());
 // -------------------------------------------- FIN TEST CLASSES ------------------------------------------
 
-
 // init root path
 app.get('/', function(req, res) {
   // res.sendFile(path.join(__dirname, '/public', 'accueil.html'));
@@ -45,18 +46,23 @@ app.post('/game', function(req, res) {
     var newGame = new Game(typeGame);
     allGames.push(newGame);
     console.log(newGame.toJson());
-    res.send(newGame.toJson());
+    res.send(newGame);
     // Possibilité 2 : jouer dans une partie
   } else if ((req.body.game != undefined) && (req.body.action != undefined)) {
     var game = new Game('');
     game.fromJson(req.body.game);
     var action = new Action(req.body.action);
-    var humanPlayedGame = morpion_play(game, action);
 
-    // var iaAction = morpion_nexAction  (humanPlayedGame);
-    var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
-    var iaPlayedGame = morpion_play(humanPlayedGame, iaAction);
-    res.send(iaPlayedGame.toJson());
+    if (morpion_movePossible(game.grid, action)) {
+      var humanPlayedGame = morpion_play(game, action);
+
+      // var iaAction = morpion_nexAction  (humanPlayedGame);
+      var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
+      var iaPlayedGame = morpion_play(humanPlayedGame, iaAction);
+      res.send(iaPlayedGame);
+    }else{
+      res.send("ERROR");
+    }
   }
 });
 

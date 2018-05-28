@@ -1,27 +1,22 @@
-
-
 // -------------------------- PLAY FUNCTION -------------------------------------
 var play = function(game, action) {
-  console.log('on veut jouer a la game : '+game.toString());
   posePion(action.x, action.y, action.currentPlayer, game.grid);
   return game;
 }
 
-module.exports = play;
+module.exports = {play, movePossible};
 
 // -------------------------- ACTIONS FUNCTIONS -------------------------------------
 
-
+function movePossible(grid, action) {
+  var caseOccupee = (grid[action.x][action.y] != 0);
+  var caseExistante = (grid[action.x][action.y] != undefined);
+  return ((!caseOccupee) && (caseExistante));
+}
 
 function posePion(xMouse, yMouse, currentPlayer, grid) {
-  console.log('je pose un pion pour le joueur '+currentPlayer+' a la case ('+xMouse+', '+yMouse+')');
   if (grid[yMouse][xMouse] === 0) {
     grid[yMouse][xMouse] = currentPlayer;
-    if (currentPlayer === 1) {
-      joueJoueur1 = true;
-    } else {
-      joueJoueur1 = false;
-    }
   }
 
 }

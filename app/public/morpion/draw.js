@@ -3,7 +3,7 @@
 const Game = require('../Game.js');
 const Action = require('../Action.js');
 
-let currentGame =new Game('morpion');
+let currentGame = new Game('morpion');
 
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
@@ -31,15 +31,17 @@ $('document').ready(function() {
 canvas.addEventListener("click", function(e) {
   console.log(getActionPlayer(e));
   $.post("http://localhost:1234/game", {
-     game:JSON.stringify(currentGame.toJson()),
-     action:JSON.stringify(new Action(getActionPlayer(e)))
+    game: JSON.stringify(currentGame.toJson()),
+    action: JSON.stringify(new Action(getActionPlayer(e)))
   }, function(data) {
-    currentGame.fromJson(JSON.stringify(data));
-    draw(currentGame.grid);
+    if (data == "ERROR") {
+      console.log('error');
+    } else {
+      currentGame.fromJson(JSON.stringify(data));
+      draw(currentGame.grid);
+    }
   });
 });
-
-
 
 // -------------------------- INIT FUNCTIONS -------------------------------------
 function drawInitGame() {
@@ -69,7 +71,7 @@ function drawInitGame() {
 }
 // -------------------------- DRAW FUNCTIONS -------------------------------------
 function draw(grid) {
-console.log('je dessing ', grid);
+  console.log('je dessing ', grid);
 
   ctx.lineWidth = "5";
   var startCircleX = width / 6;
@@ -120,8 +122,7 @@ function crossed(xStart, yStart, xEnd, yEnd) {
   ctx.stroke();
 }
 
-
 function getActionPlayer(event) {
   var rect = canvas.getBoundingClientRect();
-  return '{"x": '+Math.trunc((event.clientX - rect.left)/caseSize)+',"y": '+Math.trunc((event.clientY - rect.top)/caseSize)+',"currentPlayer": 1}';
+  return '{"x": ' + Math.trunc((event.clientX - rect.left) / caseSize) + ',"y": ' + Math.trunc((event.clientY - rect.top) / caseSize) + ',"currentPlayer": 1}';
 }
