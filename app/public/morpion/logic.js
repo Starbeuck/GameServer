@@ -9,8 +9,8 @@ module.exports = {play, movePossible, won};
 // -------------------------- ACTIONS FUNCTIONS -------------------------------------
 
 function movePossible(grid, action) {
-  var caseOccupee = (grid[action.x][action.y] != 0);
-  var caseExistante = (grid[action.x][action.y] != undefined);
+  var caseOccupee = (grid[action.y][action.x] != 0);
+  var caseExistante = (grid[action.y][action.x] != undefined);
   return ((!caseOccupee) && (caseExistante));
 }
 
