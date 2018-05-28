@@ -3,6 +3,8 @@
 const Game = require('../Game.js');
 const Action = require('../Action.js');
 
+let currentGame =new Game('morpion');
+
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 
@@ -14,7 +16,7 @@ canvas.height = height;
 
 var sizeGrid;
 var caseSize = width / 3;
-var joueurCour = 2; // joueur reel = 1 ;; IA = 2
+var joueurCour = 1; // joueur reel = 1 ;; IA = 2
 // var joueJoueur1 = false;
 
 $('document').ready(function() {
@@ -22,18 +24,18 @@ $('document').ready(function() {
   $.post("http://localhost:1234/game", {
     typeGame: 'morpion'
   }, function(data) {
-    console.log(data);
+    currentGame.fromJson(JSON.stringify(data));
   });
-  console.log('init');
 });
 
 canvas.addEventListener("click", function(e) {
   console.log(getActionPlayer(e));
   $.post("http://localhost:1234/game", {
-    'game': '{"gameType": "morpion","id": "abcde", "grid": [[0, 0, 0],[1, 1, 1],[2, 2, 2]],"gameFinished": false}',
-    'action': '{"x": 0, "y" : 0, "currentPlayer" : 1}'
+     game:JSON.stringify(currentGame.toJson()),
+     action:JSON.stringify(new Action(getActionPlayer(e)))
   }, function(data) {
-    console.log(data);
+    currentGame.fromJson(JSON.stringify(data));
+    draw(currentGame.grid);
   });
 });
 
@@ -67,6 +69,7 @@ function drawInitGame() {
 }
 // -------------------------- DRAW FUNCTIONS -------------------------------------
 function draw(grid) {
+console.log('je dessing ', grid);
 
   ctx.lineWidth = "5";
   var startCircleX = width / 6;
@@ -99,7 +102,7 @@ function draw(grid) {
   }
 }
 
-function circle(Center, yCenter) {
+function circle(xCenter, yCenter) {
   ctx.strokeStyle = "red";
   ctx.beginPath();
   ctx.arc(xCenter, yCenter, 70, 0, 2 * Math.PI);
@@ -120,9 +123,5 @@ function crossed(xStart, yStart, xEnd, yEnd) {
 
 function getActionPlayer(event) {
   var rect = canvas.getBoundingClientRect();
-  return {
-    "x": Math.trunc((event.clientX - rect.left)/caseSize),
-    "y": Math.trunc((event.clientY - rect.top)/caseSize),
-    "currentPlayer": 2
-  };
+  return '{"x": '+Math.trunc((event.clientX - rect.left)/caseSize)+',"y": '+Math.trunc((event.clientY - rect.top)/caseSize)+',"currentPlayer": 1}';
 }

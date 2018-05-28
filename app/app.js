@@ -18,14 +18,14 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // -------------------------------------------- TEST CLASSES ---------------------------------------------
-let newAction = new Action('{"x":0, "y":10}');
-
-console.log(newAction.toJson());
-console.log(newAction.toString());
-
-let newGame = new Game('morpion');
-
-console.log(newGame.toJson());
+// let newAction = new Action('{"x":0, "y":10}');
+//
+// console.log(newAction.toJson());
+// console.log(newAction.toString());
+//
+// let newGame = new Game('morpion');
+//
+// console.log(newGame.toJson());
 // -------------------------------------------- FIN TEST CLASSES ------------------------------------------
 
 
@@ -44,16 +44,19 @@ app.post('/game', function(req, res) {
     console.log("TypeGame = " + typeGame);
     var newGame = new Game(typeGame);
     allGames.push(newGame);
-    res.send(newGame);
+    console.log(newGame.toJson());
+    res.send(newGame.toJson());
     // Possibilité 2 : jouer dans une partie
   } else if ((req.body.game != undefined) && (req.body.action != undefined)) {
     var game = new Game('');
     game.fromJson(req.body.game);
     var action = new Action(req.body.action);
     var humanPlayedGame = morpion_play(game, action);
-    var iaAction = morpion_nexAction  (humanPlayedGame);
+
+    // var iaAction = morpion_nexAction  (humanPlayedGame);
+    var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
     var iaPlayedGame = morpion_play(humanPlayedGame, iaAction);
-    res.send(iaPlayedGame);
+    res.send(iaPlayedGame.toJson());
   }
 });
 
