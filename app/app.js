@@ -54,7 +54,7 @@ app.post('/game', function(req, res) {
     game.fromJson(req.body.game);
     var action = new Action(req.body.action);
 
-    if ((morpion_movePossible(game.grid, action)) && (game.winner != 0)) {
+    if ((morpion_movePossible(game.grid, action)) && (game.winner == 0)) {
       var humanPlayedGame = morpion_play(game, action);
 
       // var iaAction = morpion_nextAction(humanPlayedGame);
