@@ -5,10 +5,15 @@ var app = express();
 
 const Game = require('./public/Game.js');
 const Action = require('./public/Action.js');
+<<<<<<< HEAD
 const logicfunctions = require('./public/morpion/logic.js');
 const morpion_play = logicfunctions.play;
 const morpion_movePossible = logicfunctions.movePossible;
 const morpion_nexAction = require('./public/morpion/morpion_IA.js');
+=======
+const morpion_play = require('./public/morpion/logic.js');
+const morpion_nexAction = require('./public/morpion/morpion_IA_old.js');
+>>>>>>> 6dccc22ecf53b84fd911eed691dda70d2e2fb406
 
 var allGames = [];
 
