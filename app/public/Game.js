@@ -5,6 +5,7 @@ module.exports = class Game {
     this.id = randomstring.generate(5);
     this.gameType = gameType;
     this.gameFinished = false;
+    this.winner = 0;
     switch (gameType) {
       case 'morpion':
         this.grid = [
@@ -50,11 +51,23 @@ module.exports = class Game {
       string += '\nFinie !';
     return string;
   }
+<<<<<<< HEAD
   toJson() {
     return {"id": this.id, "gameType": this.gameType, "grid": this.grid, "gameFinished": this.gameFinished};
+=======
+  toJson(){
+    return {
+        "id" : this.id,
+        "gameType" : this.gameType,
+        "grid" : this.grid,
+        "gameFinished" : this.gameFinished,
+        "winner" : this.winner
+    };
+>>>>>>> 071c309a3a665e893ecfec60fb6a8ee32799e5c9
   }
   fromJson(json) {
     var parsed = JSON.parse(json);
+<<<<<<< HEAD
     if (parsed.id != undefined)
       this.id = parsed.id;
     if (parsed.gameType != undefined)
@@ -75,5 +88,12 @@ module.exports = class Game {
       }
 
       console.log(boardString);
+=======
+    if (parsed.id != undefined) this.id = parsed.id;
+    if (parsed.gameType != undefined) this.gameType = parsed.gameType;
+    if (parsed.gameFinished != undefined) this.gameFinished = parsed.gameFinished;
+    if (parsed.grid != undefined) this.grid = parsed.grid;
+    if (parsed.winner != undefined) this.winner = parsed.winner;
+>>>>>>> 071c309a3a665e893ecfec60fb6a8ee32799e5c9
   }
 };
