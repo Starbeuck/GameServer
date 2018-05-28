@@ -6,7 +6,7 @@ module.exports = class Action {
     this.currentPlayer = parsed.currentPlayer; // 1 = joueur réel ; 2 = IA
   }
   toString(){
-    return 'clicked on (' + this.x + ', ' +this.y +')';
+    return '(' + this.x + ', ' +this.y +')';
   }
   toJson(){
     return {

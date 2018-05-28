@@ -8,7 +8,7 @@ const Action = require('./public/Action.js');
 const logicfunctions = require('./public/morpion/logic.js');
 const morpion_play = logicfunctions.play;
 const morpion_movePossible = logicfunctions.movePossible;
-const morpion_nextAction = require('./public/morpion/morpion_IA.js');
+const morpion_nextAction = require('./public/morpion/morpion_IA_fofo.js');
 
 var allGames = [];
 
@@ -54,9 +54,11 @@ app.post('/game', function(req, res) {
     var action = new Action(req.body.action);
 
     if (morpion_movePossible(game.grid, action)) {
+      console.log('l"humain joue en ' + action.toString());
       var humanPlayedGame = morpion_play(game, action);
 
       var iaAction = morpion_nextAction(humanPlayedGame);
+        console.log('l"ia joue en ' + iaAction.toString());
       // var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
       var iaPlayedGame = morpion_play(humanPlayedGame, iaAction);
       res.send(iaPlayedGame);

@@ -71,8 +71,6 @@ function drawInitGame() {
 }
 // -------------------------- DRAW FUNCTIONS -------------------------------------
 function draw(grid) {
-  console.log('je dessing ', grid);
-
   ctx.lineWidth = "5";
   var startCircleX = width / 6;
   var startCircleY = width / 6;
