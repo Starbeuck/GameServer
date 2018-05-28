@@ -9,7 +9,7 @@ const logicfunctions = require('./public/morpion/logic.js');
 const morpion_play = logicfunctions.play;
 const morpion_movePossible = logicfunctions.movePossible;
 const morpion_won = logicfunctions.won;
-const morpion_nextAction = require('./public/morpion/morpion_IA_fofo.js');
+const morpion_nextAction = require('./public/morpion/morpion_IA.js');
 
 var allGames = [];
 
