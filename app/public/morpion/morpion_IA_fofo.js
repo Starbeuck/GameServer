@@ -43,12 +43,30 @@ var possibleMoves = function(grid){
   return allPossibleMoves;
 }
 
-var calculerPoidsMove=  function(grid, move){
-  // allPossibleMoves.forEach(function(move){
-  //
-  // });
-  
+  var scoreMoves = function(grid, allPossibleMoves){
+  var allScores = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+  allPossibleMoves.forEach(function(move){
+    var newgrid = grid;
+    newgrid[move] = 2;
+    if (winning(newGrid, 2)) allScores[move] += 10;
+    if (winning(newGrid, 1)) allScores[move] -= 10;
+
+  });
+  console.log('voici les scores associés aux moves : ' + allScores);
+
 }
+
+var winning = function(board, player){
+    return (
+        (board[0] == player && board[1] == player && board[2] == player) ||
+        (board[3] == player && board[4] == player && board[5] == player) ||
+        (board[6] == player && board[7] == player && board[8] == player) ||
+        (board[0] == player && board[3] == player && board[6] == player) ||
+        (board[1] == player && board[4] == player && board[7] == player) ||
+        (board[2] == player && board[5] == player && board[8] == player) ||
+        (board[0] == player && board[4] == player && board[8] == player) ||
+        (board[2] == player && board[4] == player && board[6] == player))
+    )
 
 var chooseAction = function(grid){
   var move= possibleMoves(grid).pop();
