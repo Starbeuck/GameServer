@@ -6,11 +6,14 @@ var columns = 3;
 
 var nextAction = function(game) {
   console.log("Début IA\nVoici la grille :\n"+game.gridToString());
-  var grid = convertGrid(game.grid);
   console.log("Voici la grille en ligne :\n"+convertGrid(game.grid));
   console.log("Voici les cases vides :\n"+possibleMoves(grid));
-  var action = chooseAction(grid);
   console.log("Voici le choix de l'IA:\n"+action.toString());
+
+
+
+  var grid = convertGrid(game.grid);
+  var action = chooseAction(grid);
   return action
 }
 
@@ -38,6 +41,13 @@ var possibleMoves = function(grid){
     if(grid[i]==0) allPossibleMoves.push(i);
   }
   return allPossibleMoves;
+}
+
+var calculerPoidsMove=  function(grid, move){
+  // allPossibleMoves.forEach(function(move){
+  //
+  // });
+  
 }
 
 var chooseAction = function(grid){
