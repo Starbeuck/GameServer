@@ -3,7 +3,9 @@
   //création du plateau de jeu 
   plateau= [];
   //nuùéro du joueur qui joue
-  turn= 2;
+  turn= 1;
+
+
   /* un entier:
      0: la partie continue
      -1: la partie est nulle
@@ -16,9 +18,9 @@
   // Nombre de lignes 6
   lines= 4;
   // Nombre de colonnes 7
-  columns= 4;
+  columns=4;
   huPlayer="X";
-  aiPlayer="O";
+  aiPlayer="I";
   var iter = 0;
   parent=document.querySelector('#jeu');
   var board =[];
@@ -71,24 +73,18 @@
   // function auxiliaire d'affichage 
    function set(row, column, player) {
     // On colore la case
-
-    console.log( "ligne"+row+" colonne "+column);
+   // console.log( "ligne"+row+" colonne "+column);
     this.plateau[row][column].className = 'joueur' + player;
     // On compte le coup
     this.coups++;
     // On passe le tour : 3 - 2 = 1, 3 - 1 = 2
-    this.turn = 3 - this.turn;
+    this.turn = 3 - player;
   }
 
   /* Cette fonction ajoute un pion dans une colonne */
    function play(column) {
     // Vérifier si la partie est encore en cours
-    if (this.game_status != 0) {
-      if (window.confirm("La partie est finie!\n\nSouhaitez-vous recommencer?")) {
-        this.reset();
-      }
-      return;
-    }
+
     console.log ("joueur à jouer "+(3-this.turn));
  
     // Trouver la première case libre dans la colonne
@@ -103,26 +99,29 @@
       window.alert("La colonne est pleine!");
       return;
     }
-   if ((3-this.turn)==1){
+   if ((this.turn)==1){
     // Effectuer le coup
-    this.set(row, column, this.turn);
-      board[row*this.columns] = huPlayer;
-      console.log(board);
+    this.set(row, column, 1);
+      board[row*this.columns+column] = huPlayer;
+   //   console.log(board);
 
   }else{
     var test=getIndex(board);
      var index = minimax(board, aiPlayer).index;
-      this.set(index%this.columns,parseInt( index/this.columns),this.turn);
-       board[row*this.columns] = aiPlayer;
-             console.log(board);
+    
+    
+      this.set(parseInt( index/this.columns),(index%this.columns),2);
+       board[((index%this.columns)+parseInt( index/this.columns)*this.columns)] = aiPlayer;
+    
+ //            console.log(board);
   }
     // Vérifier s'il y a un gagnant, ou si la partie est finie
- /*   if (this.win(row, column, 'joueur' + (3 - this.turn))) {
+    if (this.win(row, column, 'joueur' + (3 - this.turn))) {
       this.game_status = 3 - this.turn;
     } else if (this.coups >= this.lines * this.columns) {
       this.game_status = -1;
     }
-*/
+
     //Au cours de l'affichage, pensez eventuellement, à afficher un 
     //message si la partie est finie...
     switch (this.game_status) {
@@ -143,7 +142,7 @@
  function handler(event) {
 
     var column = event.target.dataset.column;
-    console.log("colonne "+column);
+   // console.log("colonne "+column);
     //attention, les variables dans les datasets sont TOUJOURS 
     //des chaînes de caractère. Si on veut être sûr de ne pas faire de bêtise,
     //il vaut mieux la convertir en entier avec parseInt
@@ -204,81 +203,61 @@
 
 
 // winning combinations
-function winning(board, player,columns) {
+function winning(reboard, player) {
   // console.log("je suis la");
   if (
-    (board[0]==player && board[5]==player && board[10]==player && board[15]==player )
-   /* (board[12]==player && board[9]==player && board [6]==player && board[3]==player)||
-    (board[0]==player && board[1]==player && board[2]==player && board[3]==player)||
-    (board[4]==player && board[5]==player && board[6]==player && board[7]==player)||
-    (board[8]==player && board[9]==player && board[10]==player && board[11]==player)||
-    (board[12]==player && board[13]==player && board[14]==player && board[15]==player)||
-    (board[0]==player && board[4]==player && board[8]==player && board[12]==player )||
-    (board[1]==player && board[5]==player && board[9]==player && board[13]==player)||
-    (board[2]==player && board[6]==player && board[10]==player && board[14]==player)*/
+    (reboard[0]==player && reboard[5]==player && reboard[10]==player && reboard[15]==player )||
+    (reboard[12]==player && reboard[9]==player && reboard [6]==player && reboard[3]==player)||
+    (reboard[0]==player && reboard[1]==player && reboard[2]==player && reboard[3]==player)||
+    (reboard[4]==player && reboard[5]==player && reboard[6]==player && reboard[7]==player)||
+    (reboard[8]==player && reboard[9]==player && reboard[10]==player && reboard[11]==player)||
+    (reboard[12]==player && reboard[13]==player && reboard[14]==player && reboard[15]==player)||
+    (reboard[0]==player && reboard[4]==player && reboard[8]==player && reboard[12]==player )||
+    (reboard[1]==player && reboard[5]==player && reboard[9]==player && reboard[13]==player)||
+    (reboard[2]==player && reboard[6]==player && reboard[10]==player && reboard[14]==player)||
+    (reboard[3]==player && reboard[7]==player && reboard[11]==player && reboard[15]==player)
   //encore des lignes 
     ) {
-  console.log("je suis passé par ici")
+  //console.log("je suis passé par ici")
     return true;
   } else {
     return false;
   }
 }
 
-//looks for lines or columns full 
-function winningLinesandColumns(board,player, columns){
-  for(var i=0; i<board.length; i+4){
-    if (board[i]==player && board[i+1]==player && board[i+2]==player && board[i+3]==player){
-      return true;
-    }
-  }
-  for (var i=0; i<columns; i++){
-    if(board[i]==player && board[i+4]== player && board[i+2*4]==player && board[i+3*4]==player){
-      return true;
-    }
-  }
-  return false;
-}
-
-//looks if diagonales are ok
-function winningDiag(board, player, columns){
-  if ((board[0]==player && board[5]==player && board[10]==player && board[15]==player )||
-    (board[12]==player && board[9]==player && board [6]==player && board[3]==player)){
-    return true;
-  }else{
-    return false;
-  }
-}
 
 
 function getIndex(reboard){
   var tablibre =[]; 
+//  console.log("tablibre début" +tablibre)
   var col=0;
-  for (var i = 0; i < this.lines; i++) {
-    for (var col=0; col<this.columns; col++){
-      if (!this.plateau[i][col].className) {
 
-        tablibre.push(col*columns+i);
+    for (var col=0; col<this.columns; col++){
+        for (var i = 0; i < this.lines; i++) {
+ //    console.log("board initial"+reboard)
+//     console.log("case"+((col*4)+i));
+  //   console.log(" classe "+reboard[(col*4+i)])
+      if (!((reboard[((i*this.columns)+col)]==="X") || (reboard[((i*this.columns)+col)]==="I"))) {
+
+        tablibre.push((i*this.columns)+col);
        break;
       }
     }
     
   }
- // console.log(tablibre);
+// console.log("cases libres"+tablibre);
   return tablibre;
-
 }
-
-
 
 function minimax(reboard, player) {
   iter++;
   let array =getIndex(reboard);
-  if (winning(reboard, huPlayer, this.columns)) {
+ // console.log("cases libres"+array);
+  if (winning(reboard, huPlayer)) {
     return {
       score: -10
     };
-  } else if (winning(reboard, aiPlayer, this.columns)) {
+  } else if (winning(reboard, aiPlayer) ){
     return {
       score: 10
     };
@@ -292,16 +271,18 @@ function minimax(reboard, player) {
   for (var i = 0; i < array.length; i++) {
    // console.log("je suis ici "+ i);
     var move = {};
+    //donne le numéro de la case en index
     move.index = reboard[array[i]];
     reboard[array[i]] = player;
-console.log(move);
+//console.log(move);
     if (player == aiPlayer) {
       var g = minimax(reboard, huPlayer);
       move.score = g.score;
-      console.log("je suis la");
+      //console.log("je suis la");
     } else {
       var g = minimax(reboard, aiPlayer);
-      move.score = g.score;console.log("ou alors je suis ici");
+      move.score = g.score;
+      //console.log("ou alors je suis ici");
     }
     reboard[array[i]] = move.index;
     moves.push(move);
@@ -325,5 +306,6 @@ console.log(move);
       }
     }
   }
+
   return moves[bestMove];
 }
