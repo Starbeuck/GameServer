@@ -21,7 +21,7 @@ gulp.task('browserify', 'rend le code serveur utilisable dans un navigateur', fu
 
 gulp.task('webserver','lance le front', function(cb) {
   gulp.watch(['./app/public/morpion/draw.js'], ['browserify']);
-  connect.server({root: 'app/public/morpion', livereload: true});
+  connect.server({root: 'app/public/', livereload: true});
 })
 
 gulp.task('server', 'lance le serveur - en cours', function(cb) {
