@@ -1,6 +1,8 @@
 const Game = require('../Game.js');
 const Action = require('../Action.js');
 
+
+
 var huPlayer = 1,
     aiPlayer = 2,
     nbCol = 3,
@@ -124,3 +126,5 @@ function minimax(newBoard, player){
 
     return new Action('{"x":'+x+', "y":'+y+', "currentPlayer":2}');
 }
+
+module.exports = nextAction;
