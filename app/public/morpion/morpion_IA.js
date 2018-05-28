@@ -34,6 +34,14 @@ var nextAction = function(game){
     var y = (index%nbCol),
         x = parseInt(index/nbCol);
 
+    while(x === null) {
+        var index = minimax(board, 'C').index;
+        console.log("index : "+index);
+
+        y = (index%nbCol);
+        x = parseInt(index/nbCol);
+    }
+
     console.log("x : "+x);
     console.log("y : "+y);
 

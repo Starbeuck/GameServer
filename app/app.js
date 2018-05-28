@@ -57,8 +57,8 @@ app.post('/game', function(req, res) {
     if ((morpion_movePossible(game.grid, action)) && (game.winner == 0)) {
       var humanPlayedGame = morpion_play(game, action);
 
-      // var iaAction = morpion_nextAction(humanPlayedGame);
-      var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
+      var iaAction = morpion_nextAction(humanPlayedGame);
+      // var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
       var iaPlayedGame = morpion_play(humanPlayedGame, iaAction);
       if(morpion_won(game.grid, action.currentPlayer)){
         game.winner = action.currentPlayer;
