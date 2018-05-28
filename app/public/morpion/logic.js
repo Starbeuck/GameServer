@@ -4,7 +4,7 @@ var play = function(game, action) {
   return game;
 }
 
-module.exports = {play, movePossible};
+module.exports = {play, movePossible, won};
 
 // -------------------------- ACTIONS FUNCTIONS -------------------------------------
 
@@ -100,7 +100,7 @@ function alignDiagMont(grid, currentPlayer) {
     lignCour--;
     colCour++;
   }
-  return trouve;
+  return found;
 }
 
 function won(grid, currentPlayer) {

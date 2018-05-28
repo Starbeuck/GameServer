@@ -36,9 +36,13 @@ canvas.addEventListener("click", function(e) {
   }, function(data) {
     if (data == "ERROR") {
       console.log('error');
-    } else {
+    }
+    else {
       currentGame.fromJson(JSON.stringify(data));
       draw(currentGame.grid);
+      if(currentGame.winner != 0){
+        alert("joueur " + currentGame.winner + " a gagne");
+      }
     }
   });
 });

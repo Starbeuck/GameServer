@@ -8,6 +8,7 @@ const Action = require('./public/Action.js');
 const logicfunctions = require('./public/morpion/logic.js');
 const morpion_play = logicfunctions.play;
 const morpion_movePossible = logicfunctions.movePossible;
+const morpion_won = logicfunctions.won;
 const morpion_nextAction = require('./public/morpion/morpion_IA.js');
 
 var allGames = [];
@@ -53,14 +54,19 @@ app.post('/game', function(req, res) {
     game.fromJson(req.body.game);
     var action = new Action(req.body.action);
 
-    if (morpion_movePossible(game.grid, action)) {
+    if ((morpion_movePossible(game.grid, action)) && (!game.gameFinished)) {
       var humanPlayedGame = morpion_play(game, action);
 
-      var iaAction = morpion_nextAction(humanPlayedGame);
-      // var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
+      // var iaAction = morpion_nextAction(humanPlayedGame);
+      var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
       var iaPlayedGame = morpion_play(humanPlayedGame, iaAction);
+      if(morpion_won(game.grid, action.currentPlayer)){
+        game.gameFinished = true;
+        game.winner = action.currentPlayer;
+      }
       res.send(iaPlayedGame);
-    }else{
+    }
+    else{
       res.send("ERROR");
     }
   }
