@@ -41,7 +41,12 @@ canvas.addEventListener("click", function(e) {
       currentGame.fromJson(JSON.stringify(data));
       draw(currentGame.grid);
       if(currentGame.winner != 0){
-        alert("joueur " + currentGame.winner + " a gagne");
+        if(currentGame.winner == 1){
+          alert("joueur " + 1 + " a gagné");
+        }
+        else{
+          alert("L'ordinateur a gagné :(");
+        }
       }
     }
   });
@@ -75,6 +80,8 @@ function drawInitGame() {
 }
 // -------------------------- DRAW FUNCTIONS -------------------------------------
 function draw(grid) {
+  console.log('je dessing ', grid);
+
   ctx.lineWidth = "5";
   var startCircleX = width / 6;
   var startCircleY = width / 6;

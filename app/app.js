@@ -54,24 +54,13 @@ app.post('/game', function(req, res) {
     game.fromJson(req.body.game);
     var action = new Action(req.body.action);
 
-<<<<<<< HEAD
-    if (morpion_movePossible(game.grid, action)&& (!game.gameFinished)) {
-      //console.log('l"humain joue en ' + action.toString());
-      var humanPlayedGame = morpion_play(game, action);
-
-      var iaAction = morpion_nextAction(humanPlayedGame);
-        //console.log('l"ia joue en ' + iaAction.toString());
-      // var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
-=======
-    if ((morpion_movePossible(game.grid, action)) && (!game.gameFinished)) {
+    if ((morpion_movePossible(game.grid, action)) && (game.winner != 0)) {
       var humanPlayedGame = morpion_play(game, action);
 
       // var iaAction = morpion_nextAction(humanPlayedGame);
       var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
->>>>>>> 071c309a3a665e893ecfec60fb6a8ee32799e5c9
       var iaPlayedGame = morpion_play(humanPlayedGame, iaAction);
       if(morpion_won(game.grid, action.currentPlayer)){
-        game.gameFinished = true;
         game.winner = action.currentPlayer;
       }
       res.send(iaPlayedGame);
