@@ -77,4 +77,5 @@ module.exports = class Game {
       }
 
       console.log(boardString);
+    }
 };
