@@ -28,7 +28,7 @@ function convertBoard(grid) {
     }
 }
 
-function nextAction(game){
+function nextAction(game, depth){
 
     convertBoard(game.grid);
     let index = minimax(board, aiPlayer).index;
