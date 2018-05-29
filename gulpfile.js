@@ -34,6 +34,7 @@ gulp.task('webserver','lance le front', function(cb) {
 })
 
 gulp.task('server', 'lance le serveur', function(cb) {
+  "use strict";
   let child = exec('node app/app.js', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
