@@ -12,8 +12,6 @@ let huPlayer = "P";
 let aiPlayer = "C";
 let iter = 0;
 let round = 0;
-let aiCo = "white";
-let huCo = "#333";
 let nbCol = 3;
 let nbLi = 3;
 
@@ -50,7 +48,6 @@ function move(element, player, color) {
     console.log("element"+ element.id);
     if (board[element.id] != "P" && board[element.id] != "C") {
         round++;
-        $(element).css("background-color", color);
         board[element.id] = player;
         console.log(board);
 
@@ -69,8 +66,6 @@ function move(element, player, color) {
         } else {
             round++;
             let index = minimax(board, aiPlayer).index;
-            let selector = "#" + index;
-            $(selector).css("background-color", aiCo);
             board[index] = aiPlayer;
             console.log(board);
             console.log(index);
@@ -94,7 +89,6 @@ function move(element, player, color) {
 function reset() {
     round = 0;
     board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-    $("td").css("background-color", "transparent");
 }
 
 function minimax(reboard, player) {
