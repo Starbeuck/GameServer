@@ -1,15 +1,6 @@
-<<<<<<< HEAD
-// -------------------------- IMPORTS ------------------------------------------
-
-const Game = require('../Game.js');
-const Action = require('../Action.js');
 
 
-let g = new Game('morpion');
-=======
-
-
-  //création du plateau de jeu 
+  //création du plateau de jeu
   plateau= [];
   //nuùéro du joueur qui joue
   turn= 1;
@@ -36,7 +27,7 @@ let g = new Game('morpion');
 
   function initBoard(nbcol, nblin){
     var nbcase= 0;
-    this.board.length=nbcol*nblin; 
+    this.board.length=nbcol*nblin;
     for (var i=0; i<this.board.length; i++){
       this.board[i]=i;
     }
@@ -52,13 +43,13 @@ let g = new Game('morpion');
     joueur1=name1;
     var name2= prompt("nom du joueur2");
     joueur2=name2;
-    window.alert(joueur1 +" commence"); 
+    window.alert(joueur1 +" commence");
 */
 
 //initialisation du board de l'ia
     this.initBoard(this.columns, this.lines);
 
-    //création du plateau de jeu 
+    //création du plateau de jeu
     t = document.createElement('table');
     t.id = 'plateau';
 
@@ -79,7 +70,7 @@ let g = new Game('morpion');
     t.addEventListener('click', function(e) { handler(e); });
   }
 
-  // function auxiliaire d'affichage 
+  // function auxiliaire d'affichage
    function set(row, column, player) {
     // On colore la case
    // console.log( "ligne"+row+" colonne "+column);
@@ -95,7 +86,7 @@ let g = new Game('morpion');
     // Vérifier si la partie est encore en cours
 
     console.log ("joueur à jouer "+(3-this.turn));
- 
+
     // Trouver la première case libre dans la colonne
     var row;
     for (var i = 0; i < this.lines; i++) {
@@ -119,7 +110,7 @@ let g = new Game('morpion');
     console.log("cases vides"+test);
      var index = minimax(board, aiPlayer).index;
      console.log("index "+index);
-    
+
       this.set(parseInt( index/this.columns),(index%this.columns),2);
        board[((index%this.columns)+parseInt( index/this.columns)*this.columns)] = aiPlayer;
         console.log(board);
@@ -132,17 +123,17 @@ let g = new Game('morpion');
       this.game_status = -1;
     }
 
-    //Au cours de l'affichage, pensez eventuellement, à afficher un 
+    //Au cours de l'affichage, pensez eventuellement, à afficher un
     //message si la partie est finie...
     switch (this.game_status) {
-      case -1: 
-        window.alert("Partie Nulle!!"); 
+      case -1:
+        window.alert("Partie Nulle!!");
         break;
       case 1:
-        window.alert("Victoire de joueur 1"); 
+        window.alert("Victoire de joueur 1");
         break;
       case 2:
-        window.alert("Victoire de joueur2"); 
+        window.alert("Victoire de joueur2");
         break;
     }
   }
@@ -153,18 +144,18 @@ let g = new Game('morpion');
 
     var column = event.target.dataset.column;
    // console.log("colonne "+column);
-    //attention, les variables dans les datasets sont TOUJOURS 
+    //attention, les variables dans les datasets sont TOUJOURS
     //des chaînes de caractère. Si on veut être sûr de ne pas faire de bêtise,
     //il vaut mieux la convertir en entier avec parseInt
-    if (column) 
+    if (column)
       this.play(parseInt(column));
   }
-    
-    
-  /* 
+
+
+  /*
    Cette fonction vérifie si le coup dans la case `row`, `column` par
    le joueur `cname` est un coup gagnant.
-   
+
    Renvoie :
      true  : si la partie est gagnée par le joueur `cname`
      false : si la partie continue
@@ -196,7 +187,7 @@ let g = new Game('morpion');
       count = (this.plateau[i][shift - i].className == cname) ? count+1 : 0;
       if (count >= 4) return true;
     }
-    
+
     return false;
   }
 
@@ -226,7 +217,7 @@ function winning(reboard, player) {
     (reboard[1]==player && reboard[5]==player && reboard[9]==player && reboard[13]==player)||
     (reboard[2]==player && reboard[6]==player && reboard[10]==player && reboard[14]==player)||
     (reboard[3]==player && reboard[7]==player && reboard[11]==player && reboard[15]==player)
-  //encore des lignes 
+  //encore des lignes
     ) {
   //console.log("je suis passé par ici")
     return true;
@@ -238,7 +229,7 @@ function winning(reboard, player) {
 
 
 function getIndex(reboard){
-  var tablibre =[]; 
+  var tablibre =[];
 //  console.log("tablibre début" +tablibre)
   var col=0;
 
@@ -253,7 +244,7 @@ function getIndex(reboard){
        break;
       }
     }
-    
+
   }
 // console.log("cases libres"+tablibre);
   return tablibre;
@@ -295,10 +286,10 @@ function minimax(reboard, player, alpha, beta) {
       reboard[array[i]] = move.index;
             if (alpha >= beta) return g;
 
-    } 
+    }
     return bestScore;
   }
-  
+
 function minimin(reboard, player, alpha, beta) {
   iter++;
   let array =getIndex(reboard);
@@ -336,8 +327,7 @@ function minimin(reboard, player, alpha, beta) {
             }
             reboard[array[i]] = move.index;
             if (alpha >= beta) return g;
-  
-    } 
+
+    }
     return bestScore;
   }
->>>>>>> 9c342003f859a61170d99f13f67551e455fd76ed
