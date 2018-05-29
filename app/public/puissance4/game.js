@@ -97,7 +97,7 @@ function drawInitGame() {
       currentGame.fromJson(JSON.stringify(data));
       // On dessine le nouvel état de la game
       draw(currentGame.grid);
-      console.log(data);
+      console.log(currentGame.toString());
       coups++;
 
       // Si la partie est finie, on  affiche le gagnant
@@ -128,7 +128,7 @@ function getActionPlayer(event) {
     	window.alert("La colonne est pleine!");
     	return;
   	}	
- // 	console.log( "coordonnées pion "+row + " "+column);
+  	console.log( "coordonnées pion "+row + " "+column);
   return '{"x": ' + column + ',"y": ' + row + ',"currentPlayer": 1}';
 }
 
