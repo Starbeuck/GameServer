@@ -35,21 +35,11 @@ function initBoard(nbcol, nblin){
   et l'ajoute dans l'élément `parent` du dom.
  */
 function init() {
-
- /* var name1= prompt("nom du joueur 1");
-  joueur1=name1;
-  var name2= prompt("nom du joueur2");
-  joueur2=name2;
-  window.alert(joueur1 +" commence");
-*/
-
 //initialisation du board de l'ia
   this.initBoard(this.columns, this.lines);
-
   //création du plateau de jeu
   t = document.createElement('table');
   t.id = 'plateau';
-
   for (var i = this.lines - 1; i >= 0; i--) {
     var tr = document.createElement('tr');
     this.plateau[i] = [];
@@ -81,9 +71,6 @@ function init() {
 /* Cette fonction ajoute un pion dans une colonne */
  function play(column) {
   // Vérifier si la partie est encore en cours
-
-  console.log ("joueur à jouer "+(3-this.turn));
-
   // Trouver la première case libre dans la colonne
   var row;
   for (var i = 0; i < this.lines; i++) {
@@ -140,10 +127,6 @@ function init() {
 function handler(event) {
 
   var column = event.target.dataset.column;
- // console.log("colonne "+column);
-  //attention, les variables dans les datasets sont TOUJOURS
-  //des chaînes de caractère. Si on veut être sûr de ne pas faire de bêtise,
-  //il vaut mieux la convertir en entier avec parseInt
   if (column)
     this.play(parseInt(column));
 }
@@ -216,7 +199,6 @@ if (
   (reboard[3]==player && reboard[7]==player && reboard[11]==player && reboard[15]==player)
 //encore des lignes
   ) {
-//console.log("je suis passé par ici")
   return true;
 } else {
   return false;
@@ -227,14 +209,10 @@ if (
 
 function getIndex(reboard){
 var tablibre =[];
-//  console.log("tablibre début" +tablibre)
 var col=0;
 
   for (var col=0; col<this.columns; col++){
       for (var i = 0; i < this.lines; i++) {
-//    console.log("board initial"+reboard)
-//     console.log("case"+((col*4)+i));
-//   console.log(" classe "+reboard[(col*4+i)])
     if (!((reboard[((i*this.columns)+col)]==="X") || (reboard[((i*this.columns)+col)]==="I"))) {
 
       tablibre.push((i*this.columns)+col);
@@ -243,7 +221,6 @@ var col=0;
   }
 
 }
-// console.log("cases libres"+tablibre);
 return tablibre;
 }
 
@@ -290,7 +267,6 @@ for (var i = 0; i < array.length; i++) {
 function minimin(reboard, player, alpha, beta) {
 iter++;
 let array =getIndex(reboard);
-// console.log("cases libres"+array);
 if (winning(reboard, huPlayer)) {
   return {
     score: -10
