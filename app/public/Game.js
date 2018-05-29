@@ -1,6 +1,7 @@
+'use strict';
+
 const randomstring = require("randomstring");
 
-"use strict";
 module.exports = class Game {
   constructor(gameType) {
     this.id = randomstring.generate(5);
