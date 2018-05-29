@@ -1,16 +1,16 @@
-// -------------------------- PLAY FUNCTION -------------------------------------
-var play = function(game, action) {
+// -------------------------- PLAY FUNCTION ------------------------------------
+let play = function(game, action) {
   posePion(action.x, action.y, action.currentPlayer, game.grid);
   return game;
 }
 
 module.exports = {play, movePossible, won};
 
-// -------------------------- ACTIONS FUNCTIONS -------------------------------------
+// -------------------------- ACTIONS FUNCTIONS --------------------------------
 
 function movePossible(grid, action) {
-  var caseOccupee = (grid[action.y][action.x] != 0);
-  var caseExistante = (grid[action.y][action.x] != undefined);
+  let caseOccupee = (grid[action.y][action.x] != 0);
+  let caseExistante = (grid[action.y][action.x] != undefined);
   return ((!caseOccupee) && (caseExistante));
 }
 
@@ -20,12 +20,17 @@ function posePion(xMouse, yMouse, currentPlayer, grid) {
   }
 
 }
-// -------------------------- RULE WINNING FUNCTIONS -------------------------------------
+// -------------------------- RULE WINNING FUNCTIONS ---------------------------
+
+function won(grid, currentPlayer) {
+  return (alignVert(grid, currentPlayer) || alignHorizon(grid, currentPlayer) || alignDiagDesc(grid, currentPlayer) || alignDiagMont(grid, currentPlayer));
+}
+
 function alignHorizon(grid, currentPlayer) {
-  var colCour = 0;
-  var lignCour = 0;
-  var counter = 0;
-  var found = false;
+  let colCour = 0;
+  let lignCour = 0;
+  let counter = 0;
+  let found = false;
   while (lignCour < grid.length && !found) {
     while (colCour < grid.length - 1 && !found) {
       if (grid[lignCour][colCour] === currentPlayer && grid[lignCour][colCour + 1] === currentPlayer) {
@@ -44,10 +49,10 @@ function alignHorizon(grid, currentPlayer) {
 }
 
 function alignVert(grid, currentPlayer) {
-  var colCour = 0;
-  var lignCour = 0;
-  var counter = 0;
-  var found = false;
+  let colCour = 0;
+  let lignCour = 0;
+  let counter = 0;
+  let found = false;
   while (colCour < grid.length && !found) {
     while (lignCour < grid.length - 1 && !found) {
       if (grid[lignCour][colCour] === currentPlayer && grid[lignCour + 1][colCour] === currentPlayer) {
@@ -68,10 +73,10 @@ function alignVert(grid, currentPlayer) {
 }
 
 function alignDiagDesc(grid, currentPlayer) {
-  var colCour = 0;
-  var lignCour = 0;
-  var counter = 0;
-  var found = false;
+  let colCour = 0;
+  let lignCour = 0;
+  let counter = 0;
+  let found = false;
   while (colCour < grid.length - 1 && lignCour < grid.length - 1 && !found) {
     if (grid[lignCour][colCour] === currentPlayer && grid[lignCour + 1][colCour + 1] === currentPlayer) {
       counter++;
@@ -86,10 +91,10 @@ function alignDiagDesc(grid, currentPlayer) {
 }
 
 function alignDiagMont(grid, currentPlayer) {
-  var colCour = 0;
-  var lignCour = 2;
-  var counter = 0;
-  var found = false;
+  let colCour = 0;
+  let lignCour = 2;
+  let counter = 0;
+  let found = false;
   while (colCour < grid.length - 1 && lignCour > 0 && !found) {
     if (grid[lignCour][colCour] === currentPlayer && grid[lignCour - 1][colCour + 1] === currentPlayer) {
       counter++;
@@ -101,8 +106,4 @@ function alignDiagMont(grid, currentPlayer) {
     colCour++;
   }
   return found;
-}
-
-function won(grid, currentPlayer) {
-  return (alignVert(grid, currentPlayer) || alignHorizon(grid, currentPlayer) || alignDiagDesc(grid, currentPlayer) || alignDiagMont(grid, currentPlayer));
 }
