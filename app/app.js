@@ -20,6 +20,7 @@ app.use(bodyParser.json());
 
 // enable use file client
 app.use(express.static('public'));
+app.use('/boostrap',  express.static(__dirname + '/boostrap'));
 
 // Add headers
 app.use(function(req, res, next) {
