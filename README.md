@@ -20,21 +20,15 @@ L'un des objectifs était de pouvoir déployer notre GameServer sur une machine 
 
 ## Lancer le server de jeu pour jouer
 
-Une fois le repo git clone sur une VM, merci de lancer le script ScriptLaunchGameServer. Une fois terminé, le site sera disponible sur l'adresse suivante : VMHOST:1234.
+Une fois le repo git clone sur une VM, merci de lancer le script ScriptLaunchGameServer. Une fois terminé, le site sera disponible sur l'adresse suivante : VMHOST:8080.
 
 ## Lancer le server en tant que développeur
-* Dans une première console : 
-```
-node app/app.js
-
-```
-
-* Dans une seconde console :
+* Dans une console :
 ```
 gulp
 
 ```
-Ouvrir localhost:8080 pour visualiser le morpion ou bien utiliser postman pour requêter le back sur localhost:1234/game
+Ouvrir localhost:8080 pour visualiser le morpion ou bien utiliser postman pour requêter le back sur localhost:1234/game. 
 
 # Annexes 
 * Algorithme MinMax
