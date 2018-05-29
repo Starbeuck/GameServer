@@ -1,3 +1,4 @@
+'use strict';
 // -------------------------- IMPORTS ------------------------------------------
 
 const Game = require('../Game.js');
@@ -6,11 +7,11 @@ const Action = require('../Action.js');
 module.exports = nextAction;
 
 // ------------------------ VARIABLES GLOBALES ---------------------------------
-lines = 4;
+var lines = 4;
 // Nombre de colonnes 7
-columns = 4;
-huPlayer = "X";
-aiPlayer = "I";
+var columns = 4;
+var huPlayer = "X";
+var aiPlayer = "I";
 
 function nextAction(game, depth) {
   var test = getIndex(game.grid);
