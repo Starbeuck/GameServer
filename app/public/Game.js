@@ -18,7 +18,7 @@ module.exports = class Game {
           [
             0, 0, 0
           ]
-        ];
+        ];        
         break;
       case 'puissance4':
         this.grid = new Array();
