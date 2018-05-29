@@ -1,20 +1,20 @@
 const Game = require('../Game.js');
 const Action = require('../Action.js');
 
-var board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-var huPlayer = "P";
-var aiPlayer = "C";
-var iter = 0;
-var round = 0;
-var aiCo = "white";
-var huCo = "#333";
-var nbCol = 3;
-var nbLi = 3;
+let board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+let huPlayer = "P";
+let aiPlayer = "C";
+let iter = 0;
+let round = 0;
+let aiCo = "white";
+let huCo = "#333";
+let nbCol = 3;
+let nbLi = 3;
 
 function convertBoard(grid) {
 
-    for(var v=0 ; v<nbCol ; v++) {
-        for(var w=0 ; w<nbLi ; w++) {
+    for(let v=0 ; v<nbCol ; v++) {
+        for(let w=0 ; w<nbLi ; w++) {
             if(grid[v][w] === 1) {
                 board[w*nbCol+v] = "P";
             }
@@ -25,13 +25,13 @@ function convertBoard(grid) {
     }
 }
 
-var nextAction = function(game){
+let nextAction = function(game){
 
     convertBoard(game.grid);
-    var index = minimax(board, 'C').index;
+    let index = minimax(board, 'C').index;
     console.log("index : "+index);
 
-    var y = (index%nbCol),
+    let y = (index%nbCol),
         x = parseInt(index/nbCol);
 
     console.log("x : "+x);
@@ -62,8 +62,8 @@ function move(element, player, color) {
             return;
         } else {
             round++;
-            var index = minimax(board, aiPlayer).index;
-            var selector = "#" + index;
+            let index = minimax(board, aiPlayer).index;
+            let selector = "#" + index;
             $(selector).css("background-color", aiCo);
             board[index] = aiPlayer;
             console.log(board);
@@ -108,35 +108,35 @@ function minimax(reboard, player) {
         };
     }
 
-    var moves = [];
-    for (var i = 0; i < array.length; i++) {
-        var move = {};
+    let moves = [];
+    for (let i = 0; i < array.length; i++) {
+        let move = {};
         move.index = reboard[array[i]];
         reboard[array[i]] = player;
 
         if (player == aiPlayer) {
-            var g = minimax(reboard, huPlayer);
+            let g = minimax(reboard, huPlayer);
             move.score = g.score;
         } else {
-            var g = minimax(reboard, aiPlayer);
+            let g = minimax(reboard, aiPlayer);
             move.score = g.score;
         }
         reboard[array[i]] = move.index;
         moves.push(move);
     }
 
-    var bestMove;
+    let bestMove;
     if (player === aiPlayer) {
-        var bestScore = -10000;
-        for (var i = 0; i < moves.length; i++) {
+        let bestScore = -10000;
+        for (let i = 0; i < moves.length; i++) {
             if (moves[i].score > bestScore) {
                 bestScore = moves[i].score;
                 bestMove = i;
             }
         }
     } else {
-        var bestScore = 10000;
-        for (var i = 0; i < moves.length; i++) {
+        let bestScore = 10000;
+        for (let i = 0; i < moves.length; i++) {
             if (moves[i].score < bestScore) {
                 bestScore = moves[i].score;
                 bestMove = i;

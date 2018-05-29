@@ -1,6 +1,6 @@
 module.exports = class Action {
   constructor (json){
-    var parsed = JSON.parse(json);
+    let parsed = JSON.parse(json);
     this.x = parsed.x;
     this.y = parsed.y;
     this.currentPlayer = parsed.currentPlayer; // 1 = joueur réel ; 2 = IA
