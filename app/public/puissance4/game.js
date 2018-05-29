@@ -78,7 +78,7 @@ function drawInitGame() {
       currentGame.fromJson(JSON.stringify(data));
       // On dessine le nouvel état de la game
       draw(currentGame.grid);
-    
+
 
       // Si la partie est finie, on  affiche le gagnant
       if(currentGame.winner != 0){
@@ -107,8 +107,7 @@ function getActionPlayer(event) {
   	if (row === undefined) {
     	window.alert("La colonne est pleine!");
     	return;
-
-  	}	
+  	}
   return '{"x": ' + column + ',"y": ' + row + ',"currentPlayer": 1}';
 }
 
@@ -120,7 +119,7 @@ function getActionPlayer(event) {
  		}else if (board[i]=="I"){
 
  			plateau[parseInt( i/columns)][i%columns].className = 'joueur2';
- 		
+
 
  		}
  	}
