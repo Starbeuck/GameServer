@@ -39,10 +39,9 @@ Ouvrir localhost:8080 pour visualiser le morpion ou bien utiliser postman pour r
 # Annexes 
 * Algorithme MinMax
 
-`* https://en.wikipedia.org/wiki/Minimax`
-
-`* https://medium.freecodecamp.org/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37`
+1. https://en.wikipedia.org/wiki/Minimax
+2. https://medium.freecodecamp.org/how-to-make-your-tic-tac-toe-game-unbeatable-by-using-the-minimax-algorithm-9d690bad4b37
 
 * Alpha Beta Pruning
-`* https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning`
+1. https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
 
