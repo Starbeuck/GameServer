@@ -33,7 +33,7 @@ gulp.task('webserver','lance le front', function(cb) {
 })
 
 gulp.task('server', 'lance le serveur - en cours', function(cb) {
-  let child = exec('node app/app.js', function(err, stdout, stderr) {
+  let child = exec('node --inspect app/app.js', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
 
