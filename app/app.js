@@ -54,8 +54,8 @@ app.use(function (req, res, next) {
 
 // ----------------------------- ROUTE / ---------------------------------------
 app.get('/', function(req, res) {
-  // res.sendFile(path.join(__dirname, '/public', 'accueil.html'));
-  res.sendFile(path.join(__dirname, '/public', 'test.html'));
+  res.sendFile(path.join(__dirname, '/public', 'accueil.html'));
+  //res.sendFile(path.join(__dirname, '/public', 'test.html'));
 });
 
 // ----------------------------- ROUTE GAME ------------------------------------
