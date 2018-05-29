@@ -2,7 +2,7 @@
 let express = require("express");
 let bodyParser = require("body-parser");
 let app = express();
-
+let path = require('path');
 const Game = require('./public/Game.js');
 const Action = require('./public/Action.js');
 
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 // enable use file client
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname,'/public')));
 
 // Add headers
 app.use(function(req, res, next) {
@@ -40,8 +40,7 @@ app.use(function(req, res, next) {
 
 // ----------------------------- ROUTE / ---------------------------------------
 app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public', 'index.html'));
-  //res.sendFile(path.join(__dirname, '/public', 'test.html'));
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // ----------------------------- ROUTE GAME ------------------------------------
