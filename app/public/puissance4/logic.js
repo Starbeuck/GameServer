@@ -30,9 +30,9 @@ function gridFreeSpotLeft(grid) {
 
 // -------------------------- GAME VARIABLES -----------------------------------
 // Nombre de lignes 6
-let lines = 4;
+let lines = 6;
 // Nombre de colonnes 7
-let columns = 4;
+let columns = 7;
 
 // -------------------------- ACTIONS FUNCTIONS --------------------------------
 function posePion(xMouse, yMouse, currentPlayer, grid) {
@@ -55,16 +55,57 @@ function posePion(xMouse, yMouse, currentPlayer, grid) {
 // winning combinations
 function winning(reboard, player, depth) {
   // console.log("je suis la");
-  return ((reboard[0] == player && reboard[5] == player && reboard[10] == player && reboard[15] == player)
-  || (reboard[12] == player && reboard[9] == player && reboard[6] == player && reboard[3] == player)
-  || (reboard[0] == player && reboard[1] == player && reboard[2] == player && reboard[3] == player)
-  || (reboard[4] == player && reboard[5] == player && reboard[6] == player && reboard[7] == player)
-  || (reboard[8] == player && reboard[9] == player && reboard[10] == player && reboard[11] == player)
-  || (reboard[12] == player && reboard[13] == player && reboard[14] == player && reboard[15] == player)
-  || (reboard[0] == player && reboard[4] == player && reboard[8] == player && reboard[12] == player)
-  || (reboard[1] == player && reboard[5] == player && reboard[9] == player && reboard[13] == player)
-  || (reboard[2] == player && reboard[6] == player && reboard[10] == player && reboard[14] == player)
-  || (reboard[3] == player && reboard[7] == player && reboard[11] == player && reboard[15] == player)
-  || depth == 0)
+  var joueur="";
+  if(player==1){
+  	joueur=="X";
+  }else{
+  	joueur="I";
+  }
+  return (winningCol(reboard,joueur) || winningLines(reboard, joueur) || winningDiagInv(reboard, joueur) || winningDiag(reboard, joueur) || depth == 0);
 
+}
+
+function winningCol(reboard, player){
+
+	for (var col=0; col<columns; col++){
+		for (var lin=0; lin<(lines-3); lin++){
+			if(reboard[(lin*columns)+col)]==player  && reboard[(lin+1)*columns +col]==player  && reboard[(lin+2)*columns+col]==player && reboard[(lin+3)*columns+col]==player){
+				return true; 
+			}
+		}
+	}
+	return false;
+}
+
+function winningLines(reboard, player){
+	for (var lin=0; lin<lines; lin++){
+		for(var col=0; col<(columns-3); col++){
+			if(reboard[lin*columns+col]==player && reboard[(lin*columns)+col+1]==player && reboard[(lin*columns)+col+2]==player && reboard[(lin*columns)+col+3]== player){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+function winningDiag(reboard, player){
+	for(var col=0; col<(columns-3); col++){
+		for(var lin=0; lin<(lines-3); lin++){
+			if( reboard[(lin*columns)+col]==player && reboard[((lin+1)*columns)+col+1]==player && reboard[((lin+2)*columns)+col+2]==player && reboard[((lin+3)*columns)+col+3]==player){
+				return true;
+			}	
+		}
+	}
+	return false; 
+}
+
+function winningDiagInv(reboard, player){
+	for(var col=0; col<(columns-3);col++){
+		for(var lin=(lines-1);lin>(lines-4);lin--){
+			if(reboard[(lines*columns)+col]==player && reboard[((lines-1)*columns)+col+1]==player && reboard[((lines-2)*columns)+col+2]==player && reboard[((lines-3)*columns)+col+3]==player){
+				return true;
+			}
+		}
+	}
+	return false; 
 }
