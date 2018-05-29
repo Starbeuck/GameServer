@@ -33,8 +33,8 @@ app.use(express.static('public'));
 
 // init root path
 app.get('/', function(req, res) {
-  // res.sendFile(path.join(__dirname, '/public', 'accueil.html'));
-  res.sendFile(path.join(__dirname, '/public', 'test.html'));
+  res.sendFile(path.join(__dirname, '/public', 'accueil.html'));
+  //res.sendFile(path.join(__dirname, '/public', 'test.html'));
 });
 
 // ----------------------------------- ROUTE GAME -----------------------------------
@@ -58,7 +58,7 @@ app.post('/game', function(req, res) {
       var humanPlayedGame = morpion_play(game, action);
 
       var iaAction = morpion_nextAction(humanPlayedGame);
-      // var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
+      //var iaAction = new Action('{"x":1, "y":1, "currentPlayer":2}')
       var iaPlayedGame = morpion_play(humanPlayedGame, iaAction);
       if(morpion_won(game.grid, action.currentPlayer)){
         game.winner = action.currentPlayer;
