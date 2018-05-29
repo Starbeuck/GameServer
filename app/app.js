@@ -12,6 +12,12 @@ const morpion_movesLeft = logicfunctions.gridFreeSpotLeft;
 const morpion_won = logicfunctions.won;
 const morpion_nextAction = require('./public/morpion/morpion_IA.js');
 
+
+const logicfunctionspuissance4 = require('./public/puissance4/logic.js');
+const puissance4_play=logicfunctionspuissance4.play;
+const puissance4_won =logicfunctionspuissance4.winning;
+
+
 // ------------------------------ CONFIG SERVER --------------------------------
 
 // get response from client
@@ -91,7 +97,7 @@ app.post('/game', function(req, res) {
         } else { // Si le move n'est pas possible on renvoie un message d'erreur
           res.send("ERROR");
         }
-    }
+    
     break;
     case 'puissance4' :
     // 
@@ -106,8 +112,9 @@ app.post('/game', function(req, res) {
     res.send(game);
     break;
     default :
-
+    break;
   }
+}
 
 });
 
