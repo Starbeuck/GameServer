@@ -85,36 +85,35 @@ app.post('/game', function(req, res) {
         won = puissance4_won;
         movesLeft = puissance4_movesLeft;
         break;
-        default :
+      default:
         break;
-      }
-
-      // Traitement cas de fin lorsqu'il n'y a plus qu'une case de libre (impossible pour lIA de jouer)
-        if ((movePossible(game.grid, action)) && (game.winner == 0)) { // Si le move est possible on joue
-
-          // On applique la fonction de jeu sur l'action du joueur
-          let humanPlayedGame = play(game, action);
-
-          // Si il ne reste plus de move possible, on ne fait pas jouer l'ia
-          if (movesLeft(humanPlayedGame.grid) === 0)  res.send(humanPlayedGame)
-
-          // On calcule l'action de l'IA
-          let iaAction = nextAction(humanPlayedGame);
-          // On applique la fonction de jeu sur l'action de l'IA
-          let iaPlayedGame = play(humanPlayedGame, iaAction);
-
-          // On vérfie si la partie n'est pas finie
-          if (won(game.grid, action.currentPlayer)) game.winner = action.currentPlayer;
-
-          //On renvoie le nouvel état de la partie au client
-          res.send(iaPlayedGame);
-        } else { // Si le move n'est pas possible on renvoie un message d'erreur
-          res.send("ERROR");
-        }
     }
 
-  });
+    // Traitement cas de fin lorsqu'il n'y a plus qu'une case de libre (impossible pour lIA de jouer)
+    if ((movePossible(game.grid, action)) && (game.winner == 0)) { // Si le move est possible on joue
 
+      // On applique la fonction de jeu sur l'action du joueur
+      let humanPlayedGame = play(game, action);
+
+      // Si il ne reste plus de move possible, on ne fait pas jouer l'ia
+      if (movesLeft(humanPlayedGame.grid) === 0)         res.send(humanPlayedGame)
+
+        // On calcule l'action de l'IA
+      let iaAction = nextAction(humanPlayedGame);
+      // On applique la fonction de jeu sur l'action de l'IA
+      let iaPlayedGame = play(humanPlayedGame, iaAction);
+
+      // On vérfie si la partie n'est pas finie
+      if (won(game.grid, action.currentPlayer))   game.winner = action.currentPlayer;
+
+      //On renvoie le nouvel état de la partie au client
+      res.send(iaPlayedGame);
+    } else { // Si le move n'est pas possible on renvoie un message d'erreur
+      res.send("ERROR");
+    }
+  }
+
+});
 
 // ------------------------------- LISTEN --------------------------------------
 app.listen(1234, function() {
