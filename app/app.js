@@ -6,17 +6,20 @@ let app = express();
 const Game = require('./public/Game.js');
 const Action = require('./public/Action.js');
 
-const logicfunctions = require('./public/morpion/logic.js');
-const morpion_play = logicfunctions.play;
-const morpion_movePossible = logicfunctions.movePossible;
-const morpion_movesLeft = logicfunctions.gridFreeSpotLeft;
-const morpion_won = logicfunctions.won;
+const logicfunctionsmorpion = require('./public/morpion/logic.js');
+const morpion_play = logicfunctionsmorpion.play;
+const morpion_movePossible = logicfunctionsmorpion.movePossible;
+const morpion_movesLeft = logicfunctionsmorpion.gridFreeSpotLeft;
+const morpion_won = logicfunctionsmorpion.won;
 const morpion_nextAction = require('./public/morpion/morpion_IA.js');
 
 
 const logicfunctionspuissance4 = require('./public/puissance4/logic.js');
 const puissance4_play=logicfunctionspuissance4.play;
 const puissance4_won =logicfunctionspuissance4.winning;
+const puissance4_movePossible = logicfunctionspuissance4.movePossible;
+const puissance4_movesLeft = logicfunctionspuissance4.gridFreeSpotLeft;
+const puissance4_nextAction = require('./public/puissance4/puissance4_IA.js');
 
 
 // ------------------------------ CONFIG SERVER --------------------------------
@@ -53,21 +56,21 @@ app.get('/', function(req, res) {
 
 // ----------------------------- ROUTE GAME ------------------------------------
 app.post('/game', function(req, res) {
-  // Possibilité 1 : création partie (cad un param typeGame dans le body)
+  // Possibilit� 1 : cr�ation partie (cad un param typeGame dans le body)
   if (req.body.typeGame != undefined) {
     let typeGame = req.body.typeGame;
     console.log("TypeGame = " + typeGame);
     let newGame = new Game(typeGame);
     console.log(newGame.toJson());
     res.send(newGame);
-    // Possibilité 2 : jouer dans une partie (cad 2 params game et action ds le body)
+    // Possibilit� 2 : jouer dans une partie (cad 2 params game et action ds le body)
   } else if ((req.body.game != undefined) && (req.body.action != undefined)) {
 
-    // On récupère la game dans un objet
+    // On r�cup�re la game dans un objet
     let game = new Game('');
     game.fromJson(req.body.game);
 
-    // On récupète l'action dans un objet
+    // On r�cup�te l'action dans un objet
     let action = new Action(req.body.action);
 
     let play;
@@ -118,7 +121,6 @@ app.post('/game', function(req, res) {
       res.send("ERROR");
     }
   }
-
 });
 
 // ------------------------------- LISTEN --------------------------------------

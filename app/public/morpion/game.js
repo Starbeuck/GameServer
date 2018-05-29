@@ -43,8 +43,6 @@ canvas.addEventListener("click", function(e) {
     // On envoie l'action faite par le joueur
     action: JSON.stringify(new Action(getActionPlayer(e)))
   }, function(data) {
-    // Quand on recoit la réponse
-
     // Si c'est une erreur
     if (data == "ERROR") {
       console.log('error');
