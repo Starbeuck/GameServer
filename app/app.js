@@ -56,21 +56,21 @@ app.get('/', function(req, res) {
 
 // ----------------------------- ROUTE GAME ------------------------------------
 app.post('/game', function(req, res) {
-  // Possibilité 1 : création partie (cad un param typeGame dans le body)
+  // Possibilit� 1 : cr�ation partie (cad un param typeGame dans le body)
   if (req.body.typeGame != undefined) {
     let typeGame = req.body.typeGame;
     console.log("TypeGame = " + typeGame);
     let newGame = new Game(typeGame);
     console.log(newGame.toJson());
     res.send(newGame);
-    // Possibilité 2 : jouer dans une partie (cad 2 params game et action ds le body)
+    // Possibilit� 2 : jouer dans une partie (cad 2 params game et action ds le body)
   } else if ((req.body.game != undefined) && (req.body.action != undefined)) {
 
-    // On récupère la game dans un objet
+    // On r�cup�re la game dans un objet
     let game = new Game('');
     game.fromJson(req.body.game);
 
-    // On récupète l'action dans un objet
+    // On r�cup�te l'action dans un objet
     let action = new Action(req.body.action);
 
     let play;
