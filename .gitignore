@@ -1,3 +1,5 @@
 /node_modules
+
 *.idea
-/app/public/morpion/bundle_morpion_draw.js
+/app/public/morpion/bundle_morpion_game.js
+/app/public/puissance4/bundle_puissance4_game.js

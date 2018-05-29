@@ -19,14 +19,14 @@
   columns=4;
   huPlayer="X";
   aiPlayer="I";
-  var iter = 0;
+  let iter = 0;
   parent=document.querySelector('#jeu');
-  var board =[];
+  let board =[];
 
   function initBoard(nbcol, nblin){
-    var nbcase= 0;
+    let nbcase= 0;
     this.board.length=nbcol*nblin;
-    for (var i=0; i<this.board.length; i++){
+    for (let i=0; i<this.board.length; i++){
       this.board[i]=i;
     }
 
@@ -37,9 +37,9 @@
    */
   function init() {
 
-   /* var name1= prompt("nom du joueur 1");
+   /* let name1= prompt("nom du joueur 1");
     joueur1=name1;
-    var name2= prompt("nom du joueur2");
+    let name2= prompt("nom du joueur2");
     joueur2=name2;
     window.alert(joueur1 +" commence");
 */
@@ -51,11 +51,11 @@
     t = document.createElement('table');
     t.id = 'plateau';
 
-    for (var i = this.lines - 1; i >= 0; i--) {
-      var tr = document.createElement('tr');
+    for (let i = this.lines - 1; i >= 0; i--) {
+      let tr = document.createElement('tr');
       this.plateau[i] = [];
-      for (var j = 0; j < this.columns; j++) {
-        var td = document.createElement('td');
+      for (let j = 0; j < this.columns; j++) {
+        let td = document.createElement('td');
         td.dataset.column = j;
         tr.appendChild(td);
         this.plateau[i][j] = td;
@@ -86,8 +86,8 @@
     console.log ("joueur à jouer "+(3-this.turn));
 
     // Trouver la première case libre dans la colonne
-    var row;
-    for (var i = 0; i < this.lines; i++) {
+    let row;
+    for (let i = 0; i < this.lines; i++) {
       if (!this.plateau[i][column].className) {
         row = i;
         break;
@@ -104,8 +104,8 @@
    //   console.log(board);
 
   }else{
-    var test=getIndex(board);
-     var index = minimax(board, aiPlayer).index;
+    let test=getIndex(board);
+     let index = minimax(board, aiPlayer).index;
 
 
       this.set(parseInt( index/this.columns),(index%this.columns),2);
@@ -139,7 +139,7 @@
   //le gestionnaire d'événements
  function handler(event) {
 
-    var column = event.target.dataset.column;
+    let column = event.target.dataset.column;
    // console.log("colonne "+column);
     //attention, les variables dans les datasets sont TOUJOURS
     //des chaînes de caractère. Si on veut être sûr de ne pas faire de bêtise,
@@ -159,28 +159,28 @@
  */
   function win(row, column, cname) {
     // Horizontal
-    var count = 0;
-    for (var j = 0; j < this.columns; j++) {
+    let count = 0;
+    for (let j = 0; j < this.columns; j++) {
       count = (this.plateau[row][j].className == cname) ? count+1 : 0;
       if (count >= 4) return true;
     }
     // Vertical
     count = 0;
-    for (var i = 0; i < this.lines; i++) {
+    for (let i = 0; i < this.lines; i++) {
       count = (this.plateau[i][column].className == cname) ? count+1 : 0;
       if (count >= 4) return true;
     }
     // Diagonal
     count = 0;
-    var shift = row - column;
-    for (var i = Math.max(shift, 0); i < Math.min(this.n, this.columns + shift); i++) {
+    let shift = row - column;
+    for (let i = Math.max(shift, 0); i < Math.min(this.n, this.columns + shift); i++) {
       count = (this.plateau[i][i - shift].className == cname) ? count+1 : 0;
       if (count >= 4) return true;
     }
     // Anti-diagonal
     count = 0;
     shift = row + column;
-    for (var i = Math.max(shift - this.columns + 1, 0); i < Math.min(this.lines, shift + 1); i++) {
+    for (let i = Math.max(shift - this.columns + 1, 0); i < Math.min(this.lines, shift + 1); i++) {
       count = (this.plateau[i][shift - i].className == cname) ? count+1 : 0;
       if (count >= 4) return true;
     }
@@ -190,8 +190,8 @@
 
   // Cette fonction vide le plateau et remet à zéro l'état
    function reset() {
-    for (var i = 0; i < this.lines; i++) {
-      for (var j = 0; j < this.columns; j++) {
+    for (let i = 0; i < this.lines; i++) {
+      for (let j = 0; j < this.columns; j++) {
         this.plateau[i][j].className = "";
       }
     }
@@ -226,12 +226,12 @@ function winning(reboard, player) {
 
 
 function getIndex(reboard){
-  var tablibre =[];
+  let tablibre =[];
 //  console.log("tablibre début" +tablibre)
-  var col=0;
+  let col=0;
 
-    for (var col=0; col<this.columns; col++){
-        for (var i = 0; i < this.lines; i++) {
+    for (let col=0; col<this.columns; col++){
+        for (let i = 0; i < this.lines; i++) {
  //    console.log("board initial"+reboard)
 //     console.log("case"+((col*4)+i));
   //   console.log(" classe "+reboard[(col*4+i)])
@@ -265,20 +265,20 @@ function minimax(reboard, player) {
     };
   }
 //console.log(array);
-  var moves = [];
-  for (var i = 0; i < array.length; i++) {
+  let moves = [];
+  for (let i = 0; i < array.length; i++) {
    // console.log("je suis ici "+ i);
-    var move = {};
+    let move = {};
     //donne le numéro de la case en index
     move.index = reboard[array[i]];
     reboard[array[i]] = player;
 //console.log(move);
     if (player == aiPlayer) {
-      var g = minimax(reboard, huPlayer);
+      let g = minimax(reboard, huPlayer);
       move.score = g.score;
       //console.log("je suis la");
     } else {
-      var g = minimax(reboard, aiPlayer);
+      let g = minimax(reboard, aiPlayer);
       move.score = g.score;
       //console.log("ou alors je suis ici");
     }
@@ -286,18 +286,18 @@ function minimax(reboard, player) {
     moves.push(move);
   }
 
-  var bestMove;
+  let bestMove;
   if (player === aiPlayer) {
-    var bestScore = -10000;
-    for (var i = 0; i < moves.length; i++) {
+    let bestScore = -10000;
+    for (let i = 0; i < moves.length; i++) {
       if (moves[i].score > bestScore) {
         bestScore = moves[i].score;
         bestMove = i;
       }
     }
   } else {
-    var bestScore = 10000;
-    for (var i = 0; i < moves.length; i++) {
+    let bestScore = 10000;
+    for (let i = 0; i < moves.length; i++) {
       if (moves[i].score < bestScore) {
         bestScore = moves[i].score;
         bestMove = i;

@@ -1,14 +1,14 @@
 const Game = require('../Game.js');
 const Action = require('../Action.js');
 
-var nextAction =function(game){
-    //var action = new Action('{"x":0, "y":0}');
-    var action = playIA(game, 0);
+let nextAction =function(game){
+    //let action = new Action('{"x":0, "y":0}');
+    let action = playIA(game, 0);
     return action;
 }
 
 function playIA(game, depth) {
-    var max = -10000,
+    let max = -10000,
         tmp,
         maxI,
         maxJ,
@@ -42,7 +42,7 @@ function getMax(game, depth) {
         return computePossibilities(game);
     }
 
-    var max = -10000,
+    let max = -10000,
         i,
         j,
         tmp;
@@ -71,7 +71,7 @@ function getMin(game, depth) {
         return computePossibilities(game);
     }
 
-    var min = 10000,
+    let min = 10000,
         i,
         j,
         tmp;
@@ -97,7 +97,7 @@ function getMin(game, depth) {
 
 //Compte le nombre de séries de n pions alignés de chacun des joueurs
 function nb_series(game, series_j1, series_j2, n) {
-    var count1,
+    let count1,
         count2,
         i,
         j;
@@ -200,7 +200,7 @@ function nb_series(game, series_j1, series_j2, n) {
 }
 
 function computePossibilities(game) {
-    var winner,
+    let winner,
         nbPawn = 0,
         i,
         j;
@@ -225,7 +225,7 @@ function computePossibilities(game) {
     }
 
     //On compte le nombre de séries de 2 pions alignés de chacun des joueurs
-    var series_j1 = 0,
+    let series_j1 = 0,
         series_j2 = 0;
 
     nb_series(game, series_j1, series_j2, 2);
@@ -234,7 +234,7 @@ function computePossibilities(game) {
 }
 
 function getWinner(game) {
-    var i,
+    let i,
         j,
         j1,
         j2;

@@ -1,57 +1,63 @@
+// ----------------------------- IMPORTS ---------------------------------------
+
 const Game = require('../Game.js');
 const Action = require('../Action.js');
 
-var rows = 3;
-var columns = 3;
+// ---------------------------- VARIABLES --------------------------------------
 
-var nextAction = function(game) {
+let rows = 3;
+let columns = 3;
 
-  var grid = convertGrid(game.grid);
-  var action = chooseAction(grid);
+module.exports = nextAction;
+
+function nextAction(game) {
+
+  let grid = convertGrid(game.grid);
+  let action = chooseAction(grid);
 
   console.log("Début IA\nVoici la grille :\n" + game.gridToString());
   console.log("Voici la grille en ligne :\n" + convertGrid(game.grid));
   console.log("Voici les cases vides :\n" + possibleMoves(grid));
   console.log("Voici le choix de l'IA:\n" + action.toString());
   console.log('score moves :\n');
-  var score = scoreMoves(grid, possibleMoves(grid));
+  let score = scoreMoves(grid, possibleMoves(grid));
   console.log(score);
 
   return action
 }
 
-var convertGrid = function(grid) {
-  var newGrid = new Array();
-  for (var i = 0; i < rows; i++) {
-    for (var j = 0; j < columns; j++) {
+let convertGrid = function(grid) {
+  let newGrid = new Array();
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < columns; j++) {
       newGrid.push(grid[i][j]);
     }
   }
   return newGrid;
 }
 
-var convertGridToArray = function(i, j) {
+let convertGridToArray = function(i, j) {
   return ((rows * j) + i);
 }
 
-var convertArrayToGrid = function(i) {
+let convertArrayToGrid = function(i) {
   return [
     Math.trunc(i / rows),
     i % rows
   ];
 }
 
-var possibleMoves = function(grid) {
-  var allPossibleMoves = new Array();
-  for (var i = 0; i < grid.length; i++) {
+let possibleMoves = function(grid) {
+  let allPossibleMoves = new Array();
+  for (let i = 0; i < grid.length; i++) {
     if (grid[i] == 0)
       allPossibleMoves.push(i);
     }
   return allPossibleMoves;
 }
 
-var scoreMoves = function(grid, allPossibleMoves) {
-  var allScores = [
+let scoreMoves = function(grid, allPossibleMoves) {
+  let allScores = [
     0,
     0,
     0,
@@ -76,17 +82,15 @@ var scoreMoves = function(grid, allPossibleMoves) {
 
 }
 
-var winning = function(board, player) {
+let winning = function(board, player) {
   return ((board[0] == player && board[1] == player && board[2] == player)
   || (board[3] == player && board[4] == player && board[5] == player)
   || (board[6] == player && board[7] == player && board[8] == player)
   || (board[0] == player && board[3] == player && board[6] == player) || (board[1] == player && board[4] == player && board[7] == player) || (board[2] == player && board[5] == player && board[8] == player) || (board[0] == player && board[4] == player && board[8] == player) || (board[2] == player && board[4] == player && board[6] == player))
 }
 
-var chooseAction = function(grid) {
-  var move = possibleMoves(grid).pop();
-  var [y, x] = convertArrayToGrid(move);
+let chooseAction = function(grid) {
+  let move = possibleMoves(grid).pop();
+  let [y, x] = convertArrayToGrid(move);
   return new Action('{"x":' + x + ', "y":' + y + ', "currentPlayer":2}')
 }
-
-module.exports = nextAction;

@@ -59,7 +59,7 @@ module.exports = class Game {
   }
 
   fromJson(json) {
-    var parsed = JSON.parse(json);
+    let parsed = JSON.parse(json);
     if (parsed.id != undefined) this.id = parsed.id;
     if (parsed.gameType != undefined) this.gameType = parsed.gameType;
     if (parsed.grid != undefined) this.grid = parsed.grid;
