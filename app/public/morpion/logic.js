@@ -4,7 +4,7 @@ var play = function(game, action) {
   return game;
 }
 
-module.exports = {play, movePossible, won};
+module.exports = {play, movePossible, gridFreeSpotLeft, won};
 
 // -------------------------- ACTIONS FUNCTIONS -------------------------------------
 
@@ -12,6 +12,19 @@ function movePossible(grid, action) {
   var caseOccupee = (grid[action.y][action.x] != 0);
   var caseExistante = (grid[action.y][action.x] != undefined);
   return ((!caseOccupee) && (caseExistante));
+}
+
+
+function gridFreeSpotLeft(grid) {
+    var nbFreeSpot = 0;
+    for(var x=0 ; x<3 ; x++) {
+        for(var y=0 ; y<3 ; y++) {
+            if(grid[x][y] === 0) {
+                nbFreeSpot++;
+            }
+        }
+    }
+    return nbFreeSpot;
 }
 
 function posePion(xMouse, yMouse, currentPlayer, grid) {

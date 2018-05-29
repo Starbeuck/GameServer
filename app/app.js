@@ -8,6 +8,7 @@ const Action = require('./public/Action.js');
 const logicfunctions = require('./public/morpion/logic.js');
 const morpion_play = logicfunctions.play;
 const morpion_movePossible = logicfunctions.movePossible;
+const morpion_movesLeft = logicfunctions.gridFreeSpotLeft;
 const morpion_won = logicfunctions.won;
 const morpion_nextAction = require('./public/morpion/morpion_IA.js');
 
@@ -53,6 +54,16 @@ app.post('/game', function(req, res) {
     var game = new Game('');
     game.fromJson(req.body.game);
     var action = new Action(req.body.action);
+
+    // Traitement cas de fin lorsqu'il n'y a plus qu'une case de libre (impossible pour lIA de jouer)
+
+    if ((morpion_movePossible(game.grid, action)) && (game.winner === 0) && (morpion_movesLeft(game.grid) === 1)) {
+        var humanPlayedGame = morpion_play(game, action);
+        if(morpion_won(game.grid, action.currentPlayer)){
+            game.winner = action.currentPlayer;
+        }
+        res.send(humanPlayedGame);
+    } else
 
     if ((morpion_movePossible(game.grid, action)) && (game.winner == 0)) {
       var humanPlayedGame = morpion_play(game, action);
