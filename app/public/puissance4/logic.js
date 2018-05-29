@@ -16,7 +16,11 @@ let columns=4;
 // -------------------------- ACTIONS FUNCTIONS --------------------------------
 function posePion(xMouse, yMouse, currentPlayer, grid) {
   if (!((grid[((yMouse*columns)+xMouse)]==="X") || (grid[((yMouse*columns)+xMouse)]==="I"))) {
-    grid[((yMouse*columns)+xMouse)] = currentPlayer;
+  	if (currentPlayer==1){
+		grid[((yMouse*columns)+xMouse)] = "X";
+  	}else{
+		grid[((yMouse*columns)+xMouse)] = "I";
+  	}
   }
 }
 function movePossible(grid, action) {

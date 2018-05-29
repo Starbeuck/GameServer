@@ -79,7 +79,7 @@ function drawInitGame() {
 
  t.addEventListener('click', function(e) { 
  	
- 	 $.post("http://localhost:1234/game", {
+ 	$.post("http://localhost:1234/game", {
     // On envoie la game actuelle
     game: JSON.stringify(currentGame.toJson()),
     // On envoie l'action faite par le joueur
