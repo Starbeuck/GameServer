@@ -42,8 +42,6 @@ $('document').ready(function() {
 // -------------------------- INIT FUNCTIONS -------------------------------------
 function drawInitGame() {
 
-    //currentGame = new Game('morpion');
-
     canvas = document.getElementById('myCanvas');
     ctx = canvas.getContext('2d');
 

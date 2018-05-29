@@ -79,7 +79,7 @@ function drawInitGame() {
 
  t.addEventListener('click', function(e) { 
  	
- 	 $.post("http://localhost:1234/game", {
+ 	$.post("http://localhost:1234/game", {
     // On envoie la game actuelle
     game: JSON.stringify(currentGame.toJson()),
     // On envoie l'action faite par le joueur
@@ -97,7 +97,7 @@ function drawInitGame() {
       currentGame.fromJson(JSON.stringify(data));
       // On dessine le nouvel état de la game
       draw(currentGame.grid);
-      console.log(data);
+      console.log(currentGame.toString());
       coups++;
 
       // Si la partie est finie, on  affiche le gagnant
@@ -128,7 +128,7 @@ function getActionPlayer(event) {
     	window.alert("La colonne est pleine!");
     	return;
   	}	
- // 	console.log( "coordonnées pion "+row + " "+column);
+  	console.log( "coordonnées pion "+row + " "+column);
   return '{"x": ' + column + ',"y": ' + row + ',"currentPlayer": 1}';
 }
 
