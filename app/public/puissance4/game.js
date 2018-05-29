@@ -40,7 +40,7 @@ $('document').ready(function() {
   drawInitGame();
   // On envoie une requête de création de partie
   $.post("http://localhost:1234/game", {
-    typeGame: 'puissance4'
+    typeGame: 'puissance4',
   }, function(data) {
     currentGame.fromJson(JSON.stringify(data));
   });
@@ -77,10 +77,12 @@ function drawInitGame() {
   parent.appendChild(t);
 }
 
- t.addEventListener('click', function(e) { 
- 	
+ t.addEventListener('click', function(e) {
+   currentGame.depth = parseInt(document.getElementById('depth_selector').value);
+
  	$.post("http://localhost:1234/game", {
     // On envoie la game actuelle
+
     game: JSON.stringify(currentGame.toJson()),
     // On envoie l'action faite par le joueur
     action: JSON.stringify(new Action(getActionPlayer(e)))
@@ -116,7 +118,7 @@ function drawInitGame() {
 
 function getActionPlayer(event) {
 	var column = event.target.dataset.column;
-	
+
 	var row;
   	for (var i = 0; i < lines; i++) {
     	if (!plateau[i][column].className) {
@@ -127,7 +129,7 @@ function getActionPlayer(event) {
   	if (row === undefined) {
     	window.alert("La colonne est pleine!");
     	return;
-  	}	
+  	}
   	console.log( "coordonnées pion "+row + " "+column);
   return '{"x": ' + column + ',"y": ' + row + ',"currentPlayer": 1}';
 }
@@ -139,7 +141,7 @@ function getActionPlayer(event) {
  			plateau[parseInt( index/columns)][index%columns].className = 'joueur1';
  		}else if (board[i]=="I"){
  			plateau[parseInt( index/columns)][index%columns].className = 'joueur2';
- 		
+
  		}
  	}
 }

@@ -12,7 +12,7 @@ columns = 4;
 huPlayer = "X";
 aiPlayer = "I";
 
-function nextAction(game) {
+function nextAction(game, depth) {
   var test = getIndex(game.grid);
   console.log("cases vides" + test);
   var index = minimax(game.grid, aiPlayer).index;

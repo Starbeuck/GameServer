@@ -5,6 +5,7 @@ module.exports = class Game {
         this.id = randomstring.generate(5);
         this.gameType = gameType;
         this.winner = 0;
+        this.depth = 4;
         switch (gameType) {
             case 'morpion':
                 this.grid = [
@@ -55,7 +56,8 @@ module.exports = class Game {
             "id": this.id,
             "gameType": this.gameType,
             "grid": this.grid,
-            "winner": this.winner
+            "winner": this.winner,
+            "depth": this.depth
         };
     }
 
@@ -64,6 +66,7 @@ module.exports = class Game {
         if (parsed.id != undefined) this.id = parsed.id;
         if (parsed.gameType != undefined) this.gameType = parsed.gameType;
         if (parsed.grid != undefined) this.grid = parsed.grid;
+        if (parsed.depth != undefined) this.depth = parsed.depth;
         if (parsed.winner != undefined) this.winner = parsed.winner;
       }
 

@@ -13,14 +13,12 @@ const morpion_movesLeft = logicfunctionsmorpion.gridFreeSpotLeft;
 const morpion_won = logicfunctionsmorpion.won;
 const morpion_nextAction = require('./public/morpion/morpion_IA.js');
 
-
 const logicfunctionspuissance4 = require('./public/puissance4/logic.js');
-const puissance4_play=logicfunctionspuissance4.play;
-const puissance4_won =logicfunctionspuissance4.winning;
+const puissance4_play = logicfunctionspuissance4.play;
+const puissance4_won = logicfunctionspuissance4.winning;
 const puissance4_movePossible = logicfunctionspuissance4.movePossible;
 const puissance4_movesLeft = logicfunctionspuissance4.gridFreeSpotLeft;
 const puissance4_nextAction = require('./public/puissance4/puissance4_IA.js');
-
 
 // ------------------------------ CONFIG SERVER --------------------------------
 
@@ -58,10 +56,11 @@ app.get('/', function(req, res) {
 app.post('/game', function(req, res) {
   // Possibilit� 1 : cr�ation partie (cad un param typeGame dans le body)
   if (req.body.typeGame != undefined) {
-    let typeGame = req.body.typeGame;
-    console.log("TypeGame = " + typeGame);
-    let newGame = new Game(typeGame);
-    console.log(newGame.toJson());
+
+    let newGame = new Game(req.body.typeGame);
+
+    if ((req.body.typeGame == 'puissance4') && (req.body.depth != undefined)) newGame.depth = req.body.depth;
+
     res.send(newGame);
     // Possibilit� 2 : jouer dans une partie (cad 2 params game et action ds le body)
   } else if ((req.body.game != undefined) && (req.body.action != undefined)) {
@@ -105,15 +104,17 @@ app.post('/game', function(req, res) {
       let humanPlayedGame = play(game, action);
 
       // Si il ne reste plus de move possible, on ne fait pas jouer l'ia
-      if (movesLeft(humanPlayedGame.grid) === 0) res.send(humanPlayedGame)
+      if (movesLeft(humanPlayedGame.grid) === 0)
+        res.send(humanPlayedGame)
 
         // On calcule l'action de l'IA
-      let iaAction = nextAction(humanPlayedGame);
+      let iaAction = nextAction(humanPlayedGame, game.depth);
       // On applique la fonction de jeu sur l'action de l'IA
       let iaPlayedGame = play(humanPlayedGame, iaAction);
 
       // On vérfie si la partie n'est pas finie
-      if (won(game.grid, action.currentPlayer))   game.winner = action.currentPlayer;
+      if (won(game.grid, action.currentPlayer, game.depth))
+        game.winner = action.currentPlayer;
 
       //On renvoie le nouvel état de la partie au client
       res.send(iaPlayedGame);
