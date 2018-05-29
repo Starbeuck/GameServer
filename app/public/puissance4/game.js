@@ -78,7 +78,7 @@ function drawInitGame() {
       currentGame.fromJson(JSON.stringify(data));
       // On dessine le nouvel état de la game
       draw(currentGame.grid);
-    
+
 
       // Si la partie est finie, on  affiche le gagnant
       if(currentGame.winner != 0){
@@ -107,12 +107,7 @@ function getActionPlayer(event) {
   	if (row === undefined) {
     	window.alert("La colonne est pleine!");
     	return;
-<<<<<<< HEAD
   	}
-  	console.log( "coordonnées pion "+row + " "+column);
-=======
-  	}	
->>>>>>> a4038b48619f829d21eadec2b90f970c7acf1e62
   return '{"x": ' + column + ',"y": ' + row + ',"currentPlayer": 1}';
 }
 
@@ -122,13 +117,8 @@ function getActionPlayer(event) {
  		if(board[i]=="X"){
  			plateau[parseInt( i/columns)][i%columns].className = 'joueur1';
  		}else if (board[i]=="I"){
-<<<<<<< HEAD
- 			plateau[parseInt( index/columns)][index%columns].className = 'joueur2';
-
-=======
  			plateau[parseInt( i/columns)][i%columns].className = 'joueur2';
- 		
->>>>>>> a4038b48619f829d21eadec2b90f970c7acf1e62
+
  		}
  	}
 }
