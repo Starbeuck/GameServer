@@ -53,21 +53,21 @@ app.get('/', function(req, res) {
 
 // ----------------------------- ROUTE GAME ------------------------------------
 app.post('/game', function(req, res) {
-  // Possibilité 1 : création partie (cad un param typeGame dans le body)
+  // Possibilitï¿½ 1 : crï¿½ation partie (cad un param typeGame dans le body)
   if (req.body.typeGame != undefined) {
     let typeGame = req.body.typeGame;
     console.log("TypeGame = " + typeGame);
     let newGame = new Game(typeGame);
     console.log(newGame.toJson());
     res.send(newGame);
-    // Possibilité 2 : jouer dans une partie (cad 2 params game et action ds le body)
+    // Possibilitï¿½ 2 : jouer dans une partie (cad 2 params game et action ds le body)
   } else if ((req.body.game != undefined) && (req.body.action != undefined)) {
 
-    // On récupère la game dans un objet
+    // On rï¿½cupï¿½re la game dans un objet
     let game = new Game('');
     game.fromJson(req.body.game);
 
-    // On récupète l'action dans un objet
+    // On rï¿½cupï¿½te l'action dans un objet
     let action = new Action(req.body.action);
 
     let play;
@@ -109,10 +109,10 @@ app.post('/game', function(req, res) {
       // On applique la fonction de jeu sur l'action de l'IA
       let iaPlayedGame = play(humanPlayedGame, iaAction);
 
-      // On vérfie si la partie n'est pas finie
+      // On vÃ©rfie si la partie n'est pas finie
       if (won(game.grid, action.currentPlayer))   game.winner = action.currentPlayer;
 
-      //On renvoie le nouvel état de la partie au client
+      //On renvoie le nouvel Ã©tat de la partie au client
       res.send(iaPlayedGame);
     } else { // Si le move n'est pas possible on renvoie un message d'erreur
       res.send("ERROR");
