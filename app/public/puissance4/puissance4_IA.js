@@ -12,15 +12,15 @@ columns = 4;
 huPlayer = "X";
 aiPlayer = "I";
 
-function nextAction(game) {
+function nextAction(game, depth) {
   var test = getIndex(game.grid);
   console.log("cases vides" + test);
-  var index = minimax(game.grid, aiPlayer).index;
+  var index = minimax(game.grid, aiPlayer,depth).index;
   console.log("index " + index);
-
   let y = (index % columns),
     x = parseInt(index / columns);
-  return new Action('{"x":' + x + ', "y":' + y + ', "currentPlayer":2}');
+
+  return new Action('{"x":' + y + ', "y":' + x + ', "currentPlayer":2}');
 }
 
 function getIndex(reboard) {
@@ -39,15 +39,15 @@ function getIndex(reboard) {
   return tablibre;
 }
 
-function minimax(reboard, player, alpha, beta) {
+function minimax(reboard, player, depth, alpha, beta) {
   //iter++;
   //récupération des cases vides remplissables
   let array = getIndex(reboard);
 
   //vérifie si un des joueurs à gagné ou si tie
-  if (winning(reboard, huPlayer)) {
+  if (winning(reboard, huPlayer,depth)) {
     return {score: -10};
-  } else if (winning(reboard, aiPlayer)) {
+  } else if (winning(reboard, aiPlayer, depth)) {
     return {score: 10};
   } else if (array.length === 0) {
     return {score: 0};
@@ -66,7 +66,7 @@ function minimax(reboard, player, alpha, beta) {
     //on change temporairement la valeur de la case pour récursion sur les autres cases
     reboard[array[i]] = player;
     //appel récurssif sur les autres cases
-    var g = minimin(reboard, huPlayer, alpha, beta);
+    var g = minimin(reboard, huPlayer, depth-1, alpha, beta);
     move.score = g.score;
 
     //si la case a un meilleur score alors on garde son score et son indice
@@ -86,12 +86,12 @@ function minimax(reboard, player, alpha, beta) {
 }
 
 //appel à cette fonction pour jour l'humain
-function minimin(reboard, player, alpha, beta) {
+function minimin(reboard, player, depth, alpha, beta) {
   //iter++;
   let array = getIndex(reboard);
-  if (winning(reboard, huPlayer)) {
+  if (winning(reboard, huPlayer, depth)) {
     return {score: -10};
-  } else if (winning(reboard, aiPlayer)) {
+  } else if (winning(reboard, aiPlayer, depth)) {
     return {score: 10};
   } else if (array.length === 0) {
     return {score: 0};
@@ -106,7 +106,7 @@ function minimin(reboard, player, alpha, beta) {
     var move = {};
     move.index = reboard[array[i]];
     reboard[array[i]] = player;
-    var g = minimax(reboard, aiPlayer, alpha, beta);
+    var g = minimax(reboard, aiPlayer, depth-1, alpha, beta);
     move.score = g.score;
 
     if (bestScore.index == null || g.score < bestScore.score) {
@@ -122,7 +122,7 @@ function minimin(reboard, player, alpha, beta) {
 }
 
 // winning combinations
-function winning(reboard, player) {
+function winning(reboard, player, depth) {
 // console.log("je suis la");
 if (
   (reboard[0]==player && reboard[5]==player && reboard[10]==player && reboard[15]==player )||
@@ -134,8 +134,8 @@ if (
   (reboard[0]==player && reboard[4]==player && reboard[8]==player && reboard[12]==player )||
   (reboard[1]==player && reboard[5]==player && reboard[9]==player && reboard[13]==player)||
   (reboard[2]==player && reboard[6]==player && reboard[10]==player && reboard[14]==player)||
-  (reboard[3]==player && reboard[7]==player && reboard[11]==player && reboard[15]==player)
-//encore des lignes
+  (reboard[3]==player && reboard[7]==player && reboard[11]==player && reboard[15]==player)||
+  depth==0//encore des lignes
   ) {
   return true;
 } else {

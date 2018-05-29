@@ -11,23 +11,13 @@ let plateau= [];
 //nuùéro du joueur qui joue
 let turn= 1;
 
-/* un entier:
-   0: la partie continue
-   -1: la partie est nulle
-   1: joueur 1 a gagné
-   2: joueur 2 a gagné
- */
-let game_status= 0;
-// Nombre de coups joués
-let coups= 0;
 // Nombre de lignes 6
 let lines= 4;
 // Nombre de colonnes 7
 let columns=4;
 const huPlayer="X";
 const aiPlayer="I";
-let iter = 0;
- const parent=document.querySelector('#jeu');
+const parent=document.querySelector('#jeu');
 let board =[];
  const t = document.createElement('table');
   t.id = 'plateau';
@@ -49,19 +39,8 @@ $('document').ready(function() {
 
 
 // -------------------------- INIT FUNCTIONS -------------------------------------
-function initBoard(nbcol, nblin){
-  var nbcase= 0;
-  board.length=nbcol*nblin;
-  for (var i=0; i<board.length; i++){
-    board[i]=i;
-  }
-
-}
 
 function drawInitGame() {
-	//initialisation du board de l'ia
-  initBoard(columns, lines);
-
   //création du plateau de jeu
   for (var i = lines - 1; i >= 0; i--) {
     var tr = document.createElement('tr');
@@ -97,8 +76,7 @@ function drawInitGame() {
       currentGame.fromJson(JSON.stringify(data));
       // On dessine le nouvel état de la game
       draw(currentGame.grid);
-      console.log(currentGame.toString());
-      coups++;
+    
 
       // Si la partie est finie, on  affiche le gagnant
       if(currentGame.winner != 0){
@@ -128,7 +106,6 @@ function getActionPlayer(event) {
     	window.alert("La colonne est pleine!");
     	return;
   	}	
-  	console.log( "coordonnées pion "+row + " "+column);
   return '{"x": ' + column + ',"y": ' + row + ',"currentPlayer": 1}';
 }
 
@@ -136,9 +113,9 @@ function getActionPlayer(event) {
  function draw(board) {
  	for (var i=0; i<board.length; i++){
  		if(board[i]=="X"){
- 			plateau[parseInt( index/columns)][index%columns].className = 'joueur1';
+ 			plateau[parseInt( i/columns)][i%columns].className = 'joueur1';
  		}else if (board[i]=="I"){
- 			plateau[parseInt( index/columns)][index%columns].className = 'joueur2';
+ 			plateau[parseInt( i/columns)][i%columns].className = 'joueur2';
  		
  		}
  	}
