@@ -1,3 +1,5 @@
+'use strict';
+
 // -------------------------- PLAY FUNCTION ------------------------------------
 let play = function(game, action) {
   posePion(action.x, action.y, action.currentPlayer, game.grid);
