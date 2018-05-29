@@ -1,5 +1,11 @@
+// -------------------------- IMPORTS ------------------------------------------
+
 const Game = require('../Game.js');
 const Action = require('../Action.js');
+
+module.exports = nextAction;
+
+// ------------------------ VARIABLES GLOBALES ---------------------------------
 
 let board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 let huPlayer = "P";
@@ -25,7 +31,7 @@ function convertBoard(grid) {
     }
 }
 
-let nextAction = function(game){
+function nextAction(game){
 
     convertBoard(game.grid);
     let index = minimax(board, 'C').index;
@@ -168,5 +174,3 @@ function winning(board, player) {
         return false;
     }
 }
-
-module.exports = nextAction;
