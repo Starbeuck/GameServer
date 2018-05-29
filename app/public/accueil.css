@@ -154,20 +154,8 @@ h1, h2, h3, h4, h5, h6, figure {
   }
 }
 
-img {
-  width: 100%;
-  height: auto;
-}
-
-
 .header {
   padding-bottom: 5%;
   padding-top: 5%;
 }
 
-.conteneur {
-  width: 100%;
-  margin: 0;
-  padding-right: 5%;
-  padding-left: 5%;
-}
