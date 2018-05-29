@@ -105,7 +105,7 @@ app.post('/game', function(req, res) {
       let humanPlayedGame = play(game, action);
 
       // Si il ne reste plus de move possible, on ne fait pas jouer l'ia
-      if (movesLeft(humanPlayedGame.grid) === 0)         res.send(humanPlayedGame)
+      if (movesLeft(humanPlayedGame.grid) === 0)  res.send(humanPlayedGame)
 
         // On calcule l'action de l'IA
       let iaAction = nextAction(humanPlayedGame);
