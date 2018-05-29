@@ -1,3 +1,5 @@
+'use strict';
+
 const randomstring = require("randomstring");
 
 module.exports = class Game {
