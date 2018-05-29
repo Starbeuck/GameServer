@@ -12,6 +12,9 @@ const morpion_movesLeft = logicfunctions.gridFreeSpotLeft;
 const morpion_won = logicfunctions.won;
 const morpion_nextAction = require('./public/morpion/morpion_IA.js');
 
+// ------------------------------ VARIABLES ------------------------------------
+
+
 // ------------------------------ CONFIG SERVER --------------------------------
 
 // get response from client
