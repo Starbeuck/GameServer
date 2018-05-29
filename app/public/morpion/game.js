@@ -24,6 +24,7 @@ let joueurCour = 1; // joueur reel = 1 ; IA = 2
 
 // Chargement de la page -> création game
 $('document').ready(function() {
+  console.log('loaded');
   // On dessine le canvas vide
   drawInitGame();
   // On envoie une requête de création de partie

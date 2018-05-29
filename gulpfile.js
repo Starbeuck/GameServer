@@ -32,7 +32,7 @@ gulp.task('webserver','lance le front', function(cb) {
   connect.server({root: 'app/public/', livereload: true});
 })
 
-gulp.task('server', 'lance le serveur - en cours', function(cb) {
+gulp.task('server', 'lance le serveur', function(cb) {
   let child = exec('node app/app.js', function(err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
