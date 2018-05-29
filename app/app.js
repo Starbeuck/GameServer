@@ -12,10 +12,6 @@ const morpion_movesLeft = logicfunctions.gridFreeSpotLeft;
 const morpion_won = logicfunctions.won;
 const morpion_nextAction = require('./public/morpion/morpion_IA.js');
 
-// ------------------------------ VARIABLES ------------------------------------
-
-let allGames = [];
-
 // ------------------------------ CONFIG SERVER --------------------------------
 
 // get response from client
@@ -66,7 +62,6 @@ app.post('/game', function(req, res) {
     let typeGame = req.body.typeGame;
     console.log("TypeGame = " + typeGame);
     let newGame = new Game(typeGame);
-    allGames.push(newGame);
     console.log(newGame.toJson());
     res.send(newGame);
     // Possibilité 2 : jouer dans une partie (cad 2 params game et action ds le body)
@@ -106,21 +101,6 @@ app.post('/game', function(req, res) {
     } else{       // Si le move n'est pas possible on renvoie un message d'erreur
       res.send("ERROR");
     }
-  }
-});
-
-// -------------------------------- ROUTE IDGAME -------------------------------
-
-app.post('/idGame', function(req, res) {
-  if (req.body.idGame != undefined) {
-    let idGame = req.body.idGame;
-    let thisGame;
-    for (let i = 0; i < allGames.length; i++) {
-      if (allGames[i].id == idGame) {
-        thisGame = allGames[i];
-      };
-    };
-    res.send(thisGame);
   }
 });
 
