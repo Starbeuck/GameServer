@@ -50,7 +50,6 @@ module.exports = class Game {
         return string;
     }
 
-<<<<<<< HEAD
     toJson() {
         return {
             "id": this.id,
@@ -60,22 +59,13 @@ module.exports = class Game {
         };
     }
 
-    fromJson(json) {
-        var parsed = JSON.parse(json);
+      fromJson(json) {
+        let parsed = JSON.parse(json);
         if (parsed.id != undefined) this.id = parsed.id;
         if (parsed.gameType != undefined) this.gameType = parsed.gameType;
         if (parsed.grid != undefined) this.grid = parsed.grid;
         if (parsed.winner != undefined) this.winner = parsed.winner;
-    }
-=======
-  fromJson(json) {
-    let parsed = JSON.parse(json);
-    if (parsed.id != undefined) this.id = parsed.id;
-    if (parsed.gameType != undefined) this.gameType = parsed.gameType;
-    if (parsed.grid != undefined) this.grid = parsed.grid;
-    if (parsed.winner != undefined) this.winner = parsed.winner;
-  }
->>>>>>> f9ec3e16d18af1ae8af21ba78efc624d8f49e631
+      }
 
     gridToString() {
         let boardString = '- - - - - - - -\n';

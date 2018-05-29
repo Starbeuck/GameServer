@@ -6,8 +6,6 @@ let huPlayer = "P";
 let aiPlayer = "C";
 let iter = 0;
 let round = 0;
-let aiCo = "white";
-let huCo = "#333";
 let nbCol = 3;
 let nbLi = 3;
 
