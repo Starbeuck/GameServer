@@ -39,6 +39,18 @@ $('document').ready(function() {
     });
 });
 
+function winner(){
+  if(currentGame.winner == 1){
+      window.confirm("joueur " + 1 + " a gagné");
+  }
+  else if (currentGame.winner == 2){
+      window.confirm("L'ordinateur a gagné :(");
+  }
+  else if (currentGame.winner == 3){
+    alert("Match nul !");
+  }
+}
+
 // -------------------------- INIT FUNCTIONS -------------------------------------
 function drawInitGame() {
 
@@ -49,6 +61,7 @@ function drawInitGame() {
     canvas.height = height;
 
     ctx.fillStyle = '#F0F0F0'; // set canvas' background color
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillRect(0, 0, canvas.width, canvas.height); // now fill the canvas
     let x,
         y;
@@ -95,18 +108,10 @@ function onClick(e) {
             draw(currentGame.grid);
 
             // Si la partie est finie, on  affiche le gagnant
-            if(currentGame.winner != 0){
-                if(currentGame.winner == 1){
-                    alert("joueur " + 1 + " a gagné");
-                }
-                else{
-                    alert("L'ordinateur a gagné :(");
-                }
-            }
-        }
+            winner();
+          }
     });
 }
-
 // -------------------------- DRAW FUNCTIONS -------------------------------------
 function draw(grid) {
     console.log('je dessine la grille : ', grid);

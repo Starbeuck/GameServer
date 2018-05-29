@@ -106,19 +106,21 @@ app.post('/game', function(req, res) {
 
       // Si il ne reste plus de move possible, on ne fait pas jouer l'ia
       if (movesLeft(humanPlayedGame.grid) === 0)  res.send(humanPlayedGame)
-
+      if (won(game.grid, 1))   game.winner = 1;
         // On calcule l'action de l'IA
       let iaAction = nextAction(humanPlayedGame);
       // On applique la fonction de jeu sur l'action de l'IA
       let iaPlayedGame = play(humanPlayedGame, iaAction);
 
       // On vérfie si la partie n'est pas finie
-      if (won(game.grid, action.currentPlayer))   game.winner = action.currentPlayer;
+      if (won(game.grid, 2))   game.winner = 2;
 
       //On renvoie le nouvel état de la partie au client
       res.send(iaPlayedGame);
-    } else { // Si le move n'est pas possible on renvoie un message d'erreur
-      res.send("ERROR");
+    } else if (!movePossible(game.grid, action)){
+      // Si le move n'est pas possible on renvoie un message d'erreur
+      game.winner = 3;
+      res.send(game);
     }
   }
 });
