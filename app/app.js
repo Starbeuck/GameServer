@@ -6,17 +6,20 @@ let app = express();
 const Game = require('./public/Game.js');
 const Action = require('./public/Action.js');
 
-const logicfunctions = require('./public/morpion/logic.js');
-const morpion_play = logicfunctions.play;
-const morpion_movePossible = logicfunctions.movePossible;
-const morpion_movesLeft = logicfunctions.gridFreeSpotLeft;
-const morpion_won = logicfunctions.won;
+const logicfunctionsmorpion = require('./public/morpion/logic.js');
+const morpion_play = logicfunctionsmorpion.play;
+const morpion_movePossible = logicfunctionsmorpion.movePossible;
+const morpion_movesLeft = logicfunctionsmorpion.gridFreeSpotLeft;
+const morpion_won = logicfunctionsmorpion.won;
 const morpion_nextAction = require('./public/morpion/morpion_IA.js');
 
 
 const logicfunctionspuissance4 = require('./public/puissance4/logic.js');
 const puissance4_play=logicfunctionspuissance4.play;
 const puissance4_won =logicfunctionspuissance4.winning;
+const puissance4_movePossible = logicfunctionspuissance4.movePossible;
+const puissance4_movesLeft = logicfunctionspuissance4.gridFreeSpotLeft;
+const puissance4_nextAction = require('./public/puissance4/puissance4_IA.js');
 
 
 // ------------------------------ CONFIG SERVER --------------------------------
@@ -118,7 +121,6 @@ app.post('/game', function(req, res) {
       res.send("ERROR");
     }
   }
-
 });
 
 // ------------------------------- LISTEN --------------------------------------
