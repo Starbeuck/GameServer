@@ -22,6 +22,7 @@ let joueurCour = 1; // joueur reel = 1 ; IA = 2
 
 // ---------------------- INITIALISATION EVENTS --------------------------------
 
+// Chargement de la page -> création game
 $('document').ready(function() {
   // On dessine le canvas vide
   drawInitGame();
@@ -33,18 +34,28 @@ $('document').ready(function() {
   });
 });
 
+// Click sur une case -> envoi de l'action
 canvas.addEventListener("click", function(e) {
-  console.log(getActionPlayer(e));
   $.post("http://localhost:1234/game", {
+    // On envoie la game actuelle
     game: JSON.stringify(currentGame.toJson()),
+    // On envoie l'action faite par le joueur
     action: JSON.stringify(new Action(getActionPlayer(e)))
   }, function(data) {
+    // Quand on recoit la réponse
+
+    // Si c'est une erreur
     if (data == "ERROR") {
       console.log('error');
     }
     else {
+
+      // On a recu le nouvel état de la game qu'on stocke dans la variable
       currentGame.fromJson(JSON.stringify(data));
+      // On dessine le nouvel état de la game
       draw(currentGame.grid);
+
+      // Si la partie est finie, on  affiche le gagnant
       if(currentGame.winner != 0){
         if(currentGame.winner == 1){
           alert("joueur " + 1 + " a gagné");
