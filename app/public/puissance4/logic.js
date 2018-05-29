@@ -31,13 +31,8 @@ let columns = 4;
 
 // -------------------------- ACTIONS FUNCTIONS --------------------------------
 function posePion(xMouse, yMouse, currentPlayer, grid) {
-<<<<<<< HEAD
-  if (!((grid[((yMouse * columns) + xMouse)] === "X") || (grid[((yMouse * columns) + xMouse)] === "I"))) {
-    grid[((yMouse * columns) + xMouse)] = currentPlayer;
-=======
   if (!((grid[((yMouse*columns)+xMouse)]==="X") || (grid[((yMouse*columns)+xMouse)]==="I"))) {
     grid[((yMouse*columns)+xMouse)] = currentPlayer;
->>>>>>> 59d11b5fad0915160b19809b012cbb4957839995
   }
 }
 
