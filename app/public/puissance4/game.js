@@ -12,9 +12,9 @@ let plateau= [];
 let turn= 1;
 
 // Nombre de lignes 6
-let lines= 4;
+let lines= 6;
 // Nombre de colonnes 7
-let columns=4;
+let columns=7;
 const huPlayer="X";
 const aiPlayer="I";
 const parent=document.querySelector('#jeu');
@@ -107,12 +107,8 @@ function getActionPlayer(event) {
   	if (row === undefined) {
     	window.alert("La colonne est pleine!");
     	return;
-<<<<<<< HEAD
-  	}
-  	console.log( "coordonnées pion "+row + " "+column);
-=======
+
   	}	
->>>>>>> a4038b48619f829d21eadec2b90f970c7acf1e62
   return '{"x": ' + column + ',"y": ' + row + ',"currentPlayer": 1}';
 }
 
@@ -122,13 +118,10 @@ function getActionPlayer(event) {
  		if(board[i]=="X"){
  			plateau[parseInt( i/columns)][i%columns].className = 'joueur1';
  		}else if (board[i]=="I"){
-<<<<<<< HEAD
- 			plateau[parseInt( index/columns)][index%columns].className = 'joueur2';
 
-=======
  			plateau[parseInt( i/columns)][i%columns].className = 'joueur2';
  		
->>>>>>> a4038b48619f829d21eadec2b90f970c7acf1e62
+
  		}
  	}
 }
