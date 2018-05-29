@@ -13,6 +13,12 @@ const morpion_movesLeft = logicfunctions.gridFreeSpotLeft;
 const morpion_won = logicfunctions.won;
 const morpion_nextAction = require('./public/morpion/morpion_IA.js');
 
+
+const logicfunctionspuissance4 = require('./public/puissance4/logic.js');
+const puissance4_play=logicfunctionspuissance4.play;
+const puissance4_won =logicfunctionspuissance4.winning;
+
+
 // ------------------------------ CONFIG SERVER --------------------------------
 
 // get response from client
