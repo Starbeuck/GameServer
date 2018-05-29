@@ -11,16 +11,21 @@ module.exports = {
   winning
 };
 
-function movePossible(grid, action) {
-  return true;
+function movePossible(grid, action) { 
+	let caseOccupee = ((grid[(action.y*columns+action.x)] ==="X") || (grid[(action.y*columns+action.x)] ==="I") );
+  	let caseExistante = (grid[(action.y*columns+action.x)] != undefined);
+  	return ((!caseOccupee) && (caseExistante));
 }
 
 function gridFreeSpotLeft(grid) {
-  return 1;
+	var nbFreeSpot = 0;
+	for(var x=0; x<grid.length; x++){
+		if (grid[x]!="X" && grid[x]!="I"){
+			nbFreeSpot++;
+		}
+	}
+	return nbFreeSpot;
 }
-
-
-
 
 
 // -------------------------- GAME VARIABLES -----------------------------------
@@ -42,18 +47,13 @@ function posePion(xMouse, yMouse, currentPlayer, grid) {
 
  }
 }
-function movePossible(grid, action) {
-	return true;
-}
-function gridFreeSpotLeft(grid) {
-	return 2;
-}
+
 
 
 // -------------------------- RULE WINNING FUNCTIONS ---------------------------
 
 // winning combinations
-function winning(reboard, player) {
+function winning(reboard, player, depth) {
   // console.log("je suis la");
   return ((reboard[0] == player && reboard[5] == player && reboard[10] == player && reboard[15] == player)
   || (reboard[12] == player && reboard[9] == player && reboard[6] == player && reboard[3] == player)
@@ -64,6 +64,7 @@ function winning(reboard, player) {
   || (reboard[0] == player && reboard[4] == player && reboard[8] == player && reboard[12] == player)
   || (reboard[1] == player && reboard[5] == player && reboard[9] == player && reboard[13] == player)
   || (reboard[2] == player && reboard[6] == player && reboard[10] == player && reboard[14] == player)
-  || (reboard[3] == player && reboard[7] == player && reboard[11] == player && reboard[15] == player))
+  || (reboard[3] == player && reboard[7] == player && reboard[11] == player && reboard[15] == player)
+  || depth == 0)
 
 }
