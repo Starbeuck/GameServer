@@ -13,9 +13,9 @@ game_status= 0;
 // Nombre de coups joués
 coups= 0;
 // Nombre de lignes 6
-lines= 4;
+lines= 6;
 // Nombre de colonnes 7
-columns=4;
+columns=7;
 huPlayer="X";
 aiPlayer="I";
 var iter = 0;
@@ -144,27 +144,32 @@ function win(row, column, cname) {
   // Horizontal
   var count = 0;
   for (var j = 0; j < this.columns; j++) {
-    count = (this.plateau[row][j].className == cname) ? count+1 : 0;
+    if(his.plateau[row][j].className == cname){
+      count++;
+    }
     if (count >= 4) return true;
   }
   // Vertical
   count = 0;
   for (var i = 0; i < this.lines; i++) {
-    count = (this.plateau[i][column].className == cname) ? count+1 : 0;
+    if(this.plateau[i][column].className == cname) {
+     count++;
     if (count >= 4) return true;
   }
   // Diagonal
   count = 0;
   var shift = row - column;
   for (var i = Math.max(shift, 0); i < Math.min(this.n, this.columns + shift); i++) {
-    count = (this.plateau[i][i - shift].className == cname) ? count+1 : 0;
+    if(this.plateau[i][i - shift].className == cname) {
+      count++;
     if (count >= 4) return true;
   }
   // Anti-diagonal
   count = 0;
   shift = row + column;
   for (var i = Math.max(shift - this.columns + 1, 0); i < Math.min(this.lines, shift + 1); i++) {
-    count = (this.plateau[i][shift - i].className == cname) ? count+1 : 0;
+    if(this.plateau[i][shift - i].className == cname) {
+      count++;
     if (count >= 4) return true;
   }
 

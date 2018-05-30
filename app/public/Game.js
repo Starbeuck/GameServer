@@ -24,7 +24,7 @@ module.exports = class Game {
         break;
       case 'puissance4':
         this.grid = new Array();
-        for (var i = 0; i < 42; i++) {
+        for (var i = 0; i < 16; i++) {
           this.grid.push(i);
         }
       break;
