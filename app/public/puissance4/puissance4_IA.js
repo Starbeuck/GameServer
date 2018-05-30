@@ -9,7 +9,7 @@ module.exports = nextAction;
 // ------------------------ letIABLES GLOBALES ---------------------------------
 let lines = 4;
 // Nombre de colonnes 7
-columns = 4;
+let columns = 4;
 let iterations;
 let huPlayer = "X";
 let aiPlayer = "I";
