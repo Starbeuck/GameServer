@@ -41,3 +41,5 @@ Ouvrir localhost:8080 pour visualiser le morpion ou bien utiliser postman pour r
 * Alpha Beta Pruning
 1. https://en.wikipedia.org/wiki/Alpha%E2%80%93beta_pruning
 
+# Crédits
+https://codepen.io/defeo/pen/emPevV

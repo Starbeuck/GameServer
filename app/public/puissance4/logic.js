@@ -11,7 +11,7 @@ module.exports = {
   winning
 };
 
-function movePossible(grid, action) { 
+function movePossible(grid, action) {
 	let caseOccupee = ((grid[(action.y*columns+action.x)] ==="X") || (grid[(action.y*columns+action.x)] ==="I") );
   	let caseExistante = (grid[(action.y*columns+action.x)] != undefined);
   	return ((!caseOccupee) && (caseExistante));
@@ -82,7 +82,6 @@ function winning(reboard, player, depth) {
 }
 
 function winningCol(reboard, player){
-
   for (var col=0; col<columns; col++){
     for (var lin=0; lin<(lines-3); lin++){
       if(reboard[(lin*columns)+col]==player  && reboard[(lin+1)*columns +col]==player  && reboard[(lin+2)*columns+col]==player && reboard[(lin+3)*columns+col]==player){
@@ -91,6 +90,7 @@ function winningCol(reboard, player){
     }
   }
   return false;
+
 }
 
 function winningLines(reboard, player){
@@ -125,3 +125,4 @@ function winningDiagInv(reboard, player){
   }
   return false; 
 }
+
