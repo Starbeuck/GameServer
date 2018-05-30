@@ -104,6 +104,11 @@ app.post('/game', function(req, res) {
       // On applique la fonction de jeu sur l'action du joueur
       let humanPlayedGame = play(game, action);
 
+ if (won(humanPlayedGame.grid, 1)){
+          humanPlayedGame.winner = 1;
+        
+        res.send(humanPlayedGame);}
+      
       // Si il ne reste plus de move possible, on ne fait pas jouer l'ia
       if (movesLeft(humanPlayedGame.grid) === 0){
         if (won(humanPlayedGame.grid, 1)){

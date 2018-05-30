@@ -13,9 +13,9 @@ let plateau= [];
 let turn= 1;
 
 // Nombre de lignes 6
-let lines= 4;
+let lines= 6;
 // Nombre de colonnes 7
-let columns=4;
+let columns=7;
 const huPlayer="X";
 const aiPlayer="I";
 const parent=document.querySelector('#jeu');
