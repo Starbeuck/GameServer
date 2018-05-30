@@ -4,18 +4,18 @@ Projet d'intégration de deux jeux (Morpion et Puissance 4) avec IA dans un serv
 
 Made by Sophy BRUNOY, Hugues CONNAN, Faustine GODBILLOT, Louis BOUREAU et Solenn KEROULLAS, ESIR2 - Systèmes d'Information.
 
-# Qu'est-ce que GameServer ? 
+# Qu'est-ce que GameServer ?
 
-Il s'agit d'une plateforme de jeux comprenant un Morpion et un Puissance 4, où le joueur se mesure à une IA (Intelligence Artificielle). L'objectif pour les développeurs était surtout le développement de cette IA, plus que la réalisation des jeux. Pour ce faire, les algorithmes utilisées ont été celui du MinMax et du Alpha Beta Pruning. 
+Il s'agit d'une plateforme de jeux comprenant un Morpion et un Puissance 4, où le joueur se mesure à une IA (Intelligence Artificielle). L'objectif pour les développeurs était surtout le développement de cette IA, plus que la réalisation des jeux. Pour ce faire, les algorithmes utilisées ont été celui du MinMax et du Alpha Beta Pruning.
 
 ## Fonctionnalités supportées
 Sur cette plateforme, il est possible de joueur soit au Morpion, soit au Puissance 4. Une fois avoir sélectionné le jeu, le joueur joue tout seul contre l'ordinateur.
 
 ## Fonctionnalités à développer
-La première fonctionnalité à développer est le mode 2 joueurs sur 2 machines différentes. La deuxième et dernière fonctionnalité à développer est proposer à l'utilisateur 3 niveaux (facile, moyen et difficile) de difficulté de l'IA.
+La première fonctionnalité à développer est le mode 2 joueurs sur 2 machines différentes. La deuxième et dernière fonctionnalité à développer est de proposer à l'utilisateur 3 niveaux (facile, moyen et difficile) de difficulté de l'IA.
 
 # Solution proposée
-Pour répondre à ce besoin, nous avons choisi de créer un serveur, qui est chargé de gérer l'IA et ses calculs, ainsi que les différentes routes au sein de notre GameServer. Concernant la partie front-end, nous avons une page par jeu, qui récupère l'évènement du joueur (un clic etc.) et qui l'envoie au serveur, avant de recevoir la réponse de l'IA. 
+Pour répondre à ce besoin, nous avons choisi de créer un serveur, qui est chargé de gérer l'IA et ses calculs, ainsi que les différentes routes au sein de notre GameServer. Concernant la partie front-end, nous avons une page par jeu, qui récupère l'évènement du joueur (un clic etc.) et qui l'envoie au serveur, avant de recevoir la réponse de l'IA.
 
 # Déploiement du GameServer
 L'un des objectifs était de pouvoir déployer notre GameServer sur une machine virtuelle de l'Université afin de pouvoir présenter l'application lors des portes ouvertes de l'école. Il était donc primordial que le GameServer puisse se déployer rapidement sur toute machine virtuelle, indépendamment de celle-ci.
@@ -28,11 +28,10 @@ Une fois le repo git clone sur une VM, merci de lancer le script ScriptLaunchGam
 * Dans une console :
 ```
 gulp
-
 ```
-Ouvrir localhost:8080 pour visualiser le morpion ou bien utiliser postman pour requêter le back-end sur localhost:1234/game. 
+Ouvrir ```localhost:8080 ``` pour visualiser le front-end. Le back-end est requêtable a l'adresse ``` localhost:1234 ```
 
-# Annexes 
+# Annexes
 * Algorithme MinMax
 
 1. https://en.wikipedia.org/wiki/Minimax
