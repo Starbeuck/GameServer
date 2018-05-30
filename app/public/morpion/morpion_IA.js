@@ -8,7 +8,7 @@ module.exports = nextAction;
 
 // ------------------------ VARIABLES GLOBALES ---------------------------------
 
-let board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+let board;
 let huPlayer = "P";
 let aiPlayer = "C";
 let iter = 0;
@@ -30,7 +30,7 @@ function convertBoard(grid) {
 }
 
 function nextAction(game, depth){
-
+    board = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     convertBoard(game.grid);
     let index = minimax(board, aiPlayer).index;
     console.log("index : "+index);

@@ -34,7 +34,7 @@ app.use('/boostrap', express.static(__dirname + '/boostrap'));
 // Add headers
 app.use(function(req, res, next) {
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+  res.setHeader('Access-Control-Allow-Origin', 'http://0.0.0.0:8080');
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // Request headers you wish to allow
@@ -106,7 +106,12 @@ app.post('/game', function(req, res) {
 
       // Si il ne reste plus de move possible, on ne fait pas jouer l'ia
       if (movesLeft(humanPlayedGame.grid) === 0)  res.send(humanPlayedGame)
-      if (won(humanPlayedGame.grid, 1))   humanPlayedGame.winner = 1;
+
+      if (won(humanPlayedGame.grid, 1))  {
+       humanPlayedGame.winner = 1; 
+       res.send(humanPlayedGame);
+     }
+
         // On calcule l'action de l'IA
       let iaAction = nextAction(humanPlayedGame, game.depth);
       // On applique la fonction de jeu sur l'action de l'IA
