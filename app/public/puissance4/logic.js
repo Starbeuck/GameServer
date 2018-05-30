@@ -13,7 +13,7 @@ module.exports = {
   winning
 };
 
-function movePossible(grid, action) { 
+function movePossible(grid, action) {
 	let caseOccupee = ((grid[(action.y*columns+action.x)] ==="X") || (grid[(action.y*columns+action.x)] ==="I") );
   	let caseExistante = (grid[(action.y*columns+action.x)] != undefined);
   	return ((!caseOccupee) && (caseExistante));
@@ -71,8 +71,8 @@ function winningCol(reboard, player){
 
 	for (var col=0; col<columns; col++){
 		for (var lin=0; lin<(lines-3); lin++){
-			if(reboard[(lin*columns)+col)]==player  && reboard[(lin+1)*columns +col]==player  && reboard[(lin+2)*columns+col]==player && reboard[(lin+3)*columns+col]==player){
-				return true; 
+			if(reboard[(lin*columns)+col]==player  && reboard[(lin+1)*columns +col]==player  && reboard[(lin+2)*columns+col]==player && reboard[(lin+3)*columns+col]==player){
+				return true;
 			}
 		}
 	}
@@ -95,10 +95,10 @@ function winningDiag(reboard, player){
 		for(var lin=0; lin<(lines-3); lin++){
 			if( reboard[(lin*columns)+col]==player && reboard[((lin+1)*columns)+col+1]==player && reboard[((lin+2)*columns)+col+2]==player && reboard[((lin+3)*columns)+col+3]==player){
 				return true;
-			}	
+			}
 		}
 	}
-	return false; 
+	return false;
 }
 
 function winningDiagInv(reboard, player){
@@ -109,5 +109,5 @@ function winningDiagInv(reboard, player){
 			}
 		}
 	}
-	return false; 
+	return false;
 }
