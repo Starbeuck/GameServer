@@ -45,3 +45,5 @@ Quand un joueur joue, il clique sur la case (pour le Morpion) ou la colonne (pou
 
 # Cadre de production
 Pour développer notre GameServer, nous avons développé sur des IDE comme Atom, Brackets ou encore SublimeText.
+
+Concernant la livraison du projet, nous avons fait un script dans le repo git. Il suffit de clone le repo et de lancer le script pour que le serveur de jeu se lance, sur une vm ubuntu par exemple.
