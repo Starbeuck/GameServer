@@ -1,4 +1,4 @@
-'use strict';
+"use strict"
 // -------------------------- IMPORTS ------------------------------------------
 
 const Game = require('../Game.js');
@@ -6,19 +6,25 @@ const Action = require('../Action.js');
 
 module.exports = nextAction;
 
-// ------------------------ VARIABLES GLOBALES ---------------------------------
-
-var lines = 4;
+// ------------------------ letIABLES GLOBALES ---------------------------------
+let lines = 4;
 // Nombre de colonnes 7
-var columns = 4;
-var huPlayer = "X";
-var aiPlayer = "I";
+let columns = 4;
+let iterations;
+let huPlayer = "X";
+let aiPlayer = "I";
+let prof=4;
 
 function nextAction(game, depth) {
-  var test = getIndex(game.grid);
+  //console.log("profondeur"+depth);
+  iterations =0;
+
+  let test = getIndex(game.grid);
   console.log("cases vides" + test);
-  var index = minimax(game.grid, aiPlayer,depth).index;
+  //console.log("grille"+game.grid);
+  let index = minimax(game.grid, aiPlayer,depth).index;
   console.log("index " + index);
+  console.log(iterations);
   let y = (index % columns),
     x = parseInt(index / columns);
 
@@ -26,12 +32,12 @@ function nextAction(game, depth) {
 }
 
 function getIndex(reboard) {
-  var tablibre = [];
-  var col = 0;
+  let tablibre = [];
+  let col = 0;
 
   //parcours les colonnes et regarde la première case vide en partant du bas
-  for (var col = 0; col < columns; col++) {
-    for (var i = 0; i < lines; i++) {
+  for (let col = 0; col < columns; col++) {
+    for (let i = 0; i < lines; i++) {
       if (!((reboard[((i * columns) + col)] === "X") || (reboard[((i * columns) + col)] === "I"))) {
         tablibre.push((i * columns) + col);
         break;
@@ -45,7 +51,10 @@ function minimax(reboard, player, depth, alpha, beta) {
   //iter++;
   //récupération des cases vides remplissables
   let array = getIndex(reboard);
-
+ // console.log("j'arrive icii");
+ // console.log(huPlayer);
+  //console.log("coucou" + winning(reboard, huPlayer,depth));
+  //console.log(winning(reboard, aiPlayer, depth));
   //vérifie si un des joueurs à gagné ou si tie
   if (winning(reboard, huPlayer,depth)) {
     return {score: -10};
@@ -56,21 +65,22 @@ function minimax(reboard, player, depth, alpha, beta) {
   }
 
   //initialisation d'un objet pour trouver le meilleur move
-  var bestScore = {};
+  let bestScore = {};
   bestScore.index = null;
-  bestScore.score = -99999;
+  bestScore.score = (-99999);
 
   //parcours des cases vides
-  for (var i = 0; i < array.length; i++) {
-    var move = {};
+  for (let i = 0; i < array.length; i++) {
+    let move = {};
     //on met l'index de la case en cours de vérif
     move.index = reboard[array[i]];
     //on change temporairement la valeur de la case pour récursion sur les autres cases
     reboard[array[i]] = player;
     //appel récurssif sur les autres cases
-    var g = minimin(reboard, huPlayer, depth-1, alpha, beta);
+    //console.log("je suis passé par ici");
+    let g = minimin(reboard, huPlayer, (depth -1), alpha, beta);
     move.score = g.score;
-
+    iterations++;
     //si la case a un meilleur score alors on garde son score et son indice
     if (bestScore.index == null || g.score > bestScore.score) {
       bestScore.index = move.index;
@@ -80,8 +90,7 @@ function minimax(reboard, player, depth, alpha, beta) {
     reboard[array[i]] = move.index;
 
     //pour réduire l'arbre de proba
-    if (alpha >= beta)
-      return g;
+    if (alpha >= beta) return bestScore;
 
     }
   return bestScore;
@@ -90,6 +99,7 @@ function minimax(reboard, player, depth, alpha, beta) {
 //appel à cette fonction pour jour l'humain
 function minimin(reboard, player, depth, alpha, beta) {
   //iter++;
+ // console.log("je suis repassés par la");
   let array = getIndex(reboard);
   if (winning(reboard, huPlayer, depth)) {
     return {score: -10};
@@ -99,17 +109,18 @@ function minimin(reboard, player, depth, alpha, beta) {
     return {score: 0};
   }
 
-  var bestScore = {};
+  let bestScore = {};
   bestScore.index = null;
   bestScore.score = 99999;
 
-  for (var i = 0; i < array.length; i++) {
+  for (let i = 0; i < array.length; i++) {
 
-    var move = {};
+    let move = {};
     move.index = reboard[array[i]];
     reboard[array[i]] = player;
-    var g = minimax(reboard, aiPlayer, depth-1, alpha, beta);
+    let g = minimax(reboard, aiPlayer,depth , alpha, beta);
     move.score = g.score;
+    iterations++;
 
     if (bestScore.index == null || g.score < bestScore.score) {
       bestScore.index = move.index;
@@ -117,27 +128,35 @@ function minimin(reboard, player, depth, alpha, beta) {
       beta = g.score;
     }
     reboard[array[i]] = move.index;
-    if (alpha >= beta)
-      return g;
+    if (alpha >= beta) return bestScore;
     }
   return bestScore;
 }
 
 // winning combinations
-
 function winning(reboard, player, depth) {
   // console.log("je suis la");
 
-  return (winningCol(reboard,joueur) || winningLines(reboard, joueur) || winningDiagInv(reboard, joueur) || winningDiag(reboard, joueur) || depth == 0);
+ let joueur ="";
+  if(player =="X" ){
+  joueur="X";
+  }else{
+  joueur="I";
+  }
+return (winningCol(reboard,joueur) || winningLines(reboard, joueur) || winningDiagInv(reboard, joueur) || winningDiag(reboard, joueur) || depth == 0);
+
 
 }
 
 function winningCol(reboard, player){
+//console.log("je suis passé par le winning col à l'entrée");
+  for (let col=0; col<columns; col++){
+    for (let lin=0; lin<(lines-3); lin++){
 
-  for (var col=0; col<columns; col++){
-    for (var lin=0; lin<(lines-3); lin++){
+    //  console.log("je suis passé par la boucle du winningCol");
       if(reboard[(lin*columns)+col]==player  && reboard[(lin+1)*columns +col]==player  && reboard[(lin+2)*columns+col]==player && reboard[(lin+3)*columns+col]==player){
         return true;
+
       }
     }
   }
@@ -145,9 +164,10 @@ function winningCol(reboard, player){
 }
 
 function winningLines(reboard, player){
-  for (var lin=0; lin<lines; lin++){
-    for(var col=0; col<(columns-3); col++){
-      if(reboard[lin*columns+col]==player && reboard[(lin*columns)+col+1]==player && reboard[(lin*columns)+col+2]==player && reboard[(lin*columns)+col+3]== player){
+  for (let lin=0; lin<lines; lin++){
+    for(let col=0; col<(columns-3); col++){
+      if(reboard[lin*columns+col]==player && reboard[(lin*columns)+col+1]==player && reboard[(lin*columns)+col+2]==player && reboard[(lin*columns)+col+3]==player){
+     //  console.log("coucou je suis dans les lignes et c'est un oui");
         return true;
       }
     }
@@ -156,8 +176,8 @@ function winningLines(reboard, player){
 }
 
 function winningDiag(reboard, player){
-  for(var col=0; col<(columns-3); col++){
-    for(var lin=0; lin<(lines-3); lin++){
+  for(let col=0; col<(columns-3); col++){
+    for(let lin=0; lin<(lines-3); lin++){
       if( reboard[(lin*columns)+col]==player && reboard[((lin+1)*columns)+col+1]==player && reboard[((lin+2)*columns)+col+2]==player && reboard[((lin+3)*columns)+col+3]==player){
         return true;
       }
@@ -167,9 +187,9 @@ function winningDiag(reboard, player){
 }
 
 function winningDiagInv(reboard, player){
-  for(var col=0; col<(columns-3);col++){
-    for(var lin=(lines-1);lin>(lines-4);lin--){
-      if(reboard[(lines*columns)+col]==player && reboard[((lines-1)*columns)+col+1]==player && reboard[((lines-2)*columns)+col+2]==player && reboard[((lines-3)*columns)+col+3]==player){
+  for(let col=0; col<(columns-3);col++){
+    for(let lin=(lines-1);lin>(lines-4);lin--){
+      if(reboard[(lin*columns)+col]==player && reboard[((lin-1)*columns)+col+1]==player && reboard[((lin-2)*columns)+col+2]==player && reboard[((lin-3)*columns)+col+3]==player){
         return true;
       }
     }

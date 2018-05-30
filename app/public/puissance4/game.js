@@ -1,3 +1,4 @@
+"use strict"
 // -------------------------- IMPORTS ------------------------------------------
 
 const Game = require('../Game.js');
@@ -12,9 +13,9 @@ let plateau= [];
 let turn= 1;
 
 // Nombre de lignes 6
-let lines= 6;
+let lines= 4;
 // Nombre de colonnes 7
-let columns=7;
+let columns=4;
 const huPlayer="X";
 const aiPlayer="I";
 const parent=document.querySelector('#jeu');
