@@ -1,11 +1,14 @@
 # Principe de mise en oeuvre de la solution
 
-Pour ce projet, nous avons créé un serveur hébergeant les jeux Morpion et Puissance 4. Ce serveur est réalisé en Node.js. Il est accessible sur le localhost:1234.
-Ces jeux sont accessibles à partir du localhost:8080. Une fois avoir choisi l'un des deux jeux, le joueur joue contre une IA Ces deux jeux sont réalisés en javascript.
+Pour ce projet, nous avons créé un serveur hébergeant les jeux Morpion et Puissance 4. Ce serveur est réalisé en Node.js. Il est accessible sur le localhost:1234. Etant donné que nous utilisons Gulp en amont pour automatiser certaines tâches, le site se trouve sur un port différent, qui est le localhost:8080. Une fois avoir choisi l'un des deux jeux, le joueur joue contre une IA Ces deux jeux sont réalisés en JavaScript.
 
 # Règles d'architecture
 
-Faustine Solenn TODO
+Notre serveur étant en NodeJS, certaines règles d'architecture étaient à respecter. Notre serveur se trouve dans le fichier app.js, qui contient les routes définies mais aussi les interactions à avoir, lors d'appels de méthodes par le front. Pour que le serveur puisse avoir accès aux autres fichiers, ceux-ci doivent être dans un dossier au même niveau que le app.js.
+
+Dans ce dossier public, nous avons choisi un rangement par jeux plutôt que par fonctionnalités, dans un soucis de meilleur répartition du travail. 
+
+Le fonctionnement plus détaillé du projet se trouve dans les parties suivantes. 
 
 # Modèle statique
 
@@ -22,7 +25,7 @@ Faustine Solenn TODO
 	
 * Package
 
-Un package Morpion, un package Puissance 4 et un package image qui contient toutes les images du projet
+Un package Morpion, un package Puissance 4 et un package image qui contient toutes les images du projet.
 
 * Package Morpion et Puissance 4
 
