@@ -131,6 +131,6 @@ app.post('/game', function(req, res) {
 });
 
 // ------------------------------- LISTEN --------------------------------------
-app.listen(1234, function() {
+app.listen(8080, function() {
   console.log("Started on PORT 1234");
 })
