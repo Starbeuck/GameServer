@@ -1,3 +1,5 @@
+"use strict"
+
 // -------------------------- PLAY FUNCTION ------------------------------------
 let play = function(game, action) {
   posePion(action.x, action.y, action.currentPlayer, game.grid);
@@ -85,7 +87,7 @@ function winningCol(reboard, player){
   for (var col=0; col<columns; col++){
     for (var lin=0; lin<(lines-3); lin++){
       if(reboard[(lin*columns)+col]==player  && reboard[(lin+1)*columns +col]==player  && reboard[(lin+2)*columns+col]==player && reboard[(lin+3)*columns+col]==player){
-        return true; 
+        return true;
       }
     }
   }
@@ -109,10 +111,10 @@ function winningDiag(reboard, player){
     for(var lin=0; lin<(lines-3); lin++){
       if( reboard[(lin*columns)+col]==player && reboard[((lin+1)*columns)+col+1]==player && reboard[((lin+2)*columns)+col+2]==player && reboard[((lin+3)*columns)+col+3]==player){
         return true;
-      } 
+      }
     }
   }
-  return false; 
+  return false;
 }
 
 function winningDiagInv(reboard, player){
@@ -123,6 +125,5 @@ function winningDiagInv(reboard, player){
       }
     }
   }
-  return false; 
+  return false;
 }
-
