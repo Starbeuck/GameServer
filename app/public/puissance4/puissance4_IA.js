@@ -56,9 +56,9 @@ function minimax(reboard, player, depth, alpha, beta) {
   //console.log(winning(reboard, aiPlayer, depth));
   //vérifie si un des joueurs à gagné ou si tie
   if (winning(reboard, huPlayer,depth)) {
-    return {score: -10};
+    return {score: -100000};
   } else if (winning(reboard, aiPlayer, depth)) {
-    return {score: 10};
+    return {score: 10000};
   } else if (array.length === 0) {
     return {score: 0};
   }
