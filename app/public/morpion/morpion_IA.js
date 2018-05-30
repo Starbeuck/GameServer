@@ -38,9 +38,6 @@ function nextAction(game, depth){
     let y = (index%nbCol),
         x = parseInt(index/nbCol);
 
-    console.log("x : "+x);
-    console.log("y : "+y);
-
     return new Action('{"x":'+x+', "y":'+y+', "currentPlayer":2}');
 }
 

@@ -8,11 +8,12 @@ const Action = require('../Action.js');
 //let currentGame = new Game('morpion');
 let currentGame;
 
+let joue;
 //const canvas = document.getElementById('myCanvas');
 //const ctx = canvas.getContext('2d');
 
-var canvas;
-var ctx;
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
 
 let width = 600;
 let height = 600;
@@ -25,6 +26,18 @@ let caseSize = width / 3;
 let joueurCour = 1; // joueur reel = 1 ; IA = 2
 
 // ---------------------- INITIALISATION EVENTS --------------------------------
+
+function restart() {
+  currentGame = new Game('morpion');
+  // On dessine le canvas vide
+  drawInitGame();
+  // On envoie une requête de création de partie
+  $.post("http://localhost:1234/game", {
+      typeGame: 'morpion'
+  }, function(data) {
+      currentGame.fromJson(JSON.stringify(data));
+  });
+}
 
 // Chargement de la page -> création game
 $('document').ready(function() {
@@ -41,21 +54,24 @@ $('document').ready(function() {
 
 function winner(){
   if(currentGame.winner == 1){
-      window.confirm("joueur " + 1 + " a gagné");
+      if(confirm('joueur 1 a gagné')){
+        restart();
+      }
   }
   else if (currentGame.winner == 2){
-      window.confirm("L'ordinateur a gagné :(");
+      if(confirm("L'ordinateur a gagné :(")){
+        restart();
+      }
   }
   else if (currentGame.winner == 3){
-    alert("Match nul !");
+      if(confirm("Match nul !")){
+        restart();
+      }
   }
 }
 
 // -------------------------- INIT FUNCTIONS -------------------------------------
 function drawInitGame() {
-
-    canvas = document.getElementById('myCanvas');
-    ctx = canvas.getContext('2d');
 
     canvas.width = width;
     canvas.height = height;
@@ -88,6 +104,7 @@ function drawInitGame() {
 // Click sur une case -> envoi de l'action
 //canvas.addEventListener("click", function(e) {
 function onClick(e) {
+    if(currentGame.winner == 0){
     $.post("http://localhost:1234/game", {
         // On envoie la game actuelle
         game: JSON.stringify(currentGame.toJson()),
@@ -106,15 +123,18 @@ function onClick(e) {
             currentGame.fromJson(JSON.stringify(data));
             // On dessine le nouvel état de la game
             draw(currentGame.grid);
-
             // Si la partie est finie, on  affiche le gagnant
-            winner();
+            setTimeout(() => {winner();}, 200);
           }
     });
+}else{
+  winner();
 }
+}
+
 // -------------------------- DRAW FUNCTIONS -------------------------------------
 function draw(grid) {
-    console.log('je dessine la grille : ', grid);
+    console.log('la grille : ', grid);
 
     ctx.lineWidth = "5";
     let startCircleX = width / 6;
