@@ -1,3 +1,4 @@
+"use strict"
 // -------------------------- IMPORTS ------------------------------------------
 
 const Game = require('../Game.js');
@@ -12,7 +13,7 @@ columns = 4;
 var iterations;
 huPlayer = "X";
 aiPlayer = "I";
-var prof=4; 
+var prof=4;
 
 function nextAction(game, depth) {
   //console.log("profondeur"+depth);
@@ -154,7 +155,7 @@ function winningCol(reboard, player){
 
     //  console.log("je suis passé par la boucle du winningCol");
       if(reboard[(lin*columns)+col]==player  && reboard[(lin+1)*columns +col]==player  && reboard[(lin+2)*columns+col]==player && reboard[(lin+3)*columns+col]==player){
-        return true; 
+        return true;
 
       }
     }
