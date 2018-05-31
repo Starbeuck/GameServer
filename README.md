@@ -15,14 +15,14 @@ Sur cette plateforme, il est possible de joueur soit au Morpion, soit au Puissan
 La première fonctionnalité à développer est le mode 2 joueurs sur 2 machines différentes. La deuxième et dernière fonctionnalité à développer est de proposer à l'utilisateur 3 niveaux (facile, moyen et difficile) de difficulté de l'IA.
 
 # Solution proposée
-Pour répondre à ce besoin, nous avons choisi de créer un serveur, qui est chargé de gérer l'IA et ses calculs, ainsi que les différentes routes au sein de notre GameServer. Concernant la partie front-end, nous avons une page par jeu, qui récupère l'évènement du joueur (un clic etc.) et qui l'envoie au serveur, avant de recevoir la réponse de l'IA.
+Pour répondre à ce besoin, nous avons choisi de créer un serveur, qui est chargé de gérer l'IA et ses calculs, ainsi que les différentes routes au sein de notre GameServer. Concernant la partie front-end, nous avons une page par jeu, qui récupère l'évènement du joueur (un clic etc.) et qui l'envoie au serveur pour que celui-ci puisse traiter l'action et également générer et renvoyer la réponse de l'IA.
 
 # Déploiement du GameServer
 L'un des objectifs était de pouvoir déployer notre GameServer sur une machine virtuelle de l'Université afin de pouvoir présenter l'application lors des portes ouvertes de l'école. Il était donc primordial que le GameServer puisse se déployer rapidement sur toute machine virtuelle, indépendamment de celle-ci.
 
 ## Lancer le server de jeu pour jouer
 
-Une fois le repo git clone sur une VM, merci de lancer le script ScriptLaunchGameServer. Une fois terminé, le site sera disponible sur l'adresse suivante : VMHOST:8080.
+Une fois le repo git clone sur une VM, merci de lancer le script ScriptLaunchGameServer. Une fois terminé, le site sera disponible sur Google Chrome à l'adresse suivante : VMHOST:8080.
 
 ## Lancer le server en tant que développeur
 * Dans une console :
@@ -42,3 +42,4 @@ Ouvrir ```localhost:8080 ``` pour visualiser le front-end. Le back-end est requ�
 
 # Crédits
 https://codepen.io/defeo/pen/emPevV
+https://github.com/Gimu/connect-four-js

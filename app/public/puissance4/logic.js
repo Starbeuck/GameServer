@@ -32,9 +32,9 @@ function gridFreeSpotLeft(grid) {
 
 // -------------------------- GAME VARIABLES -----------------------------------
 // Nombre de lignes 6
-let lines = 4;
+let lines = 6;
 // Nombre de colonnes 7
-let columns = 4;
+let columns = 7;
 
 // -------------------------- ACTIONS FUNCTIONS --------------------------------
 function posePion(xMouse, yMouse, currentPlayer, grid) {
@@ -46,6 +46,7 @@ function posePion(xMouse, yMouse, currentPlayer, grid) {
   	}else{
 		grid[((yMouse*columns)+xMouse)] = "I";
   	}
+   // console.log(grid);
 
  }
 }
@@ -57,16 +58,74 @@ function posePion(xMouse, yMouse, currentPlayer, grid) {
 // winning combinations
 /*function winning(reboard, player, depth) {
   // console.log("je suis la");
-  return ((reboard[0] == player && reboard[5] == player && reboard[10] == player && reboard[15] == player)
-  || (reboard[12] == player && reboard[9] == player && reboard[6] == player && reboard[3] == player)
-  || (reboard[0] == player && reboard[1] == player && reboard[2] == player && reboard[3] == player)
-  || (reboard[4] == player && reboard[5] == player && reboard[6] == player && reboard[7] == player)
-  || (reboard[8] == player && reboard[9] == player && reboard[10] == player && reboard[11] == player)
-  || (reboard[12] == player && reboard[13] == player && reboard[14] == player && reboard[15] == player)
-  || (reboard[0] == player && reboard[4] == player && reboard[8] == player && reboard[12] == player)
-  || (reboard[1] == player && reboard[5] == player && reboard[9] == player && reboard[13] == player)
-  || (reboard[2] == player && reboard[6] == player && reboard[10] == player && reboard[14] == player)
-  || (reboard[3] == player && reboard[7] == player && reboard[11] == player && reboard[15] == player)
+  var joueur ="";
+  if(player ==1 ){
+  joueur="X";
+  }else{
+  joueur="I";
+  }
+  console.log("joueur a gagné "+(reboard[0] == joueur && reboard[5] == joueur && reboard[10] == joueur && reboard[15] == joueur)
+  || (reboard[12] == joueur && reboard[9] == joueur && reboard[6] == joueur && reboard[3] == joueur)
+  || (reboard[0] == joueur && reboard[1] == joueur && reboard[2] == joueur && reboard[3] == joueur)
+  || (reboard[4] == joueur && reboard[5] == joueur && reboard[6] == joueur && reboard[7] == joueur)
+  || (reboard[8] == joueur && reboard[9] == joueur && reboard[10] == joueur && reboard[11] == joueur)
+  || (reboard[12] == joueur && reboard[13] == joueur && reboard[14] == joueur && reboard[15] == joueur)
+  || (reboard[0] == joueur && reboard[4] == joueur && reboard[8] == joueur && reboard[12] == joueur)
+  || (reboard[1] == joueur && reboard[5] == joueur && reboard[9] == joueur && reboard[13] == joueur)
+  || (reboard[2] == joueur && reboard[6] == joueur && reboard[10] == joueur && reboard[14] == joueur)
+  || (reboard[3] == joueur && reboard[7] == joueur && reboard[11] == joueur && reboard[15] == joueur)
+  || depth == 0);
+  return ((reboard[0] == joueur && reboard[5] == joueur && reboard[10] == joueur && reboard[15] == joueur)
+  || (reboard[12] == joueur && reboard[9] == joueur && reboard[6] == joueur && reboard[3] == joueur)
+  || (reboard[0] == joueur && reboard[1] == joueur && reboard[2] == joueur && reboard[3] == joueur)
+  || (reboard[4] == joueur && reboard[5] == joueur && reboard[6] == joueur && reboard[7] == joueur)
+  || (reboard[8] == joueur && reboard[9] == joueur && reboard[10] == joueur && reboard[11] == joueur)
+  || (reboard[12] == joueur && reboard[13] == joueur && reboard[14] == joueur && reboard[15] == joueur)
+  || (reboard[0] == joueur && reboard[4] == joueur && reboard[8] == joueur && reboard[12] == joueur)
+  || (reboard[1] == joueur && reboard[5] == joueur && reboard[9] == joueur && reboard[13] == joueur)
+  || (reboard[2] == joueur && reboard[6] == joueur && reboard[10] == joueur && reboard[14] == joueur)
+  || (reboard[3] == joueur && reboard[7] == joueur && reboard[11] == joueur && reboard[15] == joueur)
+  || depth == 0)
+
+}
+*/
+// winning combinations
+/*function winning(reboard, player, depth) {
+  // console.log("je suis la");
+  var joueur ="";
+  if(player ==1 ){
+  joueur="X";
+  }else{
+  joueur="I";
+  }
+  return ((reboard[0] == joueur && reboard[5] == joueur && reboard[10] == joueur && reboard[15] == joueur)
+    ||(reboard[5] == joueur && reboard[10] == joueur && reboard[15] == joueur && reboard[20] == joueur)
+    ||(reboard[1] == joueur && reboard[6] == joueur && reboard[11] == joueur && reboard[16] == joueur)
+    ||(reboard[6] == joueur && reboard[11] == joueur && reboard[16] == joueur && reboard[21] == joueur)
+    ||(reboard[2] == joueur && reboard[7] == joueur && reboard[12] == joueur && reboard[17] == joueur)
+    ||(reboard[7] == joueur && reboard[12] == joueur && reboard[17] == joueur && reboard[22] == joueur)
+    ||(reboard[3] == joueur && reboard[8] == joueur && reboard[13] == joueur && reboard[18] == joueur)
+    ||(reboard[8] == joueur && reboard[13] == joueur && reboard[18] == joueur && reboard[23] == joueur)
+    ||(reboard[4] == joueur && reboard[9] == joueur && reboard[14] == joueur && reboard[19] == joueur)
+    ||(reboard[9] == joueur && reboard[14] == joueur && reboard[19] == joueur && reboard[24] == joueur) 
+    ||(reboard[20] == joueur && reboard[21] == joueur && reboard[22] == joueur && reboard[23] == joueur)
+    ||(reboard[21] == joueur && reboard[22] == joueur && reboard[23] == joueur && reboard[24] == joueur)
+    ||(reboard[15] == joueur && reboard[16] == joueur && reboard[17] == joueur && reboard[18] == joueur)
+    ||(reboard[16] == joueur && reboard[17] == joueur && reboard[18] == joueur && reboard[19] == joueur)
+    ||(reboard[10] == joueur && reboard[11] == joueur && reboard[12] == joueur && reboard[13] == joueur)
+    ||(reboard[11] == joueur && reboard[12] == joueur && reboard[13] == joueur && reboard[14] == joueur)
+    ||(reboard[5] == joueur && reboard[6] == joueur && reboard[7] == joueur && reboard[8] == joueur)
+    ||(reboard[6] == joueur && reboard[7] == joueur && reboard[8] == joueur && reboard[9] == joueur)
+    ||(reboard[0] == joueur && reboard[1] == joueur && reboard[2] == joueur && reboard[3] == joueur)
+    ||(reboard[1] == joueur && reboard[2] == joueur && reboard[3] == joueur && reboard[4] == joueur)
+    ||(reboard[15] == joueur && reboard[11] == joueur && reboard[7] == joueur && reboard[3] == joueur)
+    ||(reboard[20] == joueur && reboard[16] == joueur && reboard[12] == joueur && reboard[8] == joueur)
+    ||(reboard[16] == joueur && reboard[12] == joueur && reboard[8] == joueur && reboard[4] == joueur)
+    ||(reboard[21] == joueur && reboard[17] == joueur && reboard[13] == joueur && reboard[9] == joueur)
+    ||(reboard[1] == joueur && reboard[7] == joueur && reboard[13] == joueur && reboard[19] == joueur)
+    ||(reboard[0] == joueur && reboard[6] == joueur && reboard[12] == joueur && reboard[18] == joueur)
+    ||(reboard[6] == joueur && reboard[12] == joueur && reboard[18] == joueur && reboard[24] == joueur)
+    ||(reboard[5] == joueur && reboard[11] == joueur && reboard[17] == joueur && reboard[23] == joueur) 
   || depth == 0)
 
 }*/
