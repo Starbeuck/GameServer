@@ -17,3 +17,4 @@ Ce qu'il reste a faire ?
 
 Les elements facilitant les evolutions :
 L'architecture choisie permet d'implementer plus ou moins facilement le mode deux joueurs avec la creation de rooms.
+Pour la modulabilité de la grille, nous avons mis en variable globale de chaque document le nombre de lignes et de colonnes du puissance 4. Il serait donc facilement possible de moduler la taille de la grille avec un bouton. 
