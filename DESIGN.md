@@ -6,9 +6,9 @@ Pour ce projet, nous avons créé un serveur hébergeant les jeux Morpion et Pui
 
 Notre serveur étant en NodeJS, certaines règles d'architecture étaient à respecter. Notre serveur se trouve dans le fichier app.js, qui contient les routes définies mais aussi les interactions à avoir, lors d'appels de méthodes par le front. Pour que le serveur puisse avoir accès aux autres fichiers, ceux-ci doivent être dans un dossier au même niveau que le app.js.
 
-Dans ce dossier public, nous avons choisi un rangement par jeux plutôt que par fonctionnalités, dans un soucis de meilleur répartition du travail. 
+Dans ce dossier public, nous avons choisi un rangement par jeux plutôt que par fonctionnalités, dans un soucis de meilleur répartition du travail.
 
-Le fonctionnement plus détaillé du projet se trouve dans les parties suivantes. 
+Le fonctionnement plus détaillé du projet se trouve dans les parties suivantes.
 
 # Modèle statique
 
@@ -22,7 +22,7 @@ Le fonctionnement plus détaillé du projet se trouve dans les parties suivantes
 	2.2. Id du jeu
 	2.3. Grille du jeu
 	2.3. Vainqueur du jeu
-	
+
 * Package
 
 Un package Morpion, un package Puissance 4 et un package image qui contient toutes les images du projet.
@@ -37,13 +37,15 @@ Un package Morpion, un package Puissance 4 et un package image qui contient tout
 
 # Modèle dynamique
 
-Quand un joueur joue, il clique sur la case (pour le Morpion) ou la colonne (pour le Puissance 4) où il souhaite jouer. Un objet Game qui contient l'état actuel du jeu et un objet Action contenant l'action que le joueur souhaite jouer sont envoyés en requête POST au serveur. Ce dernier reçoit la requête avec son contenu. Le serveur appelle ensuite la fonction play() du fichier logic.js pourque l'action du joueur soit effective si cela est possible. Ensuite, l'IA joue si elle peut encore jouer. A chaque requête, nous effectuons également une vérification pour savoir si le joueur ou l'IA a gagné. Dans ce cas, nous modifions l'attribut Game.winner. Enfin, après avoir fait tout cela, nous renvoyons au front un objet Game avec les actions jouées par le joueur et/ou l'IA. Le front reçoit l'objet Game et appelle la fonction draw() afin de pouvoir dessiner le nouvel état du jeu.
+Quand un joueur joue, il clique sur la case (pour le Morpion) ou la colonne (pour le Puissance 4) où il souhaite jouer. A partir de ces événements le client calcule l'action que le joueur veut effectuer (sous la forme de coordonnées (x, y)) en utilisant les fonctions du fichier game.js. Un objet Game qui contient l'état actuel du jeu et un objet Action contenant l'action que le joueur souhaite jouer sont envoyés dans une  requête POST au serveur. Ce dernier reçoit la requête avec son contenu. Le serveur appelle ensuite la fonction play() du fichier logic.js pou rque l'action du joueur soit effective si cela est possible. Ensuite, l'IA joue si elle peut encore jouer. A chaque requête, nous effectuons également une vérification pour savoir si le joueur ou l'IA a gagné. Dans ce cas, nous modifions l'attribut Game.winner. Enfin, après avoir fait tout cela, nous renvoyons au front un objet Game qui a pris en compte les actions jouées par le joueur et/ou l'IA. Le front reçoit l'objet Game et appelle la fonction draw() afin de pouvoir dessiner le nouvel état du jeu.
 
 # Explication de la prise en compte des contraintes d'analyse
 
-???
+La première contrainte que nous avons pris en compte était le déploiement sur une machine facilement et rapidement. L'utilisation de github et de gulp facilite cette tâche en réduisant le déploiement à quelques lignes de commande. Nous n'avons pas utilisé dans ce projet toutes les fonctionnalités de gulp, et une des pistes d'amélioration aurait justement été d'ajouter des tests, par exemple. Une autre piste d'amélioration dans ce domaine aurait été l'utilisation de Docker.
+
+Nous devions implémenter des jeux comprenant des IA. Pour cela nous avons créé un morpion utilisant uniquement l'algorithme minmax. Le puissance 4 contenant plus de cases, nous avons ajouté à l'algorithme minmax le alpha béta pruning ce qui permettait de limiter les sous arbres de décision. En plus de cela nous avons géré la profondeur de recherche dans le jeu(le nombre de coups ajouté avant de prendre une décision) puisque même si le alpha bêta pruning diminue l'arbre de recherche, les cases étant tellement nombreuses, il fallait également limiter la profondeur pour que l'IA n'essaye pas de jouer jusqu'à ce qu'il n'y ait plus aucune case vide. 
 
 # Cadre de production
 Pour développer notre GameServer, nous avons développé sur des IDE comme Atom, Brackets ou encore SublimeText.
-
-Concernant la livraison du projet, nous avons fait un script dans le repo git. Il suffit de clone le repo et de lancer le script pour que le serveur de jeu se lance, sur une vm ubuntu par exemple.
+Concernant la livraison du projet, nous avons fait un script dans le repo git. Il suffit de clone le repository et de lancer le script pour que le serveur de jeu se lance, sur une vm ubuntu par exemple.
+Nous avons utilisé gulp pour le déploiement du projet, notamment pour traiter les fichiers game.js qui importaient d'autres fichiers (Game.js et Action.js) en utilisant "require", une fonctionnalité de nodeJS. En utilisant un module "browserify", les instruction "require" sont remplacées par le contenu du fichier, et le bundle produit peut être inclus dans un fichier html.

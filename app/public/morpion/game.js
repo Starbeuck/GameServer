@@ -120,7 +120,7 @@ function onClick(e) {
         else {
 
             // On a recu le nouvel état de la game qu'on stocke dans la variable
-            currentGame.fromJson(JSON.stringify(data[0]));
+            currentGame.fromJson(JSON.stringify(data));
             // On dessine le nouvel état de la game
             draw(currentGame.grid);
             // Si la partie est finie, on  affiche le gagnant

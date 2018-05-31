@@ -11,7 +11,6 @@ module.exports = nextAction;
 let board;
 let huPlayer = "P";
 let aiPlayer = "C";
-let iter = 0;
 let nbCol = 3;
 let nbLi = 3;
 
@@ -38,11 +37,10 @@ function nextAction(game, depth){
     let y = (index%nbCol),
         x = parseInt(index/nbCol);
 
-    return [new Action('{"x":'+x+', "y":'+y+', "currentPlayer":2}'), 0];
+    return new Action('{"x":'+x+', "y":'+y+', "currentPlayer":2}');
 }
 
 function minimax(reboard, player) {
-    iter++;
     let array = avail(reboard);
     if (winning(reboard, huPlayer)) {
         return {

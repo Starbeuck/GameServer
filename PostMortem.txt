@@ -1,13 +1,20 @@
-Document post mortem
+DOCUMENT POST MORTEM
 
-Aide à la reprise du projet
-- le fichier app.js contient l'initialisation du serveur, avec les routes, les actions à avoir selon les GET/POST du client, et aussi où lancer le serveur (localhost:1234) ;
-- dans public se trouve tous les documents dont le serveur peut avoir besoin. Les documents ne sont pas ranger selon l'ordre front-end/back-end mais par type-jeu, ce qui permet de rajouter un jeu relativement facilement. Les fichiers bundle_*** que vous pouvez trouver sont générer par gulp, il n'est pas nécesssaire de vous en préoccuper. Chaque page de jeu à son fichier html + css, plus des fichiers .js, qui gère la logique.
+Aide a la reprise du projet
+- le fichier app.js contient l'initialisation du serveur, avec les routes, les actions a avoir selon les GET/POST du client, et aussi ou lancer le serveur (localhost:1234) ;
+- dans le package public se trouve tous les documents dont le serveur peut avoir besoin. Les documents ne sont pas ranges selon l'ordre front-end/back-end mais par type-jeu, ce qui permet de rajouter un jeu relativement facilement :
+	- les fichiers bundle_*** que vous pouvez trouver sont generes par gulp, il n'est pas necesssaire de vous en preoccuper ;
+	- Chaque page de jeu avec son fichier html + css, des fichiers .js, qui gere la logique.
 
-Comment on build ?
+Comment build ?
 Il suffit de faire la commande gulp, qui se charge de tout build et de tout lancer, selon le fichier gulpfile.js
 
-Ce qu'il reste à faire ? 
-Vous pouvez perfectionner les IA, pour être plus/moins aggressives, mais aussi ajouter d'autres jeux !
+Ce qu'il reste a faire ?
+- Vous pouvez perfectionner les IA, pour etre plus/moins aggressives
+- ajouter d'autres jeux : bataille navale, jeux de dames, jeux d'échecs, ... etc
+- creer un mode deux joueurs afin qu'une partie soit jouee sur deux pcs differents
+- ajouter un niveau de difficulte pour le morpion
 
-Les éléments facilitant les évolutions ...
+Les elements facilitant les evolutions :
+L'architecture choisie permet d'implementer plus ou moins facilement le mode deux joueurs avec la creation de rooms.
+Pour la modulabilité de la grille, nous avons mis en variable globale de chaque document le nombre de lignes et de colonnes du puissance 4. Il serait donc facilement possible de moduler la taille de la grille avec un bouton. 

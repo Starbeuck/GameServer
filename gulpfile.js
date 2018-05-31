@@ -47,13 +47,6 @@ gulp.task('server', 'lance le serveur', function(cb) {
   cb();
 });
 
-gulp.task('prettier', 'met en forme les fichiers - en cours', function(cb) {
-  pump([
-    gulp.src('./app/public/morpion/*.js'),
-    prettier({singleQuote: true}),
-    gulp.dest('./dist/js')
-  ], cb)
-});
 
 gulp.task('default', function() {
   gulp.watch(['./app/public/morpion/game.js'], ['browserify1']);

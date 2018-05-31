@@ -3,6 +3,7 @@
 let express = require("express");
 let bodyParser = require("body-parser");
 let app = express();
+const path = require('path');
 
 const Game = require('./public/Game.js');
 const Action = require('./public/Action.js');
@@ -29,7 +30,7 @@ app.use(bodyParser.json());
 
 // enable use file client
 app.use(express.static('public'));
-app.use('/boostrap', express.static(__dirname + '/boostrap'));
+
 
 // Add headers
 app.use(function(req, res, next) {
@@ -43,12 +44,14 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(express.static('public'));
+
 // ------------------------------------------------------------------------------
 // ----------------------------- ROUTES ----------------------------------------
 // ------------------------------------------------------------------------------
 
 // ----------------------------- ROUTE / ---------------------------------------
-app.get('/', function(req, res) {
+app.get('/index', function(req, res) {
   res.sendFile(path.join(__dirname, '/public', 'index.html'));
   //res.sendFile(path.join(__dirname, '/public', 'test.html'));
 });
@@ -106,28 +109,47 @@ app.post('/game', function(req, res) {
 
     if (won(humanPlayedGame.grid, 1)){
           humanPlayedGame.winner = 1;
-        
+
         res.send(humanPlayedGame);}
-      
+
       // Si il ne reste plus de move possible, on ne fait pas jouer l'ia
       if (movesLeft(humanPlayedGame.grid) === 0){
         if (won(humanPlayedGame.grid, 1)){
           humanPlayedGame.winner = 1;
         }
+        if(humanPlayedGame.winner === 0){
+          humanPlayedGame.winner = 3;
+        }
         res.send(humanPlayedGame);
       }
       else{
         // On calcule l'action de l'IA
-        let iaAction = nextAction(humanPlayedGame, game.depth);
-      // On applique la fonction de jeu sur l'action de l'IA
-        let iaPlayedGame = play(humanPlayedGame, iaAction[0]);
+        if(humanPlayedGame.gameType === "puissance4"){
+          let iaAction = nextAction(humanPlayedGame, game.depth);
+          // On applique la fonction de jeu sur l'action de l'IA
+          let iaPlayedGame = play(humanPlayedGame, iaAction[0]);
 
-      // On vérfie si la partie n'est pas finie
-        if (won(iaPlayedGame.grid, 2))   iaPlayedGame.winner = 2;
+          // On vérfie si la partie n'est pas finie
+          if (won(iaPlayedGame.grid, 2))   iaPlayedGame.winner = 2;
 
-        let sendobject=[iaPlayedGame,iaAction[1]];
-      //On renvoie le nouvel état de la partie au client
-        res.send(sendobject);
+          let sendobject=[iaPlayedGame,iaAction[1]];
+          //On renvoie le nouvel état de la partie au client
+          res.send(sendobject);
+      }
+      else{
+          let iaAction = nextAction(humanPlayedGame, game.depth);
+          // On applique la fonction de jeu sur l'action de l'IA
+          let iaPlayedGame = play(humanPlayedGame, iaAction);
+
+          // On vérfie si la partie n'est pas finie
+          if (won(iaPlayedGame.grid, 2))   iaPlayedGame.winner = 2;
+
+          if(movesLeft === 0 && iaPlayedGame.winner === 0){
+            iaPlayedGame.winner = 3;
+          }
+          //On renvoie le nouvel état de la partie au client
+          res.send(iaPlayedGame);
+      }
       }
     } else if ((!movePossible(game.grid, action)) && movesLeft(game.grid) === 0){
       // Si le move n'est pas possible on renvoie un message d'erreur
