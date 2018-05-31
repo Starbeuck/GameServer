@@ -22,7 +22,9 @@ L'un des objectifs était de pouvoir déployer notre GameServer sur une machine 
 
 ## Lancer le server de jeu pour jouer
 
-Une fois le repo git clone sur une VM, merci de lancer le script ScriptLaunchGameServer. Une fois terminé, le site sera disponible sur l'adresse suivante : VMHOST:8080.
+Une fois le repo git clone sur une VM, merci de lancer le script LaunchGame.sh, qui se trouve dans la branche master. Une fois terminé, le site sera disponible sur l'adresse suivante : VMHOST:8080.
+
+Pour relancer le serveur, il suffira de lancer le script Launch.sh, qui se chargera de vérifier si vous avez la dernière version et de relancer le serveur. Le script change de nom, car entre temps, on change de branche. 
 
 ## Lancer le server en tant que développeur
 * Dans une console :
