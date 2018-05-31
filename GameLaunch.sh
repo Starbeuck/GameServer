@@ -10,3 +10,4 @@ sudo npm install gulp
 git checkout refonte
 git pull
 chmod +x Launch.sh
+./Launch.sh
