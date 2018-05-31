@@ -16,12 +16,9 @@ let turn= 1;
 let lines= 6;
 // Nombre de colonnes 7
 let columns=7;
-const huPlayer="X";
-const aiPlayer="I";
 const parent=document.querySelector('#jeu');
-let board =[];
- const t = document.createElement('table');
-  t.id = 'plateau';
+const t = document.createElement('table');
+t.id = 'plateau';
 
 // ---------------------- INITIALISATION EVENTS --------------------------------
 
@@ -121,8 +118,6 @@ function getActionPlayer(event) {
  		}else if (board[i]=="I"){
 
  			plateau[parseInt( i/columns)][i%columns].className = 'joueur2';
-
-
  		}
  	}
 }
