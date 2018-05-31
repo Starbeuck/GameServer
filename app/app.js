@@ -3,6 +3,7 @@
 let express = require("express");
 let bodyParser = require("body-parser");
 let app = express();
+const path = require('path');
 
 const Game = require('./public/Game.js');
 const Action = require('./public/Action.js');
@@ -29,7 +30,7 @@ app.use(bodyParser.json());
 
 // enable use file client
 app.use(express.static('public'));
-app.use('/boostrap', express.static(__dirname + '/boostrap'));
+
 
 // Add headers
 app.use(function(req, res, next) {
@@ -43,12 +44,14 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(express.static('public'));
+
 // ------------------------------------------------------------------------------
 // ----------------------------- ROUTES ----------------------------------------
 // ------------------------------------------------------------------------------
 
 // ----------------------------- ROUTE / ---------------------------------------
-app.get('/', function(req, res) {
+app.get('/index', function(req, res) {
   res.sendFile(path.join(__dirname, '/public', 'index.html'));
   //res.sendFile(path.join(__dirname, '/public', 'test.html'));
 });
