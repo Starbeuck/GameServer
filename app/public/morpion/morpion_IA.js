@@ -37,7 +37,7 @@ function nextAction(game, depth){
     let y = (index%nbCol),
         x = parseInt(index/nbCol);
 
-    return [new Action('{"x":'+x+', "y":'+y+', "currentPlayer":2}'), 0];
+    return new Action('{"x":'+x+', "y":'+y+', "currentPlayer":2}');
 }
 
 function minimax(reboard, player) {
