@@ -1,13 +1,13 @@
 Document post mortem
 
-Aide à la reprise du projet
-- le fichier app.js contient l'initialisation du serveur, avec les routes, les actions à avoir selon les GET/POST du client, et aussi où lancer le serveur (localhost:1234) ;
-- dans public se trouve tous les documents dont le serveur peut avoir besoin. Les documents ne sont pas ranger selon l'ordre front-end/back-end mais par type-jeu, ce qui permet de rajouter un jeu relativement facilement. Les fichiers bundle_*** que vous pouvez trouver sont générer par gulp, il n'est pas nécesssaire de vous en préoccuper. Chaque page de jeu à son fichier html + css, plus des fichiers .js, qui gère la logique.
+Aide ï¿½ la reprise du projet
+- le fichier app.js contient l'initialisation du serveur, avec les routes, les actions a avoir selon les GET/POST du client, et aussi oï¿½u lancer le serveur (localhost:1234) ;
+- dans public se trouve tous les documents dont le serveur peut avoir besoin. Les documents ne sont pas ranges selon l'ordre front-end/back-end mais par type-jeu, ce qui permet de rajouter un jeu relativement facilement. Les fichiers bundle_*** que vous pouvez trouver sont gï¿½nï¿½rer par gulp, il n'est pas nï¿½cesssaire de vous en prï¿½occuper. Chaque page de jeu ï¿½ son fichier html + css, plus des fichiers .js, qui gï¿½re la logique.
 
-Comment on build ?
+Comment build ?
 Il suffit de faire la commande gulp, qui se charge de tout build et de tout lancer, selon le fichier gulpfile.js
 
-Ce qu'il reste à faire ? 
-Vous pouvez perfectionner les IA, pour être plus/moins aggressives, mais aussi ajouter d'autres jeux !
+Ce qu'il reste a faire ?
+Vous pouvez perfectionner les IA, pour etre plus/moins aggressives, mais aussi ajouter d'autres jeux !
 
-Les éléments facilitant les évolutions ...
+Les ï¿½lï¿½ments facilitant les evolutions ...
