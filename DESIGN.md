@@ -41,7 +41,7 @@ Quand un joueur joue, il clique sur la case (pour le Morpion) ou la colonne (pou
 
 # Explication de la prise en compte des contraintes d'analyse
 
-La première contrainte que nous avons pris en compte était le déploiement sur une machine facilement et rapidement. L'utilisation de github et de gulp facilite cette tâche en réduisant le déploiement à quelques lignes de commande. Nous n'avons pas utilisé dans ce projet toutes les fonctionnalités de gulp, et une des pistes d'amélioration aurait justement été d'ajouter des tests
+La première contrainte que nous avons pris en compte était le déploiement sur une machine facilement et rapidement. L'utilisation de github et de gulp facilite cette tâche en réduisant le déploiement à quelques lignes de commande. Nous n'avons pas utilisé dans ce projet toutes les fonctionnalités de gulp, et une des pistes d'amélioration aurait justement été d'ajouter des tests, par exemple. Une autre piste d'amélioration dans ce domaine aurait été l'utilisation de Docker.
 
 
 # Cadre de production
