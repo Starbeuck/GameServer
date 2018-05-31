@@ -43,6 +43,7 @@ Quand un joueur joue, il clique sur la case (pour le Morpion) ou la colonne (pou
 
 La première contrainte que nous avons pris en compte était le déploiement sur une machine facilement et rapidement. L'utilisation de github et de gulp facilite cette tâche en réduisant le déploiement à quelques lignes de commande. Nous n'avons pas utilisé dans ce projet toutes les fonctionnalités de gulp, et une des pistes d'amélioration aurait justement été d'ajouter des tests, par exemple. Une autre piste d'amélioration dans ce domaine aurait été l'utilisation de Docker.
 
+Nous devions implémenter des jeux comprenant des IA. Pour cela nous avons créé un morpion utilisant uniquement l'algorithme minmax. Le puissance 4 contenant plus de cases, nous avons ajouté à l'algorithme minmax le alpha béta pruning ce qui permettait de limiter les sous arbres de décision. En plus de cela nous avons géré la profondeur de recherche dans le jeu(le nombre de coups ajouté avant de prendre une décision) puisque même si le alpha bêta pruning diminue l'arbre de recherche, les cases étant tellement nombreuses, il fallait également limiter la profondeur pour que l'IA n'essaye pas de jouer jusqu'à ce qu'il n'y ait plus aucune case vide. 
 
 # Cadre de production
 Pour développer notre GameServer, nous avons développé sur des IDE comme Atom, Brackets ou encore SublimeText.
