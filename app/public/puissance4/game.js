@@ -59,7 +59,7 @@ function drawInitGame() {
 
  t.addEventListener('click', function(e) {
    currentGame.depth = parseInt(document.getElementById('depth_selector').value);
-
+ document.getElementById('calculIA').innerHTML = "L'IA calcul les combinaisons possibles, merci de patienter";
  	$.post("http://localhost:1234/game", {
     // On envoie la game actuelle
 
@@ -68,7 +68,7 @@ function drawInitGame() {
     action: JSON.stringify(new Action(getActionPlayer(e)))
   }, function(data) {
     // Quand on recoit la réponse
-
+ document.getElementById('calculIA').innerHTML = "calcul terminé";
     // Si c'est une erreur
     if (data == "ERROR") {
       console.log('error');
@@ -76,7 +76,8 @@ function drawInitGame() {
     else {
 
       // On a recu le nouvel état de la game qu'on stocke dans la variable
-      currentGame.fromJson(JSON.stringify(data));
+      currentGame.fromJson(JSON.stringify(data[0]));
+      $(".iteration .value").html(data[1]);
       // On dessine le nouvel état de la game
       draw(currentGame.grid);
 

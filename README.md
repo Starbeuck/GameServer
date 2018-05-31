@@ -22,7 +22,7 @@ L'un des objectifs était de pouvoir déployer notre GameServer sur une machine 
 
 ## Lancer le server de jeu pour jouer
 
-Une fois le repo git clone sur une VM, merci de lancer le script ScriptLaunchGameServer. Une fois terminé, le site sera disponible sur l'adresse suivante : VMHOST:8080.
+Une fois le repo git clone sur une VM, merci de lancer le script ScriptLaunchGameServer. Une fois terminé, le site sera disponible sur Google Chrome à l'adresse suivante : VMHOST:8080.
 
 ## Lancer le server en tant que développeur
 * Dans une console :
@@ -42,3 +42,4 @@ Ouvrir ```localhost:8080 ``` pour visualiser le front-end. Le back-end est requ�
 
 # Crédits
 https://codepen.io/defeo/pen/emPevV
+https://github.com/Gimu/connect-four-js

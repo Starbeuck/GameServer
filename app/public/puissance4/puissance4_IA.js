@@ -21,11 +21,10 @@ function nextAction(game, depth) {
   let test = getIndex(game.grid);
   let index = minimax(game.grid, aiPlayer,depth);
 
-  console.log(iterations);
   let y = (index[0] % columns),
     x = parseInt(index[0] / columns);
 
-  return [new Action('{"x":' + y + ', "y":' + x + ', "currentPlayer":2}'), iterations];
+  return [new Action('{"x":' + y + ', "y":' + x + ', "currentPlayer":2}'),iterations];
 }
 
 function getIndex(reboard) {
@@ -45,27 +44,24 @@ function getIndex(reboard) {
 
 function minimax(reboard, player, depth, alpha, beta) {
 
-  //récupération des cases vides remplissables
-
   //vérifie si un des joueurs à gagné ou si tie
  if (winning(reboard, huPlayer, depth)|| winning(reboard, aiPlayer, depth)) {
     return [null, score(reboard)];
   }
+  //récupération des cases vides remplissables
   let array = getIndex(reboard);
+
   //initialisation d'un objet pour trouver le meilleur move
   let bestScore=[null, -99999];
 
   //parcours des cases vides
   for (let i = 0; i < array.length; i++) {
     let newboard=copy(reboard);
-    //on met l'index de la case en cours de vérif
 
-
-    //on change temporairement la valeur de la case pour récursion sur les autres cases
-  
+    //on change la valeur de la case pour récursion sur les autres cases
     newboard[array[i]]=player;
+
     //appel récurssif sur les autres cases
-    //console.log("je suis passé par ici");
     let g = minimin(newboard, huPlayer, (depth -1), alpha, beta);
   
     iterations++;
@@ -77,18 +73,21 @@ function minimax(reboard, player, depth, alpha, beta) {
     }
     //pour réduire l'arbre de proba
     if (alpha >= beta) return bestScore;
+  }
 
-    }
   return bestScore;
 }
 
 //appel à cette fonction pour jour l'humain
 function minimin(reboard, player, depth, alpha, beta) {
-  let array = getIndex(reboard);
+
   //regarde si on a un gagnant
   if (winning(reboard, huPlayer, depth)||winning(reboard, aiPlayer, depth)) {
     return [null, score(reboard)];
   }
+
+  //récupération des cases vides remplissables
+  let array = getIndex(reboard);
 
   let leastScore=[null,99999];
   //parcours des cases jouables
@@ -108,7 +107,7 @@ function minimin(reboard, player, depth, alpha, beta) {
       beta = g[1];
     }
     if (alpha >= beta) return leastScore;
-    }
+  }
   return leastScore;
 }
 
@@ -116,9 +115,9 @@ function minimin(reboard, player, depth, alpha, beta) {
 function winning(reboard, player, depth) {
  let joueur ="";
   if(player =="X" ){
-  joueur="X";
+    joueur="X";
   }else{
-  joueur="I";
+    joueur="I";
   }
 return (winningCol(reboard,joueur) || winningLines(reboard, joueur) || winningDiagInv(reboard, joueur) || winningDiag(reboard, joueur) || depth == 0);
 
@@ -173,6 +172,7 @@ function winningDiagInv(reboard, player){
   return false;
 }
 
+// recopie le tableau pour ne pas modifier le tableau initial
 function copy(board){
   var newboard=[];
   newboard.length=board.length;
@@ -182,78 +182,62 @@ function copy(board){
   return newboard;
 }
 
+ //compte le score du joueur actuel 
+function score(board) {
+  let points = 0, colpoints = 0,  linepoints = 0, diagpoints = 0, diaginvpoints = 0;
 
+  // pour les colonnes
+   for (let row = 0; row < lines - 3; row++) {
+    for (let column = 0; column < columns; column++) {
+      let score = scorePosition(board,row, column, 1, 0);
+      if (score == 100000) return 100000;
+      if (score == -100000) return -100000;
+      colpoints += score;
+    }            
+  }
 
-
- function score(board) {
-    var points = 0;
-    var vertical_points = 0;
-    var horizontal_points = 0;
-    var diagonal_points1 = 0;
-    var diagonal_points2 = 0;
-
-    // Vertical points
-  
-    for (var row = 0; row < lines - 3; row++) {
-        // Für jede Column überprüfen
-        for (var column = 0; column < columns; column++) {
-            // Die Column bewerten und zu den Punkten hinzufügen
-            var score = scorePosition(board,row, column, 1, 0);
-  
-            if (score == 100000) return 100000;
-            if (score == -100000) return -100000;
-            vertical_points += score;
-        }            
-    }
-
-    // Horizontal points
-    for (var row = 0; row <lines; row++) {
-        for (var column = 0; column < columns - 3; column++) { 
-            var score = scorePosition(board,row, column, 0, 1);   
-           if (score == 100000) return 100000;
-            if (score == -100000) return (-100000);
-            horizontal_points += score;
+    // Horizontal
+    for (let row = 0; row <lines; row++) {
+      for (let column = 0; column < columns - 3; column++) { 
+        let score = scorePosition(board,row, column, 0, 1);   
+        if (score == 100000) return 100000;
+        if (score == -100000) return (-100000);
+        linepoints += score;
         } 
     }
 
-    // Diagonal points 1 (left-bottom)
-  
-    for (var row = 0; row < lines- 3; row++) {
-        for (var column = 0; column < columns - 3; column++) {
-            var score = scorePosition(board,row, column, 1, 1);  
-            if (score == 100000) return 100000;
-           if (score == -100000) return (-100000);
-            diagonal_points1 += score;
+    // Diagonales
+    for (let row = 0; row < lines- 3; row++) {
+        for (let column = 0; column < columns - 3; column++) {
+          let score = scorePosition(board,row, column, 1, 1);  
+          if (score == 100000) return 100000;
+          if (score == -100000) return (-100000);
+          diagpoints += score;
         }            
     }
 
-    // Diagonal points 2 (right-bottom)
-
-    for (var row = 3; row < lines; row++) {
-        for (var column = 0; column <= columns - 4; column++) {
-            var score = scorePosition(board,row, column, -1, +1);
-             if (score == 100000) return 100000;
-            if (score == -100000) return (-100000);
-            diagonal_points2 += score;
+    // calcul des diag inversées
+    for (let row = 3; row < lines; row++) {
+        for (let column = 0; column <= columns - 4; column++) {
+          let score = scorePosition(board,row, column, -1, +1);
+          if (score == 100000) return 100000;
+          if (score == -100000) return (-100000);
+          diaginvpoints += score;
         }
-
     }
-    points = horizontal_points + vertical_points + diagonal_points1 + diagonal_points2;
+    points = colpoints + linepoints + diagpoints + diaginvpoints;
     return points;
 }
 
 function scorePosition(board, row, column, delta_y, delta_x) {
-
-  //  console.log("c'est re re moi");
-    var human_points = 0;
-    var computer_points = 0;
-
-    // Determine score through amount of available chips
+  var huPoints = 0;
+  var IAPoints = 0;
+    //calcul du score  pour chaque ligne ou colonne ou diagonale
     for (var i = 0; i < 4; i++) {
         if (board[(row*columns+column)] == "X") {
-            human_points++; // Add for each human chip
+            huPoints++; // Add for each human chip
         } else if (board[(row*columns+column)] == "I") {
-            computer_points++; // Add for each computer chip
+            IAPoints++; // Add for each computer chip
         }
         // Moving through our board
         row += delta_y;
@@ -261,14 +245,14 @@ function scorePosition(board, row, column, delta_y, delta_x) {
     }
 
     // Marking winning/returning score
-   if (human_points == 4) {
+   if (huPoints== 4) {
         // Computer won (100000)
         return (-100000);
-    } else if (computer_points == 4) {
+    } else if (IAPoints == 4) {
        
         return (100000);
     } else {
         // Return normal points
-        return computer_points;
+        return IAPoints;
     }
 }
