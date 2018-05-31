@@ -59,7 +59,7 @@ function drawInitGame() {
 
  t.addEventListener('click', function(e) {
    currentGame.depth = parseInt(document.getElementById('depth_selector').value);
- document.getElementById('calculIA').innerHTML = "L'IA calcul les combinaisons possibles, merci de patienter";
+ document.getElementById('calculIA').innerHTML = "L'IA calcule les combinaisons possibles, merci de patienter";
  	$.post("http://localhost:1234/game", {
     // On envoie la game actuelle
 
@@ -68,7 +68,7 @@ function drawInitGame() {
     action: JSON.stringify(new Action(getActionPlayer(e)))
   }, function(data) {
     // Quand on recoit la réponse
- document.getElementById('calculIA').innerHTML = "calcul terminé";
+ document.getElementById('calculIA').innerHTML = "Calcul terminé ! ";
     // Si c'est une erreur
     if (data == "ERROR") {
       console.log('error');
@@ -81,8 +81,8 @@ function drawInitGame() {
       // On dessine le nouvel état de la game
       draw(currentGame.grid);
 
-
-      // Si la partie est finie, on  affiche le gagnant
+      setTimeout(() => {
+         // Si la partie est finie, on  affiche le gagnant
       if(currentGame.winner != 0){
         if(currentGame.winner == 1){
           alert("joueur " + 1 + " a gagné");
@@ -91,6 +91,8 @@ function drawInitGame() {
           alert("L'ordinateur a gagné :(");
         }
       }
+      },500);
+     
     }
   });
 });
