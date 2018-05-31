@@ -7,6 +7,8 @@ sudo apt-get install git
 sudo npm install -g gulp
 sudo npm install gulp
 
+git add .
+git commit -m "GameLaunch.sh"
 git checkout refonte
 git pull
 chmod +x Launch.sh
