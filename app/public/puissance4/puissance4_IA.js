@@ -18,7 +18,6 @@ let aiPlayer = "I";
 function nextAction(game, depth) {
   iterations =0;
 
-  let test = getIndex(game.grid);
   let index = minimax(game.grid, aiPlayer,depth);
 
   let y = (index[0] % columns),
@@ -27,6 +26,7 @@ function nextAction(game, depth) {
   return [new Action('{"x":' + y + ', "y":' + x + ', "currentPlayer":2}'),iterations];
 }
 
+//retourne un table contenant les indice des cases jouables
 function getIndex(reboard) {
   let tablibre = [];
   let col = 0;
@@ -78,7 +78,7 @@ function minimax(reboard, player, depth, alpha, beta) {
   return bestScore;
 }
 
-//appel à cette fonction pour jour l'humain
+//appel à cette fonction pour jouer l'humain
 function minimin(reboard, player, depth, alpha, beta) {
 
   //regarde si on a un gagnant
@@ -229,30 +229,28 @@ function score(board) {
     return points;
 }
 
+//calcul le nombre de pions alignés par le joueur par ligne col ou diag
 function scorePosition(board, row, column, delta_y, delta_x) {
   var huPoints = 0;
   var IAPoints = 0;
     //calcul du score  pour chaque ligne ou colonne ou diagonale
-    for (var i = 0; i < 4; i++) {
-        if (board[(row*columns+column)] == "X") {
-            huPoints++; // Add for each human chip
-        } else if (board[(row*columns+column)] == "I") {
-            IAPoints++; // Add for each computer chip
-        }
-        // Moving through our board
-        row += delta_y;
-        column += delta_x;
+  for (var i = 0; i < 4; i++) {
+    if (board[(row*columns+column)] == "X") {
+      huPoints++; 
+    } else if (board[(row*columns+column)] == "I") {
+      IAPoints++; 
     }
+  //déplacement dans la ligne/col/diag
+    row += delta_y;
+    column += delta_x;
+  }
 
-    // Marking winning/returning score
-   if (huPoints== 4) {
-        // Computer won (100000)
-        return (-100000);
-    } else if (IAPoints == 4) {
-       
-        return (100000);
-    } else {
-        // Return normal points
-        return IAPoints;
-    }
+    //regarde le score final
+  if (huPoints== 4) {
+    return (-100000);
+  } else if (IAPoints == 4) {   
+    return (100000);
+  } else {
+    return IAPoints;
+  }
 }
