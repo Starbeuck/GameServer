@@ -34,6 +34,10 @@ gulp
 ```
 Ouvrir localhost:8080 pour visualiser le morpion ou bien utiliser postman pour requêter le back-end sur localhost:1234/game. 
 
+# Démonstration
+* Lien de la vidéo de démonstration : 
+https://drive.google.com/file/d/1hO343gUiMiz89cyTblO2mLBrFBB6UXqA/view?usp=sharing
+
 # Annexes 
 * Algorithme MinMax
 
