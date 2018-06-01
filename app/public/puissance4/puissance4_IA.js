@@ -190,8 +190,8 @@ function score(board) {
    for (let row = 0; row < lines - 3; row++) {
     for (let column = 0; column < columns; column++) {
       let score = scorePosition(board,row, column, 1, 0);
-      if (score == 100000) return 100000;
-      if (score == -100000) return -100000;
+      if (score == 100) return 100;
+      if (score == -100) return -100;
       colpoints += score;
     }            
   }
@@ -200,8 +200,8 @@ function score(board) {
     for (let row = 0; row <lines; row++) {
       for (let column = 0; column < columns - 3; column++) { 
         let score = scorePosition(board,row, column, 0, 1);   
-        if (score == 100000) return 100000;
-        if (score == -100000) return (-100000);
+        if (score == 100) return 100;
+        if (score == -100) return (-100);
         linepoints += score;
         } 
     }
@@ -210,8 +210,8 @@ function score(board) {
     for (let row = 0; row < lines- 3; row++) {
         for (let column = 0; column < columns - 3; column++) {
           let score = scorePosition(board,row, column, 1, 1);  
-          if (score == 100000) return 100000;
-          if (score == -100000) return (-100000);
+          if (score == 100) return 100;
+          if (score == -100) return (-100);
           diagpoints += score;
         }            
     }
@@ -220,8 +220,8 @@ function score(board) {
     for (let row = 3; row < lines; row++) {
         for (let column = 0; column <= columns - 4; column++) {
           let score = scorePosition(board,row, column, -1, +1);
-          if (score == 100000) return 100000;
-          if (score == -100000) return (-100000);
+          if (score == 100) return 100;
+          if (score == -100) return (-100);
           diaginvpoints += score;
         }
     }
@@ -247,9 +247,9 @@ function scorePosition(board, row, column, delta_y, delta_x) {
 
     //regarde le score final
   if (huPoints== 4) {
-    return (-100000);
+    return (-100);
   } else if (IAPoints == 4) {   
-    return (100000);
+    return (100);
   } else {
     return IAPoints;
   }
